@@ -1,0 +1,42 @@
+
+
+Routes:
+  Home : /
+  Search : /search/:term
+  Order : /order/:id
+  AddNew : /order/new
+  Settings : /settings
+
+  Home Component
+    3 Buttons Search, Add New, Settings
+
+
+  Search
+    Search Bar at top of screen
+    optional advanced search pane
+    when search is entered, a list appears (paginated)
+    list is sortable
+    List diplays order name, order date 
+
+
+
+
+ABSOLUTLY REQUIRED FEATURES!!!:
+  ability to search previous orders by name
+  ability to backup database
+
+
+backup_database.bat:
+  script file that will create a database backup with the date as the filename
+
+restore_database.bat:
+  script file that will restore the database to the most recent backup in the backups directory
+  must have a confirmation and a warning message to before running to prevent accidental data loss 
+
+
+Directory:
+  App.exe(or whatever)
+  Readme.txt 
+  Backups/
+  backup_database.bat
+  restore_database.bat

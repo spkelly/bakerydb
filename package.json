@@ -1,0 +1,44 @@
+{
+  "name": "bakerydb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start:dev": "cross-env NODE_ENV=development electron . ",
+    "serve": "webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack --mode=production",
+    "build-app": "cross-env NODE_ENV=production electron .",
+    "start": "npm run build && npm run build-app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^6.0.10",
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.3",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.2",
+    "react-router": "^5.1.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
+    "css-loader": "^3.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "react-router-dom": "^5.1.2",
+    "resolve-url-loader": "^3.1.0",
+    "sass-loader": "^8.0.0",
+    "url-loader": "^2.1.0",
+    "webpack-bundle-analyzer": "^3.5.2",
+    "webpack-merge": "^4.2.2"
+  }
+}
