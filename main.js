@@ -1,47 +1,26 @@
 const { BrowserWindow, app, ipcMain } = require("electron");
 const ipcChannels = require("./src/constants");
-const mongoose = require("mongoose");
+const db = require("./src/db");
 console.log("starting in ", process.env.NODE_ENV, " mode");
 
-var OrderItemSchema = new mongoose.Schema({
-  name: String,
-  quantity: Number,
-  price: Number,
-  notes: String
-});
+let dbObject = db.setup();
 
-var CustomerSchema = new mongoose.Schema({
-  name: String,
-  address: String,
-  email: String,
-  phone: String
-});
-
-var OrderSchema = new mongoose.Schema({
-  orderDate: Date,
-  customer: CustomerSchema,
-  dateCreated: Date,
-  orders: [OrderItemSchema]
-});
-
-let conn = mongoose.createConnection("mongodb://localhost:27017/bakerydb_dev", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-let OrderModel = conn.model("Order", OrderSchema);
-
-ipcMain.on(ipcChannels.GET_ORDER, (event, args) => {
-  console.log("getting order id");
+ipcMain.on(ipcChannels.GET_ORDER, async(event, id) => {
+  let order = await db.findById(id);
+  console.log(order);
+  event.sender.send(ipcChannels.GET_ORDER_SUCCESS,order);
 });
 
 ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
-  let testOrder = new OrderModel(order);
-  console.log("Adding order");
-  let resp = await testOrder.save();
+  let testOrder = new dbObject.orderModel(order);
+  testOrder.save().catch(e => {
+    console.log(e);
+  });
 });
-ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, args) => {
-  console.log("Searching orders");
+ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {
+  let resp = await db.queryOrders(term);
+  console.log("the response completed", resp);
+  event.sender.send(ipcChannels.QUERY_ORDERS_SUCCESS, resp);
 });
 ipcMain.on(ipcChannels.EXPORT_DB, async (event, args) => {
   console.log("exporting database");

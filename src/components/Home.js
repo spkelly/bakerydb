@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 
 const Home = props => {
+  console.log(props.history)
   const handleClick = path => {
     props.history.push(path);
   };
@@ -10,9 +11,10 @@ const Home = props => {
     <div className="content">
       <h1>BakeryDB</h1>
       <div className="button__container">
-        <button onClick={() => handleClick("/search")}> Search</button>
-        <button onClick={() => handleClick("/settings")}> Settings</button>
-        <button onClick={() => handleClick("/new-order")}> New Order</button>
+        <button className="navigation__button" onClick={() => handleClick("/search")}><p className="paragraph">Search</p></button>
+        <button className="navigation__button" onClick={() => handleClick("/new-order")}><p className="paragraph"> New Order</p></button>
+        <button className="navigation__button" onClick={() => handleClick("/order/edit/5da3b5504fdf3c5f4881d867")}><p className="paragraph"> Edit Order</p></button>
+        <button className="navigation__button" onClick={() => handleClick("/settings")}><p className="paragraph">Settings</p></button>
       </div>
     </div>
   );

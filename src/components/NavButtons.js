@@ -3,8 +3,7 @@ import {withRouter} from 'react-router-dom';
 
 
 
-let NavButton = ({loc, image, history}) => {
-  console.log('test',location)
+let NavButton = ({loc, image, history, content}) => {
   function navigate(){
     if(loc== 'back'){
       history.goBack();
@@ -16,18 +15,18 @@ let NavButton = ({loc, image, history}) => {
   }
 
   return (<div onClick={navigate} className="navigation__button" >
-    <p>{loc}</p>
+    <p className='paragraph'>{content}</p>
   </div>);
 }
 
 NavButton = withRouter(NavButton);
 
 export const BackButton = () =>{
-  return <NavButton loc="back" />
+  return <NavButton loc="back" content="<" />
 }
 
 
 export const HomeButton = () =>{
-  return <NavButton loc="/" />
+  return <NavButton loc="/" content="home"/>
 }
 
