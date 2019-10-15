@@ -32,11 +32,18 @@ export function updateOrder(order){
     ipcRenderer.on(channels.GET_ORDER_SUCCESS,(event,order)=>{
       console.log('success',order);
       resolve(true);
-    })
-  })
+    });
+  });
 }
 
-function addOrder(order) {}
+export function addOrder(order) {
+  return new Promise((resolve, reject)=>{
+    ipcRenderer.send(channels.ADD_ORDER,order,order);
+    ipcRenderer.on(channels.ADD_ORDER_SUCCESS, (event,orderId)=>{
+      resolve(orderId);
+    });
+  });
+}
 
 
 

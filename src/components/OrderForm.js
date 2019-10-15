@@ -46,10 +46,9 @@ class OrderForm extends Component {
     let attribute = e.target.name;
     let value = e.target.value
     let itemsCopy = this.state.items;
-
     itemsCopy[index][attribute] = value;
+
     this.setState({items:itemsCopy});
-    console.log(this.state.items);
   }
 
   submitForm(){
@@ -98,8 +97,8 @@ const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
   return(
     <div className="order-form__item">
       <input name="name" value={item.name} onChange={e=>handleChange(e,index)}/>
-      <input name="quantity" value={item.quantity} onChange={e=>handleChange(e,index)}/>
-      <input name="price" value={item.price.toFixed(2)} onChange={e=>handleChange(e,index)}/>
+      <input name="quantity" type="number" value={item.quantity} onChange={e=>handleChange(e,index)}/>
+      <input name="price" type="number" value={item.price} onChange={e=>handleChange(e,index)}/>
       <textarea name="notes" value={item.notes} onChange={e=>handleChange(e,index)}/>
       <button onClick={e=>handleRemove(index)}>Remove</button>
     </div>

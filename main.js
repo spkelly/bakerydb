@@ -13,9 +13,12 @@ ipcMain.on(ipcChannels.GET_ORDER, async(event, id) => {
 
 ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
   let testOrder = new dbObject.orderModel(order);
-  testOrder.save().catch(e => {
+  console.log(testOrder);
+  await testOrder.save().catch(e => {
     console.log(e);
   });
+
+  event.sender.send(ipcChannels.ADD_ORDER_SUCCESS, testOrder._id.toString());
 });
 
 ipcMain.on(ipcChannels.UPDATE_ORDER,async(event, orderToUpdate)=>{
