@@ -26,7 +26,7 @@ class OrderForm extends Component {
 
   addToOrder(e) {
     let currentItems = this.state.items;
-    currentItems.push({name:'',quantity:'',price:'',notes:''})
+    currentItems.push({name:'',quantity:'',price:0.00,notes:''})
     this.setState({items:currentItems});
   }
   removeFromOrder(indexToRemove) {
@@ -99,7 +99,7 @@ const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
     <div className="order-form__item">
       <input name="name" value={item.name} onChange={e=>handleChange(e,index)}/>
       <input name="quantity" value={item.quantity} onChange={e=>handleChange(e,index)}/>
-      <input name="price" value={item.price} onChange={e=>handleChange(e,index)}/>
+      <input name="price" value={item.price.toFixed(2)} onChange={e=>handleChange(e,index)}/>
       <textarea name="notes" value={item.notes} onChange={e=>handleChange(e,index)}/>
       <button onClick={e=>handleRemove(index)}>Remove</button>
     </div>

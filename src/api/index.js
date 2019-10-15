@@ -25,6 +25,19 @@ export function getOrderById(id){
   });
 }
 
+export function updateOrder(order){
+  return new Promise((resolve, reject)=>{
+
+    ipcRenderer.send(channels.UPDATE_ORDER,order);
+    ipcRenderer.on(channels.GET_ORDER_SUCCESS,(event,order)=>{
+      console.log('success',order);
+      resolve(true);
+    })
+  })
+}
+
 function addOrder(order) {}
+
+
 
 function fetchOrders(number) {}

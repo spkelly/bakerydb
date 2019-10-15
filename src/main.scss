@@ -154,11 +154,44 @@ p {
 
 }
 
+.item{
+  margin-bottom: 4px;
+
+  &__info-line{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__notes{
+    font-style: italic;
+    margin-left: 10px;
+  }
+  &__name{
+    min-width: 200px;
+  }
+
+  &__qty{
+
+  }
+  &__info{
+    min-width: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__price{
+    text-align: left;
+    margin-right: 20px;
+  }
+}
+
 
 .order-info{
   display: flex;
   &__left{
     min-width: 200px;
+    max-width: 200px;
     margin: 0 10px;
   }
   &__right{
@@ -208,7 +241,9 @@ p {
   }
 
   .order-list__container{
-    height: 220px;
+    min-height: 220px;
+    max-height: 220px;
+    overflow-y: scroll;
   }
 
   

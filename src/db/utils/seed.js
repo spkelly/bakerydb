@@ -2,7 +2,7 @@
 // import database from "../index";
 const database = require("../index");
 
-const MAX_ORDERS = 8000;
+const MAX_ORDERS = 20;
 const MAX_ORDER_ITEMS = 5;
 const MAX_ORDER_QTY = 50;
 

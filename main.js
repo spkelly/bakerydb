@@ -17,6 +17,13 @@ ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
     console.log(e);
   });
 });
+
+ipcMain.on(ipcChannels.UPDATE_ORDER,async(event, orderToUpdate)=>{
+  let order = await db.updateOrder(orderToUpdate);
+  
+})
+
+
 ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {
   let resp = await db.queryOrders(term);
   console.log("the response completed", resp);

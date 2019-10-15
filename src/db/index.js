@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var OrderItemSchema = new mongoose.Schema({
+
   name: String,
   quantity: Number,
   price: Number,
@@ -7,6 +8,7 @@ var OrderItemSchema = new mongoose.Schema({
 });
 
 var CustomerSchema = new mongoose.Schema({
+
   name: String,
   address: String,
   email: String,
@@ -32,7 +34,8 @@ function setup(cleanSetup){
   conn = mongoose.createConnection("mongodb://localhost:27017/bakerydb_dev", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
   });
 
   // if(cleanSetup){
@@ -74,6 +77,7 @@ function findById(id){
     orderModel.findById(id)
     .lean()
     .exec((err,doc)=>{
+      // doc._id = doc._id.toString()
       resolve(doc);
     })
   })
@@ -84,6 +88,20 @@ function addOrder(order){
   return new Promise ( resolve =>{
     
   });
+}
+
+function updateOrder(order){
+  return new Promise( resolve=>{
+    orderModel.updateOne({_id:order._id}, order)
+    .then((doc)=>{
+      console.log(doc,'here');
+      resolve('I did it')
+    })
+    .catch((e)=>{
+      console.log('here');
+      console.log(e);
+    })
+  })
 }
 
 function disconnect(connection){
@@ -113,6 +131,7 @@ class Orders{
 module.exports = {
   setup,
   findById,
+  updateOrder,
   disconnect,
   addOrder,
   queryOrders

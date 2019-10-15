@@ -1,6 +1,6 @@
 import React from 'react';
 import OrderForm from './OrderForm';
-import {getOrderById} from '../api';
+import {getOrderById, updateOrder} from '../api';
 
 class EditOrder extends OrderForm{
   constructor(props){
@@ -17,6 +17,7 @@ class EditOrder extends OrderForm{
 
   submitForm(){
     console.log('in edit form', this.state);
+    updateOrder(this.state);
   }
 }
 
