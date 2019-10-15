@@ -13,7 +13,9 @@ class OrderForm extends Component {
           phone: "",
           date: ""
         },
-        items: [],
+        items: [
+          {name:"",qty:0,price:0.00,notes:""}
+        ],
 
     };
 
@@ -73,19 +75,28 @@ class OrderForm extends Component {
     return (
       <div>
         <Nav />
-        <form>
-          <FormInput handleChange={handleChange} label="name" value={name} type="text"/>
-          <FormInput handleChange={handleChange} label="phone" value={phone} type="tel"/>
-          <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
-          <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
-          <FormInput handleChange={handleChange} label="date" value={date} type="datetime-local"/>
-        </form>
-        <div className="order-form__orders">
-          <h3>Orders Form Test</h3>
-          {items}
-          <button onClick={this.addToOrder}>Add to order</button>
+        <div className="order-form__container">
+          <div className="order-form__left">
+            <div className="order-form__header">
+              <h2>Customer Info</h2>
+            </div>
+            <form>
+              <FormInput handleChange={handleChange} label="name" value={name} type="text"/>
+              <FormInput handleChange={handleChange} label="phone" value={phone} type="tel"/>
+              <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
+              <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
+              <FormInput handleChange={handleChange} label="date" value={date} type="datetime-local"/>
+            </form>
+            <button className="btn" onClick={this.submitForm}>Save Order</button>
+          </div>
+          <div className="order-form__right">
+            <div className="order-form__orders">
+              <h2>Order</h2>
+              {items}
+              <button className="btn"  onClick={this.addToOrder}>Add to order</button>
+            </div>
+          </div>
         </div>
-        <button className="" onClick={this.submitForm}>Save Order</button>
       </div>
     );
   }
@@ -96,10 +107,34 @@ class OrderForm extends Component {
 const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
   return(
     <div className="order-form__item">
-      <input name="name" value={item.name} onChange={e=>handleChange(e,index)}/>
-      <input name="quantity" type="number" value={item.quantity} onChange={e=>handleChange(e,index)}/>
-      <input name="price" type="number" value={item.price} onChange={e=>handleChange(e,index)}/>
-      <textarea name="notes" value={item.notes} onChange={e=>handleChange(e,index)}/>
+      <div className="flex">
+        <div className="flex-col">
+          <label>Item Name</label>
+        </div>
+
+        <div className="flex-col">
+          <label>Qty</label> 
+        </div>
+        <div className="flex-col">
+          <label>Price</label>
+        </div>
+        
+      </div>
+      <div className="flex"> 
+        <div className="flex-col">
+          <input className="order-form__item-name"name="name" value={item.name} onChange={e=>handleChange(e,index)}/>
+        </div>
+        <div className="flex-col">
+          <input className="order-form__item-number" name="quantity" type="number" value={item.quantity} onChange={e=>handleChange(e,index)}/>
+        </div>
+        <div className="flex-col">
+          <input className="order-form__item-number" name="price" type="number" value={item.price} onChange={e=>handleChange(e,index)}/>
+        </div>
+      </div>
+      <div className="order-form__item-notes">
+        <label>Notes</label><br/>
+        <textarea name="notes" value={item.notes} onChange={e=>handleChange(e,index)}/>
+      </div>
       <button onClick={e=>handleRemove(index)}>Remove</button>
     </div>
   )

@@ -15,6 +15,60 @@ p {
   margin:0;
 }
 
+
+.form-item{
+  margin-top: 10px
+}
+
+h2{
+  margin: 0;
+}
+
+.order-form{
+  &__input{
+    width: 100%;
+  }
+  &__container{
+    display: flex;
+    width: 100%;
+  }
+  &__left{
+    margin-right: 12px;
+  }
+
+  &__right{
+    flex-grow: 1;
+
+  }
+
+
+  
+
+  &__item{
+    padding: 10px 0;
+    border-bottom: 1px solid #3f3f3f;
+    margin-bottom: 8px;
+    &-name{
+      font-size: 16px;
+    }
+    &-number{
+    }
+    &-notes{
+      margin-top: 6px;
+      margin-left: 14px;
+      textarea{
+        width: 80%;
+        height: 40px;
+      }
+    }
+  }
+}
+
+input{
+  font-size: 14px;
+}
+
+
 .heading__primary {
 }
 
@@ -254,5 +308,16 @@ p {
   }
   &__content-no-border{
 
+  }
+}
+
+.flex{
+  margin: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &-col{
+    width: calc((100%)/3);
   }
 }
