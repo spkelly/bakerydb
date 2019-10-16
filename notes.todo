@@ -40,3 +40,22 @@ Directory:
   Backups/
   backup_database.bat
   restore_database.bat
+
+
+Addional things to keep track of
+Payment type
+  Venmo
+  Cash
+  Check
+  Credit
+
+datePayed (or has paid)
+tip amount
+Menu Items 
+pickup/delivery
+delivery
+
+
+For cakes track serving size
+
+

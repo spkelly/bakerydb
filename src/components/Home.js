@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
+import Image from '../images/b_logo.png';
+
 const Home = props => {
   console.log(props.history)
   const handleClick = path => {
@@ -9,7 +11,7 @@ const Home = props => {
 
   return (
     <div className="content">
-      <h1>BakeryDB</h1>
+      <img className="logo" src={Image} />
       <div className="button__container">
         <button className="navigation__button" onClick={() => handleClick("/search")}><p className="paragraph">Search</p></button>
         <button className="navigation__button" onClick={() => handleClick("/new-order")}><p className="paragraph"> New Order</p></button>
