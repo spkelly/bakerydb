@@ -42,7 +42,7 @@ class Order extends Component {
         </div>
         <div className="order-info">
           <div className="order-info__left">
-            <InfoBox header="Order Date">{orderDate}</InfoBox>
+            <InfoBox header="Order Date">{new Date(orderDate).toLocaleDateString()}</InfoBox>
             <InfoBox header="Phone Number">{customer.phone}</InfoBox>
             <InfoBox header="Email">{customer.email}</InfoBox>
             <InfoBox header="Address ">{customer.address}</InfoBox>

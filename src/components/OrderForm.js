@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 import FormInput from './FormInput';
+import moment from 'moment';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -11,10 +12,9 @@ class OrderForm extends Component {
           address: "",
           email: "",
           phone: "",
-          date: ""
+          date: new Date()
         },
         items: [
-          {name:"",qty:0,price:0.00,notes:""}
         ],
 
     };
@@ -23,6 +23,7 @@ class OrderForm extends Component {
     this.removeFromOrder = this.removeFromOrder.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getDate = this.getDate.bind(this);
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
   }
 
@@ -36,6 +37,12 @@ class OrderForm extends Component {
       return index != indexToRemove;
     });
     this.setState({items:newArray});
+  }
+
+  getDate(e){
+    let date = e.target.value;
+    console.log(date);
+    this.setState({customer:{...this.state.customer,date:new Date(date).toISOString()}})
   }
 
   handleChange(e){
@@ -58,7 +65,7 @@ class OrderForm extends Component {
   }
 
   render() {
-    let {handleChange} = this;
+    let {handleChange, getDate} = this;
     let {name,phone,email,address, date} = this.state.customer;
     let items = this.state.items.map((item,index) => {
       return (
@@ -71,6 +78,9 @@ class OrderForm extends Component {
         />
       );
     });
+    let offset = new Date(date).getTimezoneOffset();
+    
+    console.log(moment.utc(date).local().toString());
 
     return (
       <div>
@@ -85,7 +95,7 @@ class OrderForm extends Component {
               <FormInput handleChange={handleChange} label="phone" value={phone} type="tel"/>
               <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
               <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
-              <FormInput handleChange={handleChange} label="date" value={date} type="datetime-local"/>
+              <FormInput handleChange={getDate} label="date" value={moment(date).format("YYYY-MM-DDTHH:mm")} type="datetime-local"/>
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>
           </div>
