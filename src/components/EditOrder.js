@@ -10,8 +10,8 @@ class EditOrder extends OrderForm{
     let orderId = window.location.pathname.split("/")[3];
     console.log('in Edit Order');
     console.log(this.state,orderId);
-    getOrderById(orderId).then(({customer,orderDate,orders},)=>{
-      this.setState({customer:{date:new Date(orderDate).toISOString(),...customer},items:orders})
+    getOrderById(orderId).then(({customer,orderDate,orders, _id},)=>{
+      this.setState({customer:{date:new Date(orderDate).toISOString(),...customer},items:orders, _id:_id})
     })
   }
 

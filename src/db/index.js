@@ -5,7 +5,7 @@ var OrderItemSchema = new mongoose.Schema({
   quantity: Number,
   price: Number,
   notes: String
-});
+},{_id:false});
 
 var CustomerSchema = new mongoose.Schema({
 
@@ -13,7 +13,7 @@ var CustomerSchema = new mongoose.Schema({
   address: String,
   email: String,
   phone: String
-});
+},{_id:false});
 
 var OrderSchema = new mongoose.Schema({
   orderDate: Date,
@@ -73,11 +73,13 @@ function queryOrders(searchTerm){
 }
 
 function findById(id){
+  console.log(id);
   return new Promise(resolve =>{
     orderModel.findById(id)
     .lean()
     .exec((err,doc)=>{
-      // doc._id = doc._id.toString()
+      console.log(mongoose.Types.ObjectId(doc._id).toString());
+      doc._id = doc._id.toString()
       resolve(doc);
     })
   })
@@ -91,16 +93,20 @@ function addOrder(order){
 }
 
 function updateOrder(order){
+  console.log(order._id);
+  let id = order._id;
+  order.orders = order.items;
+  // order._id = mongoose.Types.ObjectId(order._id);
+  // console.log(mongoose.Types.ObjectId(order._id).toString());
   return new Promise( resolve=>{
-    orderModel.updateOne({_id:order._id}, order)
+    orderModel.update({_id:id},order)
     .then((doc)=>{
-      console.log(doc,'here');
-      resolve('I did it')
+      resolve(doc)
     })
     .catch((e)=>{
-      console.log('here');
       console.log(e);
-    })
+      console.log('an error ocurred')
+    })  
   })
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Nav from "./Nav";
 import FormInput from './FormInput';
 import moment from 'moment';
+import {formatDateTime} from '../helpers';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -40,9 +41,8 @@ class OrderForm extends Component {
   }
 
   getDate(e){
-    let date = e.target.value;
-    console.log(date);
-    this.setState({customer:{...this.state.customer,date:new Date(date).toISOString()}})
+    let date = new Date(e.target.value).toISOString || null;
+    this.setState({customer:{...this.state.customer,date:new Date(date)||0}})
   }
 
   handleChange(e){
@@ -78,10 +78,6 @@ class OrderForm extends Component {
         />
       );
     });
-    let offset = new Date(date).getTimezoneOffset();
-    
-    console.log(moment.utc(date).local().toString());
-
     return (
       <div>
         <Nav />
@@ -95,7 +91,7 @@ class OrderForm extends Component {
               <FormInput handleChange={handleChange} label="phone" value={phone} type="tel"/>
               <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
               <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
-              <FormInput handleChange={getDate} label="date" value={moment(date).format("YYYY-MM-DDTHH:mm")} type="datetime-local"/>
+              <FormInput handleChange={getDate} label="date" value={formatDateTime(date)} type="datetime-local"/>
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>
           </div>

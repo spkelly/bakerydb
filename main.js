@@ -23,7 +23,8 @@ ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
 
 ipcMain.on(ipcChannels.UPDATE_ORDER,async(event, orderToUpdate)=>{
   let order = await db.updateOrder(orderToUpdate);
-  
+  console.log(orderToUpdate);
+  console.log(order);
 })
 
 
