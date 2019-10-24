@@ -158,7 +158,7 @@ async function run() {
         // console.log(order);
         acc.push({
           customer: randomCustomer,
-          isTaxed: false,
+          isTaxed: true,
           deliveryCharge: 12,
           orders: orders,
           orderDate: new Date(),

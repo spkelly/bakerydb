@@ -30,7 +30,6 @@ class Search extends Component {
   }
 
   navigate(path){
-    console.log((`/orders/${path}`));
     this.props.history.push(`/order/${path}`);
   }
 
@@ -47,7 +46,7 @@ class Search extends Component {
  
       return <div key={index} onClick={e=>this.navigate(result._id)}className="result__item">
         <p className="result__title">{result.customer.name}</p>
-        <p className="result__date">{new Date(result.orderDate).toLocaleDateString()}</p>
+        <p className="result__date">{ new Date(result.orderDate).toLocaleDateString()}</p>
       </div>
       });
 

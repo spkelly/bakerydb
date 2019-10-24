@@ -13,6 +13,7 @@ class OrderForm extends Component {
           address: "",
           email: "",
           phone: "",
+          isTaxed: false,
           date: new Date()
         },
         items: [
@@ -25,6 +26,7 @@ class OrderForm extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDate = this.getDate.bind(this);
+    this.toggleTax = this.toggleTax.bind(this);
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
   }
 
@@ -61,12 +63,16 @@ class OrderForm extends Component {
   }
 
   submitForm(){
-    console.log('default submitForm', this.state)
+
+  }
+
+  toggleTax(e){
+    this.setState({customer:{...this.state.customer,isTaxed:e.target.checked}})
   }
 
   render() {
     let {handleChange, getDate} = this;
-    let {name,phone,email,address, date} = this.state.customer;
+    let {name,phone, isTaxed, deliveryCharge, email,address, date} = this.state.customer;
     let items = this.state.items.map((item,index) => {
       return (
         <OrderFormItem
@@ -92,6 +98,7 @@ class OrderForm extends Component {
               <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
               <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
               <FormInput handleChange={getDate} label="date" value={formatDateTime(date)} type="datetime-local"/>
+              <FormInput handleChange={this.toggleTax} label="isTaxed" value={isTaxed} checked={isTaxed} type="checkBox"/>
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>
           </div>

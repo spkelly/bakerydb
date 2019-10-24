@@ -8,16 +8,16 @@ class EditOrder extends OrderForm{
   }
   componentDidMount(){
     let orderId = window.location.pathname.split("/")[3];
-    console.log('in Edit Order');
-    console.log(this.state,orderId);
-    getOrderById(orderId).then(({customer,orderDate,orders, _id},)=>{
-      this.setState({customer:{date:new Date(orderDate).toISOString(),...customer},items:orders, _id:_id})
+    getOrderById(orderId).then(({customer,isTaxed, orderDate,orders, _id},)=>{
+      this.setState({customer:{isTaxed:isTaxed,date:new Date(orderDate).toISOString(),...customer},items:orders, _id:_id})
     })
   }
 
   submitForm(){
-    console.log('in edit form', this.state);
-    updateOrder(this.state);
+    let order = this.state;
+    order.isTaxed = this.state.customer.isTaxed;
+    delete order.customer.isTaxed;
+    updateOrder(order);
   }
 }
 

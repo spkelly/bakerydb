@@ -80,7 +80,6 @@ function findById(id){
     orderModel.findById(id)
     .lean()
     .exec((err,doc)=>{
-      console.log(mongoose.Types.ObjectId(doc._id).toString());
       doc._id = doc._id.toString()
       resolve(doc);
     })
@@ -107,7 +106,6 @@ function updateOrder(order){
     })
     .catch((e)=>{
       console.log(e);
-      console.log('an error ocurred')
     })  
   })
 }

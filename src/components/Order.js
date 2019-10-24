@@ -4,6 +4,11 @@ import InfoBox from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
 
+
+
+//TODO: extract this to other file
+const TAX_RATE = .077;
+
 class Order extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +16,9 @@ class Order extends Component {
     this.state = {
       customer: {},
       orders: [],
-      orderDate: ""
+      deliveryCharge: 0,
+      isTaxed: false,
+      orderDate: new Date(0)
     };
   }
 
@@ -30,9 +37,16 @@ class Order extends Component {
   }
 
   render() {
+    let { customer, orders, orderDate, isTaxed, deliveryCharge } = this.state;
     let location = window.location.pathname.split("/");
     let editPath = "/order/edit/" + location[2];
-    let { customer, orders, orderDate } = this.state;
+    let subTotal = orders.reduce((acc, order) => acc + order.price * order.quantity,0)
+    .toFixed(2);
+    let tax = (isTaxed?(subTotal * TAX_RATE):0).toFixed(2);
+    console.log('types',    typeof(deliveryCharge), typeof(tax), typeof(subTotal))
+
+    
+
     return (
       <div>
         <Nav />
@@ -76,15 +90,10 @@ class Order extends Component {
                 <p>Total:</p>
               </div>
               <div>
-                <p>0.00</p>
-                <p>0.00</p>
+                <p>{tax}</p>
+                <p>{deliveryCharge.toFixed(2)}</p>
                 <p>
-                  {orders
-                    .reduce(
-                      (acc, order) => acc + order.price * order.quantity,
-                      0
-                    )
-                    .toFixed(2)}
+                  {(parseInt(subTotal) + parseInt(tax) + parseInt(deliveryCharge)).toFixed(2)}
                 </p>
               </div>
             </div>

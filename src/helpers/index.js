@@ -6,5 +6,6 @@ export function capitalizeFirstLetter(str){
 
 // datetime-local input does not like the default ISO format of date, so I have to format it with moment
 export function formatDateTime(date){
+  console.log(typeof(moment(date).format("YYYY-MM-DDTHH:mm")))
   return moment(date).format("YYYY-MM-DDTHH:mm");
 }
