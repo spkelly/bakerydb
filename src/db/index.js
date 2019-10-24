@@ -19,7 +19,9 @@ var OrderSchema = new mongoose.Schema({
   orderDate: Date,
   customer: CustomerSchema,
   dateCreated: Date,
-  orders: [OrderItemSchema]
+  orders: [OrderItemSchema],
+  isTaxed: Boolean,
+  deliveryCharge:Number
 });
 
 
