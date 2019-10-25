@@ -7,13 +7,11 @@ let dbObject = db.setup();
 
 ipcMain.on(ipcChannels.GET_ORDER, async(event, id) => {
   let order = await db.findById(id);
-  console.log(order);
   event.sender.send(ipcChannels.GET_ORDER_SUCCESS,order);
 });
 
 ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
   let testOrder = new dbObject.orderModel(order);
-  console.log(testOrder);
   await testOrder.save().catch(e => {
     console.log(e);
   });

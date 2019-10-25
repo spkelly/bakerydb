@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 import { queryOrders } from "../api";
-import { withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 class Search extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Search extends Component {
     });
   }
 
-  navigate(path){
+  navigate(path) {
     this.props.history.push(`/order/${path}`);
   }
 
@@ -38,17 +38,24 @@ class Search extends Component {
       return <div className="error__box">No Results Found</div>;
     }
 
-    if(this.state.isFetching){
-      return <div>loading</div>
+    if (this.state.isFetching) {
+      return <div>loading</div>;
     }
-    
-    let results = this.state.searchResults.map((result,index)=>{
- 
-      return <div key={index} onClick={e=>this.navigate(result._id)}className="result__item">
-        <p className="result__title">{result.customer.name}</p>
-        <p className="result__date">{ new Date(result.orderDate).toLocaleDateString()}</p>
-      </div>
-      });
+
+    let results = this.state.searchResults.map((result, index) => {
+      return (
+        <div
+          key={index}
+          onClick={e => this.navigate(result._id)}
+          className="result__item"
+        >
+          <p className="result__title">{result.customer.name}</p>
+          <p className="result__date">
+            {new Date(result.orderDate).toLocaleDateString()}
+          </p>
+        </div>
+      );
+    });
 
     return (
       <div className="results">
@@ -58,7 +65,7 @@ class Search extends Component {
         </div>
         {results}
       </div>
-      )
+    );
   }
 
   render() {
@@ -68,7 +75,9 @@ class Search extends Component {
         <Nav />
         <div className="search__input">
           <input className="input" onInput={this.handleInput} />
-          <button className="btn" onClick={this.handleClick}>Search</button>
+          <button className="btn" onClick={this.handleClick}>
+            Search
+          </button>
         </div>
         <div className="search__results">
           {searchResults ? this.renderResults() : ""}

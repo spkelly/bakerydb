@@ -14,7 +14,8 @@ class OrderForm extends Component {
           email: "",
           phone: "",
           isTaxed: false,
-          date: new Date()
+          date: new Date(),
+          deliveryCharge: 0
         },
         items: [
         ],
@@ -47,10 +48,9 @@ class OrderForm extends Component {
     this.setState({customer:{...this.state.customer,date:new Date(date)||0}})
   }
 
-  handleChange(e){
-    let name = e.target.name;
+  handleChange(e, attr){
     let value = e.target.value;
-    this.setState({customer:{...this.state.customer,[name]:value,}})
+    this.setState({customer:{...this.state.customer,[attr]:value,}})
   }
 
   handleItemUpdate(e,index){
@@ -93,12 +93,13 @@ class OrderForm extends Component {
               <h2>Customer Info</h2>
             </div>
             <form>
-              <FormInput handleChange={handleChange} label="name" value={name} type="text"/>
-              <FormInput handleChange={handleChange} label="phone" value={phone} type="tel"/>
-              <FormInput handleChange={handleChange} label="email" value={email} type="email"/>
-              <FormInput handleChange={handleChange} label="address" value={address} type="text"/>
-              <FormInput handleChange={getDate} label="date" value={formatDateTime(date)} type="datetime-local"/>
-              <FormInput handleChange={this.toggleTax} label="isTaxed" value={isTaxed} checked={isTaxed} type="checkBox"/>
+              <FormInput handleChange={handleChange} label="name" attr="name" value={name} type="text"/>
+              <FormInput handleChange={handleChange} label="phone"  attr="phone" value={phone} type="tel"/>
+              <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
+              <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
+              <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
+              <FormInput handleChange={handleChange} label="Delivery Charge" value={deliveryCharge} attr="deliveryCharge" type="number"/>
+              <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>
           </div>
