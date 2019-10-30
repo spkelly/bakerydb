@@ -138,7 +138,7 @@ function getRandomNumber(max, min=0) {
 }
 
 async function run() {
-  const { orderModel, connection } = database.setup();
+  const { orderModel, connection } = await database.setup();
 
 
   async function seedDatabase(num) {
@@ -188,7 +188,7 @@ async function run() {
     return acc;
   }
 
-  await connection.dropDatabase();
+  // await connection.dropDatabase();
   await seedDatabase(MAX_ORDERS)
   database.disconnect();
 }

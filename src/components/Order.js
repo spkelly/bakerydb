@@ -91,10 +91,10 @@ class Order extends Component {
               </div>
               <div>
                 <p>{tax}</p>
-                <p>{deliveryCharge.toFixed(2)}</p>
+                {/* <p>{parseInt(deliveryCharge.toFixed(2))}</p>
                 <p>
-                  {(parseInt(subTotal) + parseInt(tax) + parseInt(deliveryCharge)).toFixed(2)}
-                </p>
+                  {(parseInt(subTotal).toFixed(2) + parseInt(tax) + parseInt(deliveryCharge)).toFixed(2)}
+                </p> */}
               </div>
             </div>
           </div>

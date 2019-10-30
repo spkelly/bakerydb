@@ -1,12 +1,20 @@
 const { BrowserWindow, app, ipcMain } = require("electron");
 const ipcChannels = require("./src/constants");
 const db = require("./src/db");
+const database = require('./src/db/testdb');
 console.log("starting in ", process.env.NODE_ENV, " mode");
 
 let dbObject = db.setup();
+let testDB;
+
+database().then((result)=>{
+  testDB = result;
+}).catch((e)=>{
+  console.log(e);
+})
 
 ipcMain.on(ipcChannels.GET_ORDER, async(event, id) => {
-  let order = await db.findById(id);
+  let order = await testDB.Orders.getOrder(id);
   event.sender.send(ipcChannels.GET_ORDER_SUCCESS,order);
 });
 
@@ -21,6 +29,7 @@ ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
 
 ipcMain.on(ipcChannels.UPDATE_ORDER,async(event, orderToUpdate)=>{
   let order = await db.updateOrder(orderToUpdate);
+  let otherOrder = await testDB.Orders.updateOrder(orderToUpdate._id,orderToUpdate)
   console.log(orderToUpdate);
   console.log(order);
 })

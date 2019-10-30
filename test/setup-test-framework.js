@@ -1,3 +1,3 @@
-if(!Window.localStorage){
-  Window.localStorage = {};
-}
+// if(!Window.localStorage){
+//   Window.localStorage = {};
+// }
