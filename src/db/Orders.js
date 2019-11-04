@@ -25,22 +25,25 @@ module.exports = function(dbInstance) {
 
   function updateOrder(id, modifications) {
     console.log("the id", id);
+    modifications.orders = modifications.items;
+    delete modifications.items;
     delete modifications._id;
+    console.log("[ORDER]",modifications)
     return new Promise((resolve, reject) => {
-      orderCollection.findOneAndUpdate(
+      orderCollection.updateOne(
         { _id: ObjectID(id) },
-        { $set: modifications },
+       {$set:modifications} ,
         async (err, response) => {
           if (err) console.log("ERROR: ", err);
-          console.log(response);
-          // console.log("test", await getOrder(id));
-          resolve(response);
+          console.log('here');
+          resolve(response.result);
         }
       );
     });
   }
 
   function getOrder(id) {
+    console.log(["variable type: "], typeof(id),'value: ', id);
     return new Promise((resolve, reject) => {
       orderCollection.findOne({ _id: ObjectID(id) }, (err, doc) => {
         if (err) reject(err);

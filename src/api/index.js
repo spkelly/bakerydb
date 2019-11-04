@@ -26,12 +26,13 @@ export function getOrderById(id){
 }
 
 export function updateOrder(order){
+  console.log('here');
   return new Promise((resolve, reject)=>{
 
     ipcRenderer.send(channels.UPDATE_ORDER,order);
-    ipcRenderer.once(channels.GET_ORDER_SUCCESS,(event,order)=>{
-      console.log('success',order);
-      resolve(true);
+    ipcRenderer.once(channels.UPDATE_ORDER_SUCCESS,(event,orderId)=>{
+      console.log('success the order id updated is', orderId);
+      resolve(orderId);
     });
   });
 }

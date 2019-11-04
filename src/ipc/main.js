@@ -18,13 +18,13 @@ module.exports = {
     });
     
     ipcMain.on(ipcChannels.UPDATE_ORDER, async (event, orderToUpdate) => {
-      let order = await db.updateOrder(orderToUpdate);
+      let idRef = orderToUpdate._id;
       let otherOrder = await testDB.Orders.updateOrder(
         orderToUpdate._id,
         orderToUpdate
       );
-      console.log(orderToUpdate);
-      console.log(order);
+      event.sender.send(ipcChannels.UPDATE_ORDER_SUCCESS,idRef);
+      // console.log(otherOrder)
     });
     
     ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {

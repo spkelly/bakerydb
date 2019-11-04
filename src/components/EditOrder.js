@@ -1,6 +1,7 @@
 import React from 'react';
 import OrderForm from './OrderForm';
 import {getOrderById, updateOrder} from '../api';
+import {withRouter} from 'react-router-dom';
 
 class EditOrder extends OrderForm{
   constructor(props){
@@ -21,10 +22,14 @@ class EditOrder extends OrderForm{
 
     delete order.customer.deliveryCharge;
     delete order.customer.isTaxed;
-    updateOrder(order);
+    let test = updateOrder(order).then(redirectPath=>{
+      if(redirectPath);
+      this.props.history.push('/order/'+redirectPath)
+      // console.log('here here',response);
+    })
   }
 }
 
 
 
-export default EditOrder;
+export default withRouter(EditOrder);
