@@ -9,6 +9,7 @@ class EditOrder extends OrderForm{
   componentDidMount(){
     let orderId = window.location.pathname.split("/")[3];
     getOrderById(orderId).then(({customer,isTaxed, deliveryCharge, orderDate,orders, _id},)=>{
+      deliveryCharge = parseFloat(deliveryCharge);
       this.setState({customer:{isTaxed:isTaxed, deliveryCharge:deliveryCharge.toFixed(2),date:new Date(orderDate).toISOString(),...customer},items:orders, _id:_id})
     })
   }

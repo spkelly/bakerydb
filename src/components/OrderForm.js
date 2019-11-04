@@ -50,6 +50,7 @@ class OrderForm extends Component {
 
   handleChange(e, attr){
     let value = e.target.value;
+    console.log("whats about to change: ",typeof(value))
     this.setState({customer:{...this.state.customer,[attr]:value,}})
   }
 
@@ -98,7 +99,7 @@ class OrderForm extends Component {
               <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
               <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
               <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
-              <FormInput handleChange={handleChange} label="Delivery Charge" value={deliveryCharge} attr="deliveryCharge" type="number"/>
+              <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
               <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>

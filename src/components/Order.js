@@ -4,10 +4,8 @@ import InfoBox from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
 
-
-
 //TODO: extract this to other file
-const TAX_RATE = .077;
+const TAX_RATE = 0.077;
 
 class Order extends Component {
   constructor(props) {
@@ -40,13 +38,17 @@ class Order extends Component {
     let { customer, orders, orderDate, isTaxed, deliveryCharge } = this.state;
     let location = window.location.pathname.split("/");
     let editPath = "/order/edit/" + location[2];
-    let subTotal = orders.reduce((acc, order) => acc + order.price * order.quantity,0)
-    .toFixed(2);
-    let tax = (isTaxed?(subTotal * TAX_RATE):0).toFixed(2);
-    console.log('types',    typeof(deliveryCharge), typeof(tax), typeof(subTotal))
-
-    
-
+    let subTotal = orders
+      .reduce((acc, order) => acc + order.price * order.quantity, 0)
+      .toFixed(2);
+    let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
+    console.log("types", typeof deliveryCharge, typeof tax, typeof subTotal);
+    console.log(parseInt(deliveryCharge).toFixed(2));
+    let total =
+      parseFloat(deliveryCharge) +
+      parseFloat(tax) +
+      parseFloat(subTotal);
+    console.log(typeof(parseFloat(deliveryCharge)))
     return (
       <div>
         <Nav />
@@ -56,7 +58,9 @@ class Order extends Component {
         </div>
         <div className="order-info">
           <div className="order-info__left">
-            <InfoBox header="Order Date">{new Date(orderDate).toLocaleDateString()}</InfoBox>
+            <InfoBox header="Order Date">
+              {new Date(orderDate).toLocaleDateString()}
+            </InfoBox>
             <InfoBox header="Phone Number">{customer.phone}</InfoBox>
             <InfoBox header="Email">{customer.email}</InfoBox>
             <InfoBox header="Address ">{customer.address}</InfoBox>
@@ -67,16 +71,20 @@ class Order extends Component {
               <div className="order-list__container">
                 {orders.map((order, index) => {
                   return (
-                    <div className="item" key={index} >
+                    <div className="item" key={index}>
                       <div className="item__info-line">
-                        <div className="item__name"><p>{order.name}</p></div>
+                        <div className="item__name">
+                          <p>{order.name}</p>
+                        </div>
                         <div className="item__info">
                           <div className="item__qty">{order.quantity}</div>
-                          <div className="item__price">{order.price.toFixed(2)}</div>
+                          <div className="item__price">
+                            {order.price.toFixed(2)}
+                          </div>
                         </div>
                       </div>
                       <div className="item__notes">
-                        <p>{order.notes?order.notes:''}</p>
+                        <p>{order.notes ? order.notes : ""}</p>
                       </div>
                     </div>
                   );
@@ -90,11 +98,9 @@ class Order extends Component {
                 <p>Total:</p>
               </div>
               <div>
-                <p>{tax}</p>
-                {/* <p>{parseInt(deliveryCharge.toFixed(2))}</p>
-                <p>
-                  {(parseInt(subTotal).toFixed(2) + parseInt(tax) + parseInt(deliveryCharge)).toFixed(2)}
-                </p> */}
+                {isTaxed?<p>{tax}</p>:''}
+                <p>{parseFloat(deliveryCharge).toFixed(2)}</p>
+                <p>{total.toFixed(2)}</p>
               </div>
             </div>
           </div>
