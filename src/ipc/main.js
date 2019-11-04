@@ -1,9 +1,11 @@
 const {ipcMain} = require('electron');
 const ipcChannels = require("../constants");
+const logAttr = require('../utils/logger').logAttr;
 
 module.exports = {
   setupEventListeners(testDB, db){
     ipcMain.on(ipcChannels.GET_ORDER, async (event, id) => {
+      logAttr(id);
       let order = await testDB.Orders.getOrder(id);
       event.sender.send(ipcChannels.GET_ORDER_SUCCESS, order);
     });
