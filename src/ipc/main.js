@@ -40,5 +40,13 @@ module.exports = {
     ipcMain.on(ipcChannels.IMPORT_ORDERS, async (event, args) => {
       console.log("importing orders");
     });
+
+    ipcMain.on(ipcChannels.GET_MENU,async(event)=>{})
+    ipcMain.on(ipcChannels.GET_CATEGORIES,async(event)=>{})
+    ipcMain.on(ipcChannels.GET_PRODUCTS_BY_CAT,async(event)=>{})
+    ipcMain.on(ipcChannels.ADD_FLAVOR,async(event)=>{})
+    ipcMain.on(ipcChannels.REMOVE_FLAVOR,async(event)=>{})
+    ipcMain.on(ipcChannels.ADD_TOPPING,async(event)=>{})
+    ipcMain.on(ipcChannels.REMOVE_TOPPING,async(event)=>{})
   }
 }
