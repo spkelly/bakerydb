@@ -6,6 +6,7 @@ import Settings from "./components/Settings";
 import Home from "./components/Home";
 import NewOrder from './components/NewOrder';
 import EditOrder from './components/EditOrder';
+import Menu from './components/Menu';
 
 
 const routes = () => {
@@ -16,6 +17,8 @@ const routes = () => {
       <Route path="/order/:id" component={Order} />
       <Route path="/new-order" component={NewOrder} />
       <Route path="/settings" component={Settings} />
+      <Route path="/menu" component={Menu} />
+      <Route path="/menu/:id" component={Menu} />
       <Route path="/" component={Home} />
     </Switch>
   );
