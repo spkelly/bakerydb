@@ -19,7 +19,14 @@ module.exports = function(dbInstance) {
     });
   }
 
-  function addOrder(order) {}
+  function addOrder(order) {
+    return new Promise((resolve, reject)=>{
+      orderCollection.insertOne(order, (err,response)=>{
+        console.log(response);
+        resolve(response);
+      });
+    })
+  }
 
   function removeOrder(orderId) {}
 
