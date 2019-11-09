@@ -57,8 +57,7 @@ h2{
     &-name{
       font-size: 16px;
     }
-    &-number{
-    }
+
     &-notes{
       margin-top: 6px;
       margin-left: 14px;
@@ -79,17 +78,8 @@ input{
   margin-bottom: 14px;
 }
 
-.heading__primary {
-}
 
-.heading__secondary {
-}
 
-.heading__secondary {
-}
-
-.button {
-}
 
 .button__container {
   width: 80%;
@@ -98,11 +88,8 @@ input{
   display: flex;
 }
 
-.search-bar {
-}
 
-.form {
-}
+
 
 .nav__holder {
   display: flex;
@@ -234,9 +221,6 @@ input{
     min-width: 200px;
   }
 
-  &__qty{
-
-  }
   &__info{
     min-width: 120px;
     width: 120px;
@@ -316,9 +300,6 @@ input{
     padding: 6px 8px;
     border: 2px solid lightskyblue;
   }
-  &__content-no-border{
-
-  }
 }
 
 .flex{
@@ -332,6 +313,45 @@ input{
   }
 }
 
+.menu-filter-bar{
+
+}
+
+.control-wrapper{
+  position: relative;
+  margin: 0 auto;
+  width: 600px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-button{
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: 100;
+  color: lightgray;
+  position: absolute;
+  right: 156px;
+  cursor: pointer;
+}
+
+.filter-search{
+  padding: 8px;
+  padding-left: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  width: 300px;
+  border-radius:10rem;
+  outline: none;
+  border: 2px solid lightgrey;
+  transition: all .2s ease;
+  &:focus{
+    border-color: teal;
+  }
+}
+
 .temp-nav-holder{
   height: 60px;
   display: flex;
@@ -340,13 +360,17 @@ input{
 }
 
 
+
+
 .menu{
   display:flex;
 
   &__sidebar{
     height: 100vh;
-    min-width: calc(calc(100% / 12) *3);
-    background-color:lightcyan;
+    width: calc(calc(100% / 12) *3);
+    background-color: lightblue;
+    min-width: 180px;
+    max-width: 240px;
   }
 
   &__main{
@@ -356,22 +380,21 @@ input{
       display: none;
     }
     overflow-y: scroll;
-    background-color: lightseagreen;
+
   }
 
   &-filter-bar{
     height: 60px;
-    background-color: seagreen;
   }
 
   &-categories{
     background-color: lightblue;
-    padding: 8px 0;
+    padding-bottom: 18px;
   }
 
   &-items{
     display: flex;
-    background-color: green;
+
     flex-wrap: wrap;
 
   }
@@ -380,19 +403,39 @@ input{
     margin: 24px 24px;
     height: 60px;
     width: 150px;
-    background-color: lightcoral;
+    border: 2px solid teal;
+    border-radius: 6px;
   }
 }
 
 .category-list-item{
-  margin: 10px 0;
+  cursor: pointer;
+  padding: 10px 0;
   padding-left: 8px;
   font-family: sans-serif;
+  transition: all .1s ease;
+  &:hover{
+    background-color: teal;
+    .heading__secondary{
+      color: lightblue;
+    }
+  }
 }
 
+.category-list-item-active{
+
+  .heading__secondary{
+    color: lightblue;
+  }
+  background-color: teal;
+}
+
+
 .heading__secondary{
-  font-weight: 500;
-  font-size: 20px;
+  color: teal;
+  font-weight: lighter;
+  font-size: 16px;
+  transition: all .1s ease;
 }
 
 .menu__btn{

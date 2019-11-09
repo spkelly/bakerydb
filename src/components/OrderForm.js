@@ -50,7 +50,7 @@ class OrderForm extends Component {
 
   handleChange(e, attr){
     let value = e.target.value;
-    console.log("whats about to change: ",typeof(value))
+    console.log("whats about",typeof(value))
     this.setState({customer:{...this.state.customer,[attr]:value,}})
   }
 

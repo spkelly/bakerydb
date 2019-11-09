@@ -50,7 +50,7 @@ const MenuCatagories = ({ categories, handleAdd }) => {
   });
 
   return (<section className="menu-categories">
-   <div className="category-list-item"><h2 className="heading__secondary">
+   <div className="category-list-item category-list-item-active"><h2 className="heading__secondary">
        All Items
     </h2></div>
   {categoryList}
@@ -61,7 +61,12 @@ const MenuCatagories = ({ categories, handleAdd }) => {
 };
 
 const MenuFilterBar = () => {
-  return <div className="menu-filter-bar"></div>;
+  return <div className="menu-filter-bar">
+    <div className="control-wrapper">
+      <input className="filter-search" />
+      <span className="clear-button">X</span>
+    </div>
+  </div>;
 };
 
 const MenuItemsContainer = ({items}) => {
