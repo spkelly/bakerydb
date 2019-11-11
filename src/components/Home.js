@@ -1,22 +1,18 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import Link from "./Link";
+import Image from "../images/b_logo.png";
+import Button from "./Buttons";
 
-import Image from '../images/b_logo.png';
-
-const Home = props => {
-  console.log(props.history)
-  const handleClick = path => {
-    props.history.push(path);
-  };
-
+const Home = () => {
   return (
     <div className="content">
       <img className="logo" src={Image} />
       <div className="button__container">
-        <button className="navigation__button" onClick={() => handleClick("/search")}><p className="paragraph">Search</p></button>
-        <button className="navigation__button" onClick={() => handleClick("/new-order")}><p className="paragraph"> New Order</p></button>
-        <button className="navigation__button" onClick={() => handleClick("/settings")}><p className="paragraph">Settings</p></button>
-        <button className="navigation__button" onClick={() => handleClick("/menu")}><p className="paragraph">Menu</p></button>
+        <Link buttonComponent={<Button text="Search" />} path="/search" />
+        <Link buttonComponent={<Button text="Menu" />} path="/menu" />
+        <Link buttonComponent={<Button text="New Order" />} path="/new-order" />
+        <Link buttonComponent={<Button text="Settings" />} path="/settings" />
       </div>
     </div>
   );
