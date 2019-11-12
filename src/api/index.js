@@ -2,6 +2,7 @@ import { ipcRenderer, ipcMain } from "electron";
 import channels from "../constants";
 import { rejects } from "assert";
 
+
 export function queryOrders(term) {
   return new Promise((resolve, reject) => {
     ipcRenderer.send(channels.QUERY_ORDERS, term);
