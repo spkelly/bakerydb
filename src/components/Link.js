@@ -13,4 +13,17 @@ const Link = function({history, path, buttonComponent}) {
   );
 };
 
+
+export function withLink(buttonComponent){
+  return function({history, path, buttonComponent}) {
+    const handleClick = () => {
+      history.push(path);
+    };
+  
+    return (
+      <buttonComponent />
+    );
+  };
+}
+
 export default withRouter(Link);
