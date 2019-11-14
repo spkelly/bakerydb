@@ -1,10 +1,11 @@
 // Seed database with test data
 // import database from "../index";
 const database = require("../index");
-
 const MAX_ORDERS = 20;
 const MAX_ORDER_ITEMS = 5;
 const MAX_ORDER_QTY = 50;
+
+let catagories = ['Cakes', 'Bite Sized', 'Cookies', 'Chocolates',' Everyday Desserts']
 
 const customerOptions = [
   {
@@ -189,7 +190,7 @@ async function run() {
   }
 
   // await connection.dropDatabase();
-  await seedDatabase(MAX_ORDERS)
+  await seedDatabase(MAX_ORDERS);
   database.disconnect();
 }
 

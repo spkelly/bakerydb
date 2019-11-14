@@ -400,11 +400,19 @@ input{
   }
 
   &__item{
+    color: white;
     margin: 24px 24px;
-    height: 60px;
-    width: 150px;
-    border: 2px solid teal;
+
+    // background-color: teal;
+    background: linear-gradient(to top right,teal 40%,	#3b9d9d
+
+    90%);
     border-radius: 6px;
+    p{
+      padding: 12px;
+      font-size: 18px;
+      font-family: sans-serif;
+    }
   }
 }
 

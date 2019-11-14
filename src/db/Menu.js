@@ -1,67 +1,89 @@
-module.exports = function(dbInstance){
+module.exports = function(dbInstance) {
   let db = dbInstance.db();
-  let ObjectID = require('mongodb').ObjectID;   
-  
-  const categoryCollection = db.collection('categories');
-  const productCollection = db.collection('products');
+  let ObjectID = require("mongodb").ObjectID;
 
-  
+  const categoryCollection = db.collection("categories");
+  const productCollection = db.collection("products");
+
   // returns all items from the menu
-  async function getMenu(){
-    return new Promise(async(resolve,reject)=>{
-      let allProducts = await productCollection.find({},{_id:0}).toArray();
+  async function getMenu() {
+    return new Promise(async (resolve, reject) => {
+      let allProducts = await productCollection.find({}, { _id: 0 }).toArray();
       resolve(allProducts);
-    })
+    });
   }
 
-  async function getProduct(productId){
-    console.log("[PRODUCT ID SEARCH] [ ",productId,' ]')
-    return new Promise(async(resolve,reject)=>{
-      productCollection.findOne({_id:ObjectID(productId)},{_id:0},(err,doc)=>{
-        if(err) reject(err);
-        resolve(doc);
-      })
-    })
+  async function getProduct(productId) {
+    console.log("[PRODUCT ID SEARCH] [ ", productId, " ]");
+    return new Promise(async (resolve, reject) => {
+      productCollection.findOne(
+        { _id: ObjectID(productId) },
+        { _id: 0 },
+        (err, doc) => {
+          if (err) reject(err);
+          resolve(doc);
+        }
+      );
+    });
   }
 
-  function addFlavor(productId, flavor){
-    return new Promise(()=>{})
-  }
-  
-  function addTopping(productId, topping){
-    return new Promise(()=>{})
+  function getAllProducts(){
+    return new Promise(async (resolve, reject) => {
+      let allProducts = await productCollection.find({},{"_id":0}).toArray()
+      resolve(allProducts)})
   }
 
-  function removeFlavor(productId, flavor){
-    return new Promise(()=>{})
-  }
-  
-  function removeTopping(productId, flavor){
-    return new Promise(()=>{})
+  function addFlavor(productId, flavor) {
+    return new Promise(() => {});
   }
 
-  function getProductsByCategory(cagegoryId){
-    return new Promise(()=>{})
+  function addTopping(productId, topping) {
+    return new Promise(() => {});
   }
 
-  function updateProduct(productId, updates){
-    return new Promise(()=>{})
+  function removeFlavor(productId, flavor) {
+    return new Promise(() => {});
   }
 
-  function addCategory(name){
-    return new Promise(()=>{})
+  function removeTopping(productId, flavor) {
+    return new Promise(() => {});
   }
-  
-  function getCategories(){
-    return new Promise(async(resolve,reject)=>{
-      let allCategories = categoryCollection.distinct('name')
-      .catch((e)=>reject(e));
+
+  function getProductsByCategory(cagegoryId) {
+    return new Promise(() => {});
+  }
+
+  function updateProduct(productId, updates) {
+    return new Promise(() => {});
+  }
+
+  function addCategory(name) {
+    return new Promise(() => {});
+  }
+
+  function getCategories() {
+    return new Promise(async (resolve, reject) => {
+      let allCategories;
+      try {
+        // allCategories = await categoryCollection.find({}).toArray();
+        allCategories = await categoryCollection
+          .aggregate([
+            { $match: {} },
+            { $project: { _id: { $toString: "$_id" }, name: 1 } }
+          ])
+          .toArray();
+      } catch (e) {
+        console.log("ERROR CAUGHT", e);
+      }
+      console.log("before manip", allCategories);
+      let test = allCategories.map(catObject => catObject.name);
+      console.log(test);
       resolve(allCategories);
-    })
+    });
   }
 
-  function removeCategory(name){
-    return new Promise(()=>{})
+  function removeCategory(name) {
+    return new Promise(() => {});
   }
 
   return {
@@ -75,6 +97,7 @@ module.exports = function(dbInstance){
     updateProduct,
     removeCategory,
     addCategory,
+    getAllProducts,
     getCategories
-  }
-}
+  };
+};
