@@ -27,10 +27,11 @@ module.exports = function(dbInstance) {
     });
   }
 
-  function getAllProducts(){
+  function getAllProducts() {
     return new Promise(async (resolve, reject) => {
-      let allProducts = await productCollection.find({},{"_id":0}).toArray()
-      resolve(allProducts)})
+      let allProducts = await productCollection.find({}, { _id: 0 }).toArray();
+      resolve(allProducts);
+    });
   }
 
   function addFlavor(productId, flavor) {
@@ -49,8 +50,16 @@ module.exports = function(dbInstance) {
     return new Promise(() => {});
   }
 
-  function getProductsByCategory(cagegoryId) {
-    return new Promise(() => {});
+  function getProductsByCategory(categoryId) {
+    console.log("category id: ", categoryId);
+    dbInstance;
+    return new Promise((resolve, reject) => {
+      productCollection
+        .find({ categoryId: ObjectID(categoryId) })
+        .toArray((err, result) => {
+          resolve(result);
+        });
+    });
   }
 
   function updateProduct(productId, updates) {
@@ -58,7 +67,12 @@ module.exports = function(dbInstance) {
   }
 
   function addCategory(name) {
-    return new Promise(() => {});
+    return new Promise(async () => {
+      categoryCollection.insertOne({ name }, (err, result) => {
+        if (err) console.error(err);
+        resolve(result);
+      });
+    });
   }
 
   function getCategories() {

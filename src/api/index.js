@@ -6,7 +6,6 @@ export function queryOrders(term) {
   return new Promise((resolve, reject) => {
     ipcRenderer.send(channels.QUERY_ORDERS, term);
     ipcRenderer.once(channels.QUERY_ORDERS_SUCCESS, (event, arg) => {
-      console.log("in queryOrders() ", arg);
       resolve(arg);
     });
     ipcRenderer.once(channels.QUERY_ORDERS_ERROR, (event, arg) => {
@@ -54,7 +53,14 @@ export function fetchMenu() {
   });
 }
 
-export function getProductsByCategory(categoryId) {}
+export function getProductsByCategory(categoryId) {
+  return new Promise((resolve, reject) => {
+    ipcRenderer.send(channels.GET_PRODUCTS_BY_CAT,categoryId);
+    ipcRenderer.once(channels.GET_PRODUCTS_BY_CAT_SUCCESS, (event, products) => {
+      resolve(products);
+    });
+  })
+}
 
 export function addOrder(order) {
   return new Promise((resolve, reject) => {

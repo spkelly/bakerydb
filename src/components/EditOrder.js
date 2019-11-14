@@ -36,7 +36,7 @@ class EditOrder extends OrderForm {
     let test = updateOrder(order).then(orderId => {
       if (orderId);
       this.props.history.push("/order/" + orderId);
-      // console.log('here here',response);
+      // ('here here',response);
     });
   }
 }

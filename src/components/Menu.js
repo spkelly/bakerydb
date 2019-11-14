@@ -13,7 +13,7 @@ let categories = [
 ];
 let menuItems = [{}, {}, {}, {}, {}, {}, {}, {}];
 
-console.log(menuItems);
+
 
 class Menu extends Component {
   constructor(props) {
@@ -28,16 +28,15 @@ class Menu extends Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
-  handleCategoryChange(id) {
-    console.log(id);
-    this.setState({ fetchingProducts: true });
-    getProductsByCategory(id);
+  handleCategoryChange(category) {
+    const addProductsToState = products => this.setState({products})
+    category == "all"?
+      getAllProducts().then(addProductsToState):
+      getProductsByCategory(category).then(addProductsToState)
   }
 
   componentDidMount() {
-    console.log("mounted");
     fetchMenu().then(menu =>{
-      console.log('Fetched the menu', menu)
       this.setState({
         categories: menu.categories,
         products: menu.products,
@@ -47,9 +46,6 @@ class Menu extends Component {
   }
 
   render() {
-    console.log('rendering current state');
-    console.table(this.state.categories);
-    console.table(this.state.products);
     return (
       <div className="menu">
         <div className="menu__sidebar">
@@ -112,7 +108,6 @@ const MenuFilterBar = () => {
 };
 
 const MenuItemsContainer = ({ items }) => {
-  console.log("items", items);
   if(!items) items = [];
   let itemList = items.map((item, index) => {
     return <MenuItem key={index} itemInfo={item} />;
@@ -122,7 +117,6 @@ const MenuItemsContainer = ({ items }) => {
 };
 
 const MenuItem = ({ itemInfo }) => {
-  console.table(itemInfo);
   return <div className="menu__item">
     <p className="paragraph">{itemInfo.name}</p>
   </div>;

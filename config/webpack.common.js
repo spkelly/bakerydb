@@ -4,7 +4,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const webpack = require("webpack");
 const path = require("path");
 
-console.log("dir", __dirname);
+("dir", __dirname);
 
 const htmlPlugin = new HTMLWebPackPlugin({
   template: "./src/index.html",

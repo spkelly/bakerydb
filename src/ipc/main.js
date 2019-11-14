@@ -56,7 +56,11 @@ module.exports = {
       let products = await testDB.Menu.getAllProducts();
       event.sender.send(ipcChannels.GET_MENU_SUCCESS, { categories, products });
     });
-    ipcMain.on(ipcChannels.GET_PRODUCTS_BY_CAT, async event => {});
+    ipcMain.on(ipcChannels.GET_PRODUCTS_BY_CAT, async (event,id) => {
+      let products = await testDB.Menu.getProductsByCategory(id);
+      console.log(products);
+      event.sender.send(ipcChannels.GET_PRODUCTS_BY_CAT_SUCCESS, products);
+    });
     ipcMain.on(ipcChannels.ADD_FLAVOR, async event => {});
     ipcMain.on(ipcChannels.REMOVE_FLAVOR, async event => {});
     ipcMain.on(ipcChannels.ADD_TOPPING, async event => {});
