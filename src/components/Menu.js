@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 
-import { getCategories, getProductsByCategory, fetchMenu } from "../api";
+import { getCategories, getProductsByCategory, fetchMenu, getAllProducts } from "../api";
 
 let categories = [
   "Cakes",
@@ -85,7 +85,7 @@ const MenuCatagories = ({ categories, callback, handleAdd, isFetching }) => {
   if (isFetching) return fetchingSpinner;
   return (
     <section className="menu-categories">
-      <div className="category-list-item category-list-item-active">
+      <div onClick={() => callback("all")} className="category-list-item category-list-item-active">
         <h2 className="heading__secondary">All Items</h2>
       </div>
       {categoryList}

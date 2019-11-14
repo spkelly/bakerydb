@@ -61,6 +61,10 @@ module.exports = {
       console.log(products);
       event.sender.send(ipcChannels.GET_PRODUCTS_BY_CAT_SUCCESS, products);
     });
+    ipcMain.on(ipcChannels.GET_ALL_PRODUCTS, async (event) => {
+      let products = await testDB.Menu.getAllProducts();
+      event.sender.send(ipcChannels.GET_ALL_PRODUCTS_SUCCESS, products);
+    });
     ipcMain.on(ipcChannels.ADD_FLAVOR, async event => {});
     ipcMain.on(ipcChannels.REMOVE_FLAVOR, async event => {});
     ipcMain.on(ipcChannels.ADD_TOPPING, async event => {});

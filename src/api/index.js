@@ -71,4 +71,13 @@ export function addOrder(order) {
   });
 }
 
+export function getAllProducts(){
+  return new Promise((resolve, reject) => {
+    ipcRenderer.send(channels.GET_ALL_PRODUCTS);
+    ipcRenderer.once(channels.GET_ALL_PRODUCTS_SUCCESS, (event, products) => {
+      resolve(products);
+    });
+  })
+}
+
 function fetchOrders(number) {}
