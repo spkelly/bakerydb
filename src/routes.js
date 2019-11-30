@@ -7,6 +7,8 @@ import Home from "./components/Home";
 import NewOrder from './components/NewOrder';
 import EditOrder from './components/EditOrder';
 import Menu from './components/Menu';
+import ProductPage from './components/ProductPage';
+
 
 
 const routes = () => {
@@ -17,8 +19,8 @@ const routes = () => {
       <Route path="/order/:id" component={Order} />
       <Route path="/new-order" component={NewOrder} />
       <Route path="/settings" component={Settings} />
+      <Route path="/menu/:id" component={ProductPage} />
       <Route path="/menu" component={Menu} />
-      <Route path="/menu/:id" component={Menu} />
       <Route path="/" component={Home} />
     </Switch>
   );

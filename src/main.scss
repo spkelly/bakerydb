@@ -469,3 +469,17 @@ input{
   width: fit-content;
   margin: 0 auto;
 }
+
+
+.hidable-section__content{
+  opacity: 100;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .65s cubic-bezier(0,1,0,1); /* used to stop delay on reducing max-height */
+}
+
+
+.hidable-section__content-visible{
+  max-height: 200px;
+  transition:max-height .65s linear;
+}

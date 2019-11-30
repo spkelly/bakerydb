@@ -24,6 +24,18 @@ export function getOrderById(id) {
   });
 }
 
+
+export function getProductById(id) {
+  return new Promise((resolve, reject) => {
+    ipcRenderer.send(channels.GET_PRODUCT, id);
+    ipcRenderer.once(channels.GET_PRODUCT_SUCCESS, (event, product) => {
+      console.log("success", product);
+      resolve(product);
+    });
+  });
+}
+
+
 export function getCategories() {
   return new Promise((resolve, reject) => {
     ipcRenderer.send(channels.GET_CATEGORIES);

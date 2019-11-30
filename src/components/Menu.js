@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
-
+import Link from './Link'; 
 import { getCategories, getProductsByCategory, fetchMenu, getAllProducts } from "../api";
 
 let categories = [
@@ -37,6 +37,7 @@ class Menu extends Component {
 
   componentDidMount() {
     fetchMenu().then(menu =>{
+      console.log(menu)
       this.setState({
         categories: menu.categories,
         products: menu.products,
@@ -52,7 +53,7 @@ class Menu extends Component {
           <div className="temp-nav-holder">
             <Nav />
           </div>
-          <MenuCatagories
+          <MenuCategories
             categories={this.state.categories}
             callback={this.handleCategoryChange}
             isFetching={this.state.fetchingCategories}
@@ -67,7 +68,8 @@ class Menu extends Component {
   }
 }
 
-const MenuCatagories = ({ categories, callback, handleAdd, isFetching }) => {
+const MenuCategories = ({ categories, callback, handleAdd, isFetching }) => {
+  
   let fetchingSpinner = <h1>loading</h1>;
 
   let categoryList = categories.map((cat, index) => {
@@ -82,7 +84,6 @@ const MenuCatagories = ({ categories, callback, handleAdd, isFetching }) => {
     );
   });
 
-  if (isFetching) return fetchingSpinner;
   return (
     <section className="menu-categories">
       <div onClick={() => callback("all")} className="category-list-item category-list-item-active">
@@ -108,9 +109,11 @@ const MenuFilterBar = () => {
 };
 
 const MenuItemsContainer = ({ items }) => {
+  console.log(items);
   if(!items) items = [];
   let itemList = items.map((item, index) => {
-    return <MenuItem key={index} itemInfo={item} />;
+    let menuComponent = <MenuItem key={index} itemInfo={item} />
+    return <Link key={index} buttonComponent={menuComponent} path={'/menu/'  + item._id}/>
   });
 
   return <div className="menu-items">{itemList}</div>;

@@ -53,10 +53,14 @@ module.exports = function(dbInstance) {
   function getProductsByCategory(categoryId) {
     console.log("category id: ", categoryId);
     dbInstance;
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       productCollection
-        .find({ categoryId: ObjectID(categoryId) })
+        .aggregate([
+          { $match: { categoryId:ObjectID(categoryId) } },
+          { $project: { _id: { $toString: "$_id" }, name:1} }]
+        )
         .toArray((err, result) => {
+          if(err) console.log('an error has occured', err)
           resolve(result);
         });
     });
