@@ -18,21 +18,19 @@ class HidableSection extends Component {
   render() {
     let { isVisible } = this.state;
     let { title, children } = this.props;
-    let childClasses = ['hidable-section__content'];
-    
-    if(isVisible){
-      childClasses.push('hidable-section__content-visible')
+    let childClasses = ["hidable-section__content", "u_flex-row"];
+
+    if (isVisible) {
+      childClasses.push("hidable-section__content-visible");
     }
     return (
-      <div className="hidable-section" onClick={this.toggleVisiblilty}>
-        <div className="hidable-section__header">
-          <h2>{title} </h2>
+      <div className="hidable-section" >
+        <div className="hidable-section__header" onClick={this.toggleVisiblilty}>
+          <h2>
+            {title} <span>{isVisible ? "-" : "+"}</span>{" "}
+          </h2>
         </div>
-        <div
-          className={childClasses.join(' ')}
-        >
-          <div>{children}</div>
-        </div>
+        <div className={childClasses.join(" ")}>{children}</div>
       </div>
     );
   }

@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+@keyframes fade{
+  0%{
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+
+  100%{
+    transform: translateY(0);
+    opacity: 100;
+  }
+}
+
+
+*{
+  font-family: 'Roboto'
+}
+
+
+
 body{
   margin:0;
   padding: 0;
@@ -475,11 +496,57 @@ input{
   opacity: 100;
   overflow: hidden;
   max-height: 0;
-  transition: max-height .65s cubic-bezier(0,1,0,1); /* used to stop delay on reducing max-height */
+  transition: max-height .25s cubic-bezier(0,1,0,1); /* used to stop delay on reducing max-height */
 }
 
 
 .hidable-section__content-visible{
   max-height: 200px;
-  transition:max-height .65s linear;
+  transition:max-height .25s linear;
 }
+
+
+.list__item{
+  margin: 10px 8px;
+  border: 2px solid black;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.u_flex-row{
+  display:flex;
+}
+
+
+.modal__background{
+  position: absolute;
+  display: flex;
+
+  justify-content: center;
+  top:0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.75);
+
+}
+
+.hidden{
+  display: none;
+}
+
+.modal__wrapper{
+  animation: fade .15s ease-in .15s 1 forwards;
+  opacity: 0;
+  border-radius: 8px;
+  margin-top:200px;
+  height: fit-content;
+  padding: 12px;
+  background-color: white;
+}
+
+.modal__buttons{
+
+}
+
+
