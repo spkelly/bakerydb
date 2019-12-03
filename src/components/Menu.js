@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
-import Link from './Link'; 
-import { getCategories, getProductsByCategory, fetchMenu, getAllProducts } from "../api";
-
-let categories = [
-  "Cakes",
-  "Bite Sized",
-  "Cookies",
-  "Cupcakes",
-  "Chocolates",
-  "Everyday Desserts"
-];
-let menuItems = [{}, {}, {}, {}, {}, {}, {}, {}];
-
-
+import Link from "./Link";
+import {
+  getProductsByCategory,
+  fetchMenu,
+  getAllProducts
+} from "../api";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 class Menu extends Component {
   constructor(props) {
@@ -29,21 +22,24 @@ class Menu extends Component {
   }
 
   handleCategoryChange(category) {
-    const addProductsToState = products => this.setState({products})
-    category == "all"?
-      getAllProducts().then(addProductsToState):
-      getProductsByCategory(category).then(addProductsToState)
+    this.setState({ products: [] }, () => {
+      console.log(this.state);
+      const addProductsToState = products => this.setState({ products });
+      category == "all"
+        ? getAllProducts().then(addProductsToState)
+        : getProductsByCategory(category).then(addProductsToState);
+    });
   }
 
   componentDidMount() {
-    fetchMenu().then(menu =>{
-      console.log(menu)
+    fetchMenu().then(menu => {
+      console.log(menu);
       this.setState({
         categories: menu.categories,
         products: menu.products,
         fetchingCategories: false
       });
-    })
+    });
   }
 
   render() {
@@ -69,7 +65,7 @@ class Menu extends Component {
 }
 
 const MenuCategories = ({ categories, callback, handleAdd, isFetching }) => {
-  
+  // TODO: Change into svg spinner animation
   let fetchingSpinner = <h1>loading</h1>;
 
   let categoryList = categories.map((cat, index) => {
@@ -86,7 +82,10 @@ const MenuCategories = ({ categories, callback, handleAdd, isFetching }) => {
 
   return (
     <section className="menu-categories">
-      <div onClick={() => callback("all")} className="category-list-item category-list-item-active">
+      <div
+        onClick={() => callback("all")}
+        className="category-list-item category-list-item-active"
+      >
         <h2 className="heading__secondary">All Items</h2>
       </div>
       {categoryList}
@@ -110,19 +109,33 @@ const MenuFilterBar = () => {
 
 const MenuItemsContainer = ({ items }) => {
   console.log(items);
-  if(!items) items = [];
+  if (!items) items = [];
   let itemList = items.map((item, index) => {
-    let menuComponent = <MenuItem key={index} itemInfo={item} />
-    return <Link key={index} buttonComponent={menuComponent} path={'/menu/'  + item._id}/>
+    let menuComponent = <MenuItem itemInfo={item} />;
+    return (
+      <CSSTransition key={index} classNames="product" timeout={10}>
+        <Link
+          key={index}
+          buttonComponent={menuComponent}
+          path={"/menu/" + item._id}
+        />
+      </CSSTransition>
+    );
   });
 
-  return <div className="menu-items">{itemList}</div>;
+  return (
+    <div className="menu-items">
+      <TransitionGroup component={null}>{itemList}</TransitionGroup>
+    </div>
+  );
 };
 
 const MenuItem = ({ itemInfo }) => {
-  return <div className="menu__item">
-    <p className="paragraph">{itemInfo.name}</p>
-  </div>;
+  return (
+    <div className="menu__item">
+      <p className="paragraph">{itemInfo.name}</p>
+    </div>
+  );
 };
 
 export default Menu;

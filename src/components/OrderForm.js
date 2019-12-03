@@ -3,11 +3,13 @@ import Nav from "./Nav";
 import FormInput from './FormInput';
 import moment from 'moment';
 import {formatDateTime} from '../helpers';
+import MenuSelectionPane from "./MenuSelectionPane";
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        menuVisable: true,
         customer: {
           name: "",
           address: "",
@@ -22,13 +24,26 @@ class OrderForm extends Component {
 
     };
 
-    this.addToOrder = this.addToOrder.bind(this)
+    this.addMenuItem = this.addMenuItem.bind(this);
+    this.addCustomItem = this.addCustomItem.bind(this)
     this.removeFromOrder = this.removeFromOrder.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDate = this.getDate.bind(this);
     this.toggleTax = this.toggleTax.bind(this);
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
+  }
+
+
+  addMenuItem(){
+
+  }
+
+
+  addCustomItem(e){
+    let currentItems = this.state.items;
+    currentItems.push({name:'',quantity:'',price:0.00,notes:''})
+    this.setState({items:currentItems});
   }
 
   addToOrder(e) {
@@ -59,7 +74,6 @@ class OrderForm extends Component {
     let value = e.target.value
     let itemsCopy = this.state.items;
     itemsCopy[index][attribute] = value;
-
     this.setState({items:itemsCopy});
   }
 
@@ -108,7 +122,11 @@ class OrderForm extends Component {
             <div className="order-form__orders">
               <h2>Order</h2>
               {items}
-              <button className="btn"  onClick={this.addToOrder}>Add to order</button>
+              {this.state.menuVisable && <MenuSelectionPane />}
+              <div className="flex">
+                <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
+                <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>
+              </div>
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { getProductById } from "../api";
-import HidableSection from './HidableSection';
-import Modal from './Modal';
-
+import HidableSection from "./HidableSection";
+import Modal from "./Modal";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -28,23 +27,24 @@ class ProductPage extends Component {
     });
   }
 
-
-  renderSection(list, title){
-    return(
+  renderSection(list, title) {
+    return (
       <HidableSection title={title}>
-        {
-          list.map((listItem, index)=>{
-            return <div className="list__item" key={index}>{listItem}</div>
-          })
-        }
-      </ HidableSection >
-    )
+        {list.map((listItem, index) => {
+          return (
+            <div className="list__item" key={index}>
+              {listItem}
+            </div>
+          );
+        })}
+      </HidableSection>
+    );
   }
 
   render() {
     let { product } = this.state;
-    let flavorSection = this.renderSection(product.flavors, 'Flavors');
-    let toppingSection = this.renderSection(product.toppings, 'Toppings');
+    let flavorSection = this.renderSection(product.flavors, "Flavors");
+    let toppingSection = this.renderSection(product.toppings, "Toppings");
     return (
       <div>
         <h1>{product.name}</h1>

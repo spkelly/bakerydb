@@ -28,6 +28,14 @@ const commonConfig = {
         use: ["babel-loader"]
       },
       {
+        test:/\.css$/i,
+        exclude: /node_modules/,
+        use: [
+          "style-loader",
+          "css-loader",
+        ]
+      },
+      {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
@@ -37,6 +45,7 @@ const commonConfig = {
           "sass-loader"
         ]
       },
+
       {
         test: /\.(jpg|png|svg)$/,
         use: {

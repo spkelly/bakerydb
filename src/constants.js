@@ -1,5 +1,5 @@
 module.exports = {
-  GET_ORDER: "get-order",
+GET_ORDER: "get-order",
   GET_ORDER_SUCCESS: 'get-order-success',
   GET_ORDER_ERROR: 'get-order-error',
   ADD_ORDER: "add-order",

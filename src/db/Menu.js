@@ -29,7 +29,7 @@ module.exports = function(dbInstance) {
 
   function getAllProducts() {
     return new Promise(async (resolve, reject) => {
-      let allProducts = await productCollection.find({}, { _id: 0 }).toArray();
+      let allProducts = await productCollection.find({}).toArray();
       resolve(allProducts);
     });
   }
@@ -57,7 +57,7 @@ module.exports = function(dbInstance) {
       productCollection
         .aggregate([
           { $match: { categoryId:ObjectID(categoryId) } },
-          { $project: { _id: { $toString: "$_id" }, name:1} }]
+          { $project: { _id: { $toString: "$_id" }, name:1, flavors:1, toppings:1} }]
         )
         .toArray((err, result) => {
           if(err) console.log('an error has occured', err)
