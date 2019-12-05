@@ -1,6 +1,6 @@
 import React from 'react';
 import {ipcRenderer} from 'electron';
-import channels from '../constants';
+import channels from '../../Shared/constants';
 
 const testOrder = {
   orderDate: new Date(),

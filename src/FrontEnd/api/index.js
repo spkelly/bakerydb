@@ -1,5 +1,5 @@
 import { ipcRenderer, ipcMain } from "electron";
-import channels from "../constants";
+import channels from "../../Shared/constants";
 import { rejects } from "assert";
 
 export function queryOrders(term) {

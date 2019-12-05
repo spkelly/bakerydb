@@ -7,13 +7,13 @@ const path = require("path");
 ("dir", __dirname);
 
 const htmlPlugin = new HTMLWebPackPlugin({
-  template: "./src/index.html",
+  template: "./src/Frontend/index.html",
   filename: "index.html",
   title: "Legitrack"
 });
 
 const commonConfig = {
-  entry: ["./src/index.js"],
+  entry: ["./src/Frontend/index.js"],
   node: { fs: "empty" },
 
   module: {

@@ -1,8 +1,7 @@
 const { BrowserWindow, app, ipcMain } = require("electron");
-const ipcChannels = require("./src/constants");
-const db = require("./src/db");
-const database = require("./src/db/testdb");
-const ipc = require('./src/ipc/main')
+const db = require("./db");
+const database = require("./db/testdb");
+const ipc = require('./ipc/main')
 console.log("starting in ", process.env.NODE_ENV, " mode");
 
 let dbObject = db.setup();

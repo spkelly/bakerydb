@@ -1,5 +1,5 @@
 const { ipcMain } = require("electron");
-const ipcChannels = require("../constants");
+const ipcChannels = require("../../Shared/constants");
 const logAttr = require("../utils/logger").logAttr;
 
 module.exports = {

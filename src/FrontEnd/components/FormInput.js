@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalizeFirstLetter } from "../helpers";
+import { capitalizeFirstLetter } from "../../Shared/helpers/";
 
 const FormInput = props => {
   let { type, handleChange, value, label, checked, attr } = props;
