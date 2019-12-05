@@ -23,7 +23,7 @@ class OrderForm extends Component {
 
     };
 
-    this.addMenuItem = this.addMenuItem.bind(this);
+    this.handleAddFromMenu = this.handleAddFromMenu.bind(this);
     this.addCustomItem = this.addCustomItem.bind(this)
     this.removeFromOrder = this.removeFromOrder.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -34,9 +34,16 @@ class OrderForm extends Component {
   }
 
 
-  addMenuItem(){
+  
+  handleAddFromMenu(item){
+    console.log("the Item I am adding to menu is ", item);
+    console.log(this.state);
+    let currentItems = this.state.items;
 
+    currentItems.push(item);
+    this.setState({items:currentItems});
   }
+
 
 
   addCustomItem(e){
@@ -120,7 +127,7 @@ class OrderForm extends Component {
             <div className="order-form__orders">
               <h2>Order</h2>
               {items}
-              {this.state.menuVisable && <MenuSelectionPane />}
+              {this.state.menuVisable && <MenuSelectionPane  onAdd={this.handleAddFromMenu}/>}
               <div className="flex">
                 <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
                 <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>

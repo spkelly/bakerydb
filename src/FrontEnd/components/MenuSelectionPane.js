@@ -3,6 +3,16 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { fetchMenu, getProductsByCategory } from "../api";
 
+function formatExtrasToNotes(item, ...fields){
+  let result = '';
+  console.log("the item", item)
+  for(let field of fields){
+    result += `${field}: ${item[field]} \n`
+  }
+  return result;
+}
+
+
 class MenuSelectionPane extends Component {
   constructor(props) {
     super(props);
@@ -20,9 +30,23 @@ class MenuSelectionPane extends Component {
     };
 
     this.renderCategoryList = this.renderCategoryList.bind(this);
+    this.handleAccept = this.handleAccept.bind(this);
   }
 
-  onAccept() {}
+  handleAccept() {
+    console.log("perparing to add to order");
+    console.log("the current state is ");
+    // check to make sure all feilds are complete
+    // convert toppings and flavors in to a note-like format
+    // call callback passed to this from menu
+
+    let item = {
+      name : this.state.selectedItem.name,
+      price: this.state.selectedItem.price,
+      notes: formatExtrasToNotes(this.state.selectedItem,'flavors','toppings')
+    }
+    this.props.onAdd(item);
+  }
 
   onCancel() {
     this.setState({ currentItem: {}, isVisible: false, itemComplete: false });
@@ -116,7 +140,7 @@ class MenuSelectionPane extends Component {
             ""
           )}
           <div className="modal__buttons">
-            {itemComplete ? <button>Add To Order</button> : ""}
+            <button onClick={this.handleAccept}>Add to Order</button>
           </div>
         </div>
       </div>

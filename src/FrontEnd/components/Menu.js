@@ -21,6 +21,8 @@ class Menu extends Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
   }
 
+
+
   handleCategoryChange(category) {
     this.setState({ products: [] }, () => {
       console.log(this.state);
