@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
 import FormInput from './FormInput';
 import moment from 'moment';
 import {formatDateTime} from '../helpers';
@@ -101,7 +100,6 @@ class OrderForm extends Component {
     });
     return (
       <div>
-        <Nav />
         <div className="order-form__container">
           <div className="order-form__left">
             <div className="order-form__header">

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+
 import { queryOrders } from "../api";
 import { withRouter } from "react-router-dom";
 
@@ -72,7 +72,6 @@ class Search extends Component {
     const { isFetching, searchResults } = this.state;
     return (
       <div>
-        <Nav />
         <div className="search__input">
           <input className="input" onInput={this.handleInput} />
           <button className="btn" onClick={this.handleClick}>

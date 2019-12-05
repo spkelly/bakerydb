@@ -2,8 +2,6 @@ import React from 'react';
 import {ipcRenderer} from 'electron';
 import channels from '../constants';
 
-import Nav from './Nav';
-
 const testOrder = {
   orderDate: new Date(),
   customer: {
@@ -34,7 +32,6 @@ const Settings = (props) =>{
   }
   return(
     <div>
-      <Nav />
       test buttons
       <button onClick={()=>{sendIPCMessage(channels.QUERY_ORDERS)}}>Search Test</button>
       <button onClick={()=>{sendIPCMessage(channels.GET_ORDER)}}>Get Order Test</button>

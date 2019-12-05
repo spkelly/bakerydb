@@ -71,18 +71,15 @@ class MenuSelectionPane extends Component {
       this.setState({ categories: menu.categories });
     });
   }
-
-  handleVarientSelect(name) {
-    console.log(name);
-  }
-
   render() {
-    console.log(this.state);
-    let { itemComplete, selectedCategory, selectedItem } = this.state;
+    let {
+      itemComplete,
+      selectedCategory,
+      selectedTopping,
+      selectedFlavor,
+      selectedItem
+    } = this.state;
     let noItems = this.state.items.lenth == 0;
-    if (selectedItem != {}) {
-      console.log(selectedItem);
-    }
     return (
       <div>
         <div className="menu__pane">
@@ -105,14 +102,14 @@ class MenuSelectionPane extends Component {
                   this.setState({ selectedFlavor: varient })
                 }
                 varients={selectedItem.flavors}
-                varientName={this.state.selectedFlavor || "Select a Flavor"}
+                varientName={selectedFlavor || "Select a Flavor"}
               />
               <VarientSelector
                 handleSelect={varient =>
                   this.setState({ selectedTopping: varient })
                 }
                 varients={selectedItem.toppings}
-                varientName={this.state.selectedTopping || "Select a Topping"}
+                varientName={selectedTopping || "Select a Topping"}
               />
             </div>
           ) : (

@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 let NavButton = ({loc, image, history, content}) => {
   function navigate(){
     if(loc== 'back'){
+
       history.goBack();
     }
     else{
@@ -13,6 +14,7 @@ let NavButton = ({loc, image, history, content}) => {
       history.push(loc)
     }
   }
+  if(window.location.pathname == "/") return <div />
 
   return (<div onClick={navigate} className="navigation__button" >
     <p className='paragraph'>{content}</p>

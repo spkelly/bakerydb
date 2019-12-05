@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+
 import Link from "./Link";
 import {
   getProductsByCategory,
@@ -46,9 +46,6 @@ class Menu extends Component {
     return (
       <div className="menu">
         <div className="menu__sidebar">
-          <div className="temp-nav-holder">
-            <Nav />
-          </div>
           <MenuCategories
             categories={this.state.categories}
             callback={this.handleCategoryChange}
