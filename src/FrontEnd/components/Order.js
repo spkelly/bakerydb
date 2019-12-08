@@ -26,10 +26,7 @@ class Order extends Component {
     getOrderById(window.location.pathname.split("/")[2]).then(order => {
       this.setState(order, () => {
         console.log(this.state);
-      }).catch(e => {
-        console.log('An error has occured');
-        console.log(e);
-      });
+      })
     });
   }
 
@@ -46,11 +43,14 @@ class Order extends Component {
       .reduce((acc, order) => acc + order.price * order.quantity, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
+    
     let test = orders[0]? orders[0].notes.split("\n"):[];
     console.log("test test", test);
     let total =
       parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
-
+    console.log(parseFloat(deliveryCharge), parseFloat(tax));
+    console.log(total);
+    console.log('the state', this.state);
     return (
       <div>
         <div className="order__header">
@@ -101,7 +101,7 @@ class Order extends Component {
                 <p>Total:</p>
               </div>
               <div>
-                {isTaxed ? <p>{tax}</p> : ""}
+                <p>{parseFloat(tax).toFixed(2)}</p>
                 <p>{parseFloat(deliveryCharge).toFixed(2)}</p>
                 <p>{total.toFixed(2)}</p>
               </div>

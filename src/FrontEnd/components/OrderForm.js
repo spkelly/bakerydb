@@ -8,7 +8,7 @@ class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        menuVisable: true,
+        menuVisable: false,
         customer: {
           name: "",
           address: "",
@@ -41,7 +41,7 @@ class OrderForm extends Component {
     let currentItems = this.state.items;
 
     currentItems.push(item);
-    this.setState({items:currentItems});
+    this.setState({items:currentItems, menuVisable: false});
   }
 
 
