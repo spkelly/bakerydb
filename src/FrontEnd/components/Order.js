@@ -46,14 +46,13 @@ class Order extends Component {
       .reduce((acc, order) => acc + order.price * order.quantity, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
-    console.log("types", typeof deliveryCharge, typeof tax, typeof subTotal);
-    console.log(parseInt(deliveryCharge).toFixed(2));
+    let test = orders[0]? orders[0].notes.split("\n"):[];
+    console.log("test test", test);
     let total =
       parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
-    console.log(typeof parseFloat(deliveryCharge));
+
     return (
       <div>
-        <Nav />
         <div className="order__header">
           <h1>{customer.name}</h1>
           <button onClick={e => this.handleClick(editPath)}>Edit </button>
@@ -72,6 +71,8 @@ class Order extends Component {
             <InfoBox header="Order">
               <div className="order-list__container">
                 {orders.map((order, index) => {
+                  let orderNotes = order.notes.split("\n");
+
                   return (
                     <div className="item" key={index}>
                       <div className="item__info-line">

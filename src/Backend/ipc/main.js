@@ -11,14 +11,14 @@ module.exports = {
     });
 
     ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
-      let testOrder = new dbObject.orderModel(order);
-      await testOrder.save().catch(e => {
+      
+      let testOrder = await testDB.Orders.addOrder(order).catch(e => {
         console.log(e);
       });
-
+      console.log("completed: ",testOrder.ops._id);
       event.sender.send(
         ipcChannels.ADD_ORDER_SUCCESS,
-        testOrder._id.toString()
+        testOrder.insertedId.toString()
       );
     });
 

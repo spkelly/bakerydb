@@ -3,15 +3,14 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { fetchMenu, getProductsByCategory } from "../api";
 
-function formatExtrasToNotes(item, ...fields){
-  let result = '';
-  console.log("the item", item)
-  for(let field of fields){
-    result += `${field}: ${item[field]} \n`
+function formatExtrasToNotes(item, ...fields) {
+  let result = "";
+  console.log("the item", item);
+  for (let field of fields) {
+    result += `${field}: ${item[field]} \n`;
   }
   return result;
 }
-
 
 class MenuSelectionPane extends Component {
   constructor(props) {
@@ -21,12 +20,14 @@ class MenuSelectionPane extends Component {
       isVisible: false,
       itemComplete: false,
       selectedCategory: "",
-      selectedTopping: "",
-      selectedFlavor: "",
       selectedItem: "",
       categories: [],
       items: [],
-      currentItem: {}
+      currentItem: {},
+      extras: {
+        flavor: "",
+        topping: ""
+      }
     };
 
     this.renderCategoryList = this.renderCategoryList.bind(this);
@@ -34,17 +35,17 @@ class MenuSelectionPane extends Component {
   }
 
   handleAccept() {
-    console.log("perparing to add to order");
-    console.log("the current state is ");
+    console.log("hello world");
+    console.log(this.state);
     // check to make sure all feilds are complete
     // convert toppings and flavors in to a note-like format
     // call callback passed to this from menu
 
     let item = {
-      name : this.state.selectedItem.name,
+      name: this.state.selectedItem.name,
       price: this.state.selectedItem.price,
-      notes: formatExtrasToNotes(this.state.selectedItem,'flavors','toppings')
-    }
+      notes: formatExtrasToNotes(this.state.extras, "flavor", "topping")
+    };
     this.props.onAdd(item);
   }
 
@@ -123,14 +124,22 @@ class MenuSelectionPane extends Component {
             <div>
               <VarientSelector
                 handleSelect={varient =>
-                  this.setState({ selectedFlavor: varient })
+                  this.setState({
+                    extras: Object.assign({}, this.state.extras, {
+                      flavor: varient
+                    })
+                  })
                 }
                 varients={selectedItem.flavors}
                 varientName={selectedFlavor || "Select a Flavor"}
               />
               <VarientSelector
                 handleSelect={varient =>
-                  this.setState({ selectedTopping: varient })
+                  this.setState({
+                    extras: Object.assign({}, this.state.extras, {
+                      topping: varient
+                    })
+                  })
                 }
                 varients={selectedItem.toppings}
                 varientName={selectedTopping || "Select a Topping"}

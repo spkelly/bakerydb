@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "electron": "^6.0.10",
+    "json2csv": "^4.5.4",
     "moment": "^2.24.0",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.3",

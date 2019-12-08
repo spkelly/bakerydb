@@ -7,6 +7,8 @@ console.log("starting in ", process.env.NODE_ENV, " mode");
 let dbObject = db.setup();
 let testDB;
 
+console.log(dbObject);
+
 database()
   .then(result => {
     testDB = result;
