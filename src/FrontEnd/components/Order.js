@@ -16,7 +16,8 @@ class Order extends Component {
       orders: [],
       deliveryCharge: 0,
       isTaxed: false,
-      orderDate: new Date(0)
+      orderDate: new Date(0),
+      error: ""
     };
   }
 
@@ -25,6 +26,9 @@ class Order extends Component {
     getOrderById(window.location.pathname.split("/")[2]).then(order => {
       this.setState(order, () => {
         console.log(this.state);
+      }).catch(e => {
+        console.log('An error has occured');
+        console.log(e);
       });
     });
   }
@@ -45,10 +49,8 @@ class Order extends Component {
     console.log("types", typeof deliveryCharge, typeof tax, typeof subTotal);
     console.log(parseInt(deliveryCharge).toFixed(2));
     let total =
-      parseFloat(deliveryCharge) +
-      parseFloat(tax) +
-      parseFloat(subTotal);
-    console.log(typeof(parseFloat(deliveryCharge)))
+      parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
+    console.log(typeof parseFloat(deliveryCharge));
     return (
       <div>
         <Nav />
@@ -98,7 +100,7 @@ class Order extends Component {
                 <p>Total:</p>
               </div>
               <div>
-                {isTaxed?<p>{tax}</p>:''}
+                {isTaxed ? <p>{tax}</p> : ""}
                 <p>{parseFloat(deliveryCharge).toFixed(2)}</p>
                 <p>{total.toFixed(2)}</p>
               </div>

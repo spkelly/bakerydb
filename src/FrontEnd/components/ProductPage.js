@@ -14,7 +14,8 @@ class ProductPage extends Component {
         toppings: [],
         flavors: [],
         categoryId: null
-      }
+      },
+      error:''
     };
   }
 
@@ -24,7 +25,9 @@ class ProductPage extends Component {
     getProductById(id).then(product => {
       console.log(product);
       this.setState({ product });
-    });
+    }).catch(e=>{
+      console.log('an error has occurred')
+    })
   }
 
   renderSection(list, title) {
