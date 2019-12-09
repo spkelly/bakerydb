@@ -26,7 +26,7 @@ class MenuSelectionPane extends Component {
       modifiers: {
         flavor: "",
         topping: "",
-        servingSize: 1,
+        servingSize: 20,
         quantity: 1
       }
     };

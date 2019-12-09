@@ -49,25 +49,20 @@ class Order extends Component {
       .reduce((acc, order) =>{
         if(!order.servingSize){
           console.log('passed if')
-          return acc + order.price * order.quantity
+          return acc + parseFloat(order.price) * order.quantity
         }
         else{
           console.log('failed if')
-          return acc + (order.price * order.servingSize) * order.quantity
+          return acc + (parseFloat(order.price) * order.servingSize) * order.quantity
         }
         
       }, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
-    console.table({total:total,subTotal:subTotal})
-    console.log(orders)
     let test = orders[0]? orders[0].notes.split("\n"):[];
-    console.log("test test", test);
     let total =
       parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
-    console.log(parseFloat(deliveryCharge), parseFloat(tax));
-    console.log(total);
-    console.log('the state', this.state);
+
     return (
       <div>
         <div className="order__header">
@@ -102,8 +97,8 @@ class Order extends Component {
                           <div className="item__price">
                             {
                               order.servingSize?
-                                (parseInt(order.price) * parseInt(order.servingSize)).toFixed(2):
-                                parseInt(order.price).toFixed(2)
+                                (parseFloat(order.price) * parseFloat(order.servingSize)).toFixed(2):
+                                parseFloat(order.price).toFixed(2)
                                 
                             }
                           </div>

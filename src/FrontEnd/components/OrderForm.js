@@ -183,7 +183,7 @@ class OrderForm extends Component {
 const OrderFormItem = ({item, handleChange, handleRemove,index})=>{
   let total;
   if(item.servingSize){
-    total = parseInt(item.quantity) * (parseInt(item.servingSize) * parseInt(item.price))
+    total = parseFloat(item.quantity) * (parseInt(item.servingSize) * parseFloat(item.price))
   }
   else{
     total = item.quantity * item.price;
@@ -226,10 +226,10 @@ const OrderFormItem = ({item, handleChange, handleRemove,index})=>{
           :''
         }
         <div className="flex-col">
-          <input className="order-form__item-number" name="price" type="number" value={parseInt(item.price).toFixed(2)} onChange={e=>handleChange(e,index)}/>
+          <input className="order-form__item-number" name="price" type="number" value={parseFloat(item.price).toFixed(2)} onChange={e=>handleChange(e,index)}/>
         </div>
         <div className="flex-col">
-          <input readOnly className="order-form__item-number" name="price" type="number" value={parseInt(total).toFixed(2)}/>
+          <input readOnly className="order-form__item-number" name="price" type="number" value={parseFloat(total).toFixed(2)}/>
         </div>
       </div>
       <div className="order-form__item-notes">
