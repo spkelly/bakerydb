@@ -4,17 +4,17 @@ function createItemsForCategory(category) {
   return [
     {
       name: "Simple Cake Pops",
-      flavors: [],
-      toppings: [],
-      price: 1.75,
+      flavors: ['chocolate', 'white', 'yellow', 'lemon', 'red'],
+      toppings: ['sprinkles'],
+      price: 2.00,
       modifiers: [],
       categoryId: category
     },
     {
       name: "Complex Cake Pops",
-      flavors: [],
-      toppings: [],
-      price: 1.75,
+      flavors: ['chocolate', 'white', 'yellow', 'lemon', 'red'],
+      toppings: ['sprinkles'],
+      price: 2.50,
       modifiers: [],
       categoryId: category
     },
@@ -33,9 +33,9 @@ let makeCakes = (categoryId)=>{
   return([
   {
     name: "Display Cake",
-    flavors: ["Lemon", "Vanilla", "Chocolate"],
-    toppings: ['Buttercream', 'Chocolate'],
-    price: 1.75,
+    flavors: ["White","Marble",'Carrot','Apple','Pumpkin',"Lemon", "Vanilla", "Chocolate"],
+    toppings: ['Buttercream Icing', 'Chocolate Buttercream', "Whipped Cream", "Peanut Butter"],
+    price: 2.50,
     modifiers: [{name:"", basePrice:2.50,modificationAmount:0}],
     categoryId: categoryId
   },
@@ -43,7 +43,7 @@ let makeCakes = (categoryId)=>{
     name: "Sheet Cake",
     flavors: ["Lemon", "Vanilla", "Chocolate"],
     toppings: ['Buttercream', 'Chocolate'],
-    price: 1.75,
+    price: 2.50,
     modifiers: [{name:"", basePrice:2.50,modificationAmount:0}],
     categoryId: categoryId
   }
