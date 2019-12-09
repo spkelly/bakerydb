@@ -49,16 +49,11 @@ class ProductPage extends Component {
     let flavorSection = this.renderSection(product.flavors, "Flavors");
     let toppingSection = this.renderSection(product.toppings, "Toppings");
     return (
-      <div>
-        <h1>{product.name}</h1>
-        <h1>{product.price}</h1>
+      <div className="product">
+        <h1 className="heading__primary">{product.name}</h1>
+        <p>{product.price}</p>
         {flavorSection}
         {toppingSection}
-        <Modal>
-          <div className="test__modal">
-            <h1>Hello World</h1>
-          </div>
-        </Modal>
       </div>
     );
   }

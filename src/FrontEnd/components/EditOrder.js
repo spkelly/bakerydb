@@ -10,7 +10,7 @@ class EditOrder extends OrderForm {
   componentDidMount() {
     let orderId = window.location.pathname.split("/")[3];
     getOrderById(orderId).then(
-      ({ customer, isTaxed, deliveryCharge, orderDate, orders, _id }) => {
+      ({ customer, isTaxed, deliveryCharge, orderDate, orders, _id, notes }) => {
         deliveryCharge = parseFloat(deliveryCharge);
         this.setState({
           customer: {
@@ -20,6 +20,7 @@ class EditOrder extends OrderForm {
             ...customer
           },
           items: orders,
+          notes:notes,
           _id: _id
         });
       }

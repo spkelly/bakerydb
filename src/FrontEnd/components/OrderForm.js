@@ -4,12 +4,15 @@ import moment from 'moment';
 import {formatDateTime} from '../../Shared/helpers';
 import {CSSTransition} from 'react-transition-group';
 import MenuSelectionPane from "./MenuSelectionPane";
+import Placeholder from './Placeholder';
+import { placeholder } from "@babel/types";
+
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        menuVisable:true,
+        menuVisable:false,
         customer: {
           name: "",
           address: "",
@@ -21,6 +24,7 @@ class OrderForm extends Component {
         },
         items: [
         ],
+        notes:''
 
     };
 
@@ -32,6 +36,8 @@ class OrderForm extends Component {
     this.getDate = this.getDate.bind(this);
     this.toggleTax = this.toggleTax.bind(this);
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
+    this.handleUpdateNotes = this.handleUpdateNotes.bind(this);
+    this.handlePaymentSelect = this.handlePaymentSelect.bind(this);
   }
 
 
@@ -41,7 +47,7 @@ class OrderForm extends Component {
     console.log(this.state);
     let currentItems = this.state.items;
 
-    currentItems.push(item);
+    currentItems.unshift(item);
     this.setState({items:currentItems, menuVisable: false});
   }
 
@@ -49,7 +55,7 @@ class OrderForm extends Component {
 
   addCustomItem(e){
     let currentItems = this.state.items;
-    currentItems.push({name:'',quantity:'',price:0.00,notes:''})
+    currentItems.unshift({name:'',quantity:'',price:0.00,notes:''})
     this.setState({items:currentItems});
   }
 
@@ -84,12 +90,25 @@ class OrderForm extends Component {
     this.setState({items:itemsCopy});
   }
 
+  handleUpdateNotes(e){
+    let notes = e.target.value;
+    this.setState({notes:notes});
+  }
+
   submitForm(){
 
   }
 
   toggleTax(e){
     this.setState({customer:{...this.state.customer,isTaxed:e.target.checked}})
+  }
+
+  handlePaymentSelect(e){
+    let currentPaymentType = this.state.paymentType;
+    let newPaymentType = e.target.value;
+    if(newPaymentType != currentPaymentType){
+      this.setState({paymentType: newPaymentType},_=>console.log(this.state));
+    }
   }
 
   render() {
@@ -110,7 +129,7 @@ class OrderForm extends Component {
         <div className="order-form__container">
           <div className="order-form__left">
             <div className="order-form__header">
-              <h2>Customer Info</h2>
+              <h2 className="heading__secondary">Customer Info</h2>
             </div>
             <form>
               <FormInput handleChange={handleChange} label="name" attr="name" value={name} type="text"/>
@@ -120,19 +139,39 @@ class OrderForm extends Component {
               <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
               <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
               <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
+              <label>Payment Type </label>
+              <select onChange={this.handlePaymentSelect} value={this.state.paymentType}>
+                <option value="Venmo">Venmo</option>
+                <option value="Cash">Cash</option>
+                <option value="Check">Check</option>
+                <option value="Credit">Credit</option>
+              </select>            
             </form>
             <button className="btn" onClick={this.submitForm}>Save Order</button>
           </div>
           <div className="order-form__right">
-            <div className="order-form__orders">
-              <h2 className="heading__secondary">Order</h2>
-              {items}
-              {this.state.menuVisable && <CSSTransition classNames="my-node" timeout={10000}><MenuSelectionPane  onAdd={this.handleAddFromMenu}/></CSSTransition>}
+            <div className="note__holder">
+              <div>
+              <label>Notes</label>
+              </div>
+              <textarea value={this.state.notes} onChange={this.handleUpdateNotes}></textarea>
+            </div>
+            <h2 className="heading__secondary">Order</h2>
+            {this.state.menuVisable && <MenuSelectionPane  onAdd={this.handleAddFromMenu}/>}
               <div className="flex-row">
                 <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
                 <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>
               </div>
+            <div className="order-form__orders">
+              {
+                items.length == 0?
+                <Placeholder text="no items" height={242} />:
+                items
+              }
+              
+              
             </div>
+            
           </div>
         </div>
     );
@@ -141,7 +180,14 @@ class OrderForm extends Component {
 
 
 
-const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
+const OrderFormItem = ({item, handleChange, handleRemove,index})=>{
+  let total;
+  if(item.servingSize){
+    total = parseInt(item.quantity) * (parseInt(item.servingSize) * parseInt(item.price))
+  }
+  else{
+    total = item.quantity * item.price;
+  }
   return(
     <div className="order-form__item">
       <div className="flex">
@@ -152,8 +198,16 @@ const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
         <div className="flex-col">
           <label>Qty</label> 
         </div>
+        {item.servingSize?        
+          <div className="flex-col">
+            <label>Serving Size</label>
+          </div>
+        :''}
         <div className="flex-col">
-          <label>Price</label>
+          <label>Unit Price</label>
+        </div>
+        <div className="flex-col">
+          <label>Total</label>
         </div>
         
       </div>
@@ -164,12 +218,22 @@ const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
         <div className="flex-col">
           <input className="order-form__item-number" name="quantity" type="number" value={item.quantity} onChange={e=>handleChange(e,index)}/>
         </div>
+        {
+          item.servingSize?        
+            <div className="flex-col">
+              <input readOnly className="order-form__item-number" name="price" type="number" value={item.servingSize} />
+            </div>
+          :''
+        }
         <div className="flex-col">
-          <input className="order-form__item-number" name="price" type="number" value={item.price.toFixed(2)} onChange={e=>handleChange(e,index)}/>
+          <input className="order-form__item-number" name="price" type="number" value={parseInt(item.price).toFixed(2)} onChange={e=>handleChange(e,index)}/>
+        </div>
+        <div className="flex-col">
+          <input readOnly className="order-form__item-number" name="price" type="number" value={parseInt(total).toFixed(2)}/>
         </div>
       </div>
       <div className="order-form__item-notes">
-        <label>Notes</label><br/>
+        <label>Special Instructions</label><br/>
         <textarea name="notes" value={item.notes} onChange={e=>handleChange(e,index)}/>
       </div>
       <button onClick={e=>handleRemove(index)}>Remove</button>

@@ -26,7 +26,7 @@ class HidableSection extends Component {
     return (
       <div className="hidable-section" >
         <div className="hidable-section__header" onClick={this.toggleVisiblilty}>
-          <h2>
+          <h2 className="heading__secondary">
             {title} <span>{isVisible ? "-" : "+"}</span>{" "}
           </h2>
         </div>

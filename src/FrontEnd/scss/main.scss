@@ -47,10 +47,35 @@
   }
 }
 
+.placeholder{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0;
+
+  &__text{
+    color: #7f7f7f;
+    font-size: 24px;
+  }
+}
+
 p {
   margin:0;
 }
+label{
+  font-size:18px;
+  margin-bottom: 8px;
+}
 
+.note__holder{
+  margin-top: 36px;
+  padding-left:0 24px;
+  textarea{
+    height: 100px;
+    width: 100%;
+  }
+}
 
 .form-item{
   margin-top: 10px
@@ -61,6 +86,12 @@ h2{
 }
 
 .order-form{
+  &__orders{
+    background-color: #e0e0e0;
+    height: fit-content;
+    min-height: 400px;
+    padding:1px 0 2px 0;
+  }
   &__input{
     width: 100%;
   }
@@ -70,7 +101,8 @@ h2{
     width: 100%;
   }
   &__left{
-    margin-right: 12px;
+    min-width: 300px;
+    margin-right: 18px;
   }
 
   &__right{
@@ -81,16 +113,17 @@ h2{
   
 
   &__item{
+
     animation: fade .1s ease-in-out forwards;
-    padding: 10px 0;
-    border-bottom: 1px solid #3f3f3f;
-    margin-bottom: 8px;
+    padding: 10px;
+    background-color: white;
+    margin: 4px 4px 4px 4px;
     &-name{
       font-size: 16px;
     }
 
     &-notes{
-      margin-top: 6px;
+      margin-top:14px;
       margin-left: 14px;
       textarea{
         width: 80%;
@@ -161,13 +194,11 @@ input{
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8px 10px;
+  padding: 4px 6px;
   background-color: lightskyblue;
   font-size: 18px;
   color: white;
   font-weight: 700;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
 }
 
 .error__box {
@@ -175,6 +206,8 @@ input{
 }
 
 .search__results {
+  max-width: 900px;
+  margin: 0 auto;
   margin-top: 2rem;
 }
 .search__input {
@@ -227,6 +260,9 @@ input{
   margin-bottom: 10px;
 }
 
+.product{
+  margin: 12px;
+}
 
 .results__header-col{
   color: white;
@@ -276,8 +312,17 @@ input{
   }
 }
 
+p{
+  font-size: 18px;
+}
+
+.item_info{
+  font-size: 18px;
+}
+
 .order__header{
-  padding: 0px 14px;
+  margin: 12px 0;
+  padding: 0px 20px;
   display: flex;
   justify-content: space-between;
   button{
@@ -303,13 +348,14 @@ input{
 .infobox{
   margin: 8px 0;
   &__header{
+
     background-color: lightskyblue;
     padding: 2px 8px;
     border-top-left-radius: 6px; 
     border-top-right-radius: 6px;
 
     &-title{
-      font-size: 16px;
+      font-size: 22px;
       color: white;
       margin:0;
 
@@ -331,7 +377,6 @@ input{
 }
 
 .flex{
-  margin: 12px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -361,7 +406,7 @@ input{
   font-weight: 100;
   color: lightgray;
   position: absolute;
-  right: 156px;
+  right: 170px;
   cursor: pointer;
 }
 
@@ -482,12 +527,6 @@ input{
 }
 
 
-.heading__secondary{
-  color: teal;
-  font-weight: lighter;
-  font-size: 16px;
-  transition: all .1s ease;
-}
 
 .u-center-wrapper{
   display: block;
@@ -585,7 +624,7 @@ logo{
   position: relative;
   border: 2px solid lightblue;
   border-radius: 4px;
-  margin: 16px 0;
+  margin: 28px 0;
   padding: 8px 8px 8px 8px;
   animation: fade .15s ease-in-out forwards;
 

@@ -46,10 +46,13 @@ class MenuSelectionPane extends Component {
     if (selectedItem && selectedCategory) {
       let item = {
         name: selectedItem.name,
-        price: selectedItem.price * modifiers.servingSize,
+        price: selectedItem.price,
         quantity: modifiers.quantity,
         notes:cakeMode? formatExtrasToNotes(modifiers,"flavor","topping","servingSize"): formatExtrasToNotes(modifiers, "flavor", "topping")
       };
+      if(cakeMode){
+        item.servingSize = modifiers.servingSize;
+      }
       this.props.onAdd(item);
       this.setState({ isVisible: false, selectCategory: "", selectedItem: "" });
     }

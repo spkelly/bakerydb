@@ -13,6 +13,7 @@ class Order extends Component {
     this.state = {
       customer: {},
       orders: [],
+      notes:'',
       deliveryCharge: 0,
       isTaxed: false,
       orderDate: new Date(0),
@@ -34,15 +35,32 @@ class Order extends Component {
     console.log(window.location);
   }
 
+  formatNotes(notes){
+    return notes.split("\n").map((line,index)=>{
+      return(<p key={index}>{line}</p>)
+    })
+  }
+
   render() {
-    let { customer, orders, orderDate, isTaxed, deliveryCharge } = this.state;
+    let { customer, orders, orderDate, isTaxed, deliveryCharge, paymentType } = this.state;
     let location = window.location.pathname.split("/");
     let editPath = "/order/edit/" + location[2];
     let subTotal = orders
-      .reduce((acc, order) => acc + order.price * order.quantity, 0)
+      .reduce((acc, order) =>{
+        if(!order.servingSize){
+          console.log('passed if')
+          return acc + order.price * order.quantity
+        }
+        else{
+          console.log('failed if')
+          return acc + (order.price * order.servingSize) * order.quantity
+        }
+        
+      }, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
-    
+    console.table({total:total,subTotal:subTotal})
+    console.log(orders)
     let test = orders[0]? orders[0].notes.split("\n"):[];
     console.log("test test", test);
     let total =
@@ -53,7 +71,7 @@ class Order extends Component {
     return (
       <div>
         <div className="order__header">
-          <h1>{customer.name}</h1>
+          <h1 className="heading__primary">{customer.name}</h1>
           <button onClick={e => this.handleClick(editPath)}>Edit </button>
         </div>
         <div className="order-info">
@@ -64,13 +82,14 @@ class Order extends Component {
             <InfoBox header="Phone Number">{customer.phone}</InfoBox>
             <InfoBox header="Email">{customer.email}</InfoBox>
             <InfoBox header="Address ">{customer.address}</InfoBox>
+            <InfoBox header="Payment Type">{paymentType}</InfoBox>
           </div>
           <div className="order-info__right">
-            <InfoBox header="Notes">Test</InfoBox>
+            <InfoBox header="Notes">{this.formatNotes(this.state.notes)}</InfoBox>
             <InfoBox header="Order">
               <div className="order-list__container">
                 {orders.map((order, index) => {
-                  
+                  console.log(order)
 
                   return (
                     <div className="item" key={index}>
@@ -81,7 +100,12 @@ class Order extends Component {
                         <div className="item__info">
                           <div className="item__qty">{order.quantity}</div>
                           <div className="item__price">
-                            {order.price.toFixed(2)}
+                            {
+                              order.servingSize?
+                                (parseInt(order.price) * parseInt(order.servingSize)).toFixed(2):
+                                parseInt(order.price).toFixed(2)
+                                
+                            }
                           </div>
                         </div>
                       </div>

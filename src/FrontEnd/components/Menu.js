@@ -74,7 +74,7 @@ const MenuCategories = ({ categories, callback, handleAdd, isFetching }) => {
         key={index}
         onClick={() => callback(cat._id)}
       >
-        <h2 className="heading__secondary">{cat.name}</h2>
+        <h2 className="heading__tertiary">{cat.name}</h2>
       </div>
     );
   });
@@ -85,7 +85,7 @@ const MenuCategories = ({ categories, callback, handleAdd, isFetching }) => {
         onClick={() => callback("all")}
         className="category-list-item category-list-item-active"
       >
-        <h2 className="heading__secondary">All Items</h2>
+        <h2 className="heading__tertiary">All Items</h2>
       </div>
       {categoryList}
       <div className="u-center-wrapper">

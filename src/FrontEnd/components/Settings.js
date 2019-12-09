@@ -15,7 +15,7 @@ const Settings = (props) =>{
       <div>
         <h3>Export to CSV</h3>
         <input value={exportPath}></input>
-        <Button onClick={handleClick}>Export</Button>
+        <button onClick={handleClick}>Export</button>
       </div>
     </div>
   )

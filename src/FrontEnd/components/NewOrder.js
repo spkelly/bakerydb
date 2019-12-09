@@ -3,6 +3,12 @@ import OrderForm from './OrderForm';
 import {withRouter} from 'react-router-dom';
 import {addOrder} from '../api/';
 
+
+function validateOrder(order){
+  if(order.name)
+  return false;
+}
+
 class NewOrder extends OrderForm{
   constructor(props){
     super(props);
