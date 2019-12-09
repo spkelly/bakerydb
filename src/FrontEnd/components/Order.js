@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
 import InfoBox from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
@@ -71,7 +70,7 @@ class Order extends Component {
             <InfoBox header="Order">
               <div className="order-list__container">
                 {orders.map((order, index) => {
-                  let orderNotes = order.notes.split("\n");
+                  
 
                   return (
                     <div className="item" key={index}>
@@ -87,7 +86,7 @@ class Order extends Component {
                         </div>
                       </div>
                       <div className="item__notes">
-                        <p>{order.notes ? order.notes : ""}</p>
+                        <p>{order.notes ? order.notes.split('\n').join(', ') : ""}</p>
                       </div>
                     </div>
                   );

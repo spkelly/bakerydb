@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import FormInput from './FormInput';
 import moment from 'moment';
 import {formatDateTime} from '../../Shared/helpers';
+import {CSSTransition} from 'react-transition-group';
 import MenuSelectionPane from "./MenuSelectionPane";
 
 class OrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        menuVisable: false,
+        menuVisable:true,
         customer: {
           name: "",
           address: "",
@@ -106,7 +107,6 @@ class OrderForm extends Component {
       );
     });
     return (
-      <div>
         <div className="order-form__container">
           <div className="order-form__left">
             <div className="order-form__header">
@@ -125,17 +125,16 @@ class OrderForm extends Component {
           </div>
           <div className="order-form__right">
             <div className="order-form__orders">
-              <h2>Order</h2>
+              <h2 className="heading__secondary">Order</h2>
               {items}
-              {this.state.menuVisable && <MenuSelectionPane  onAdd={this.handleAddFromMenu}/>}
-              <div className="flex">
+              {this.state.menuVisable && <CSSTransition classNames="my-node" timeout={10000}><MenuSelectionPane  onAdd={this.handleAddFromMenu}/></CSSTransition>}
+              <div className="flex-row">
                 <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
                 <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }
@@ -166,7 +165,7 @@ const OrderFormItem = ({item, name, handleChange, handleRemove,index})=>{
           <input className="order-form__item-number" name="quantity" type="number" value={item.quantity} onChange={e=>handleChange(e,index)}/>
         </div>
         <div className="flex-col">
-          <input className="order-form__item-number" name="price" type="number" value={item.price} onChange={e=>handleChange(e,index)}/>
+          <input className="order-form__item-number" name="price" type="number" value={item.price.toFixed(2)} onChange={e=>handleChange(e,index)}/>
         </div>
       </div>
       <div className="order-form__item-notes">

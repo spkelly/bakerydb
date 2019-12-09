@@ -120,9 +120,10 @@ class MenuSelectionPane extends Component {
     let showServingSizeCounter =
       selectedCategory.name == "Cakes" && selectedItem != "";
     return (
-      <div>
         <div className="menu__pane">
-          <h4>Select item from menu</h4>
+          <div className="menu__pane-header">
+            <h2 className="heading__tertiary">Select item from menu</h2>
+          </div>
           <div className="flex-row">
             <Dropdown>
               <Dropdown.Toggle id="dropdown-basic">
@@ -135,7 +136,7 @@ class MenuSelectionPane extends Component {
             </DropdownButton>
           </div>
           {selectedItem ? (
-            <div>
+            <div className="flex-row">
               <VarientSelector
                 handleSelect={varient =>
                   this.setState({
@@ -164,25 +165,33 @@ class MenuSelectionPane extends Component {
           )}
 
           {/* counters here */}
-          <Counter
-            value={this.state.modifiers.quantity}
-            onChange={newValue => this.changeModifier("quantity", newValue)}
-          />
-          {showServingSizeCounter ? (
-            <Counter
-              value={this.state.modifiers.servingSize}
-              onChange={newValue => this.changeModifier("servingSize", newValue)}
-              minimum={20}
-            />
+          <div className="flex-row">
+            <div className="counter__holder">
+              <h1>Quantity</h1>
+              <Counter
+                value={this.state.modifiers.quantity}
+                onChange={newValue => this.changeModifier("quantity", newValue)}
+              />
+            </div>
+            {showServingSizeCounter ? (
+            <div className="counter__holder">
+               <h1>Serving Size</h1>
+              <Counter
+                value={this.state.modifiers.servingSize}
+                onChange={newValue => this.changeModifier("servingSize", newValue)}
+                minimum={20}
+              />
+            </div>
           ) : (
             ""
           )}
+          </div>
+          
 
           <div className="modal__buttons">
             <button onClick={this.handleAccept}>Add to Order</button>
           </div>
         </div>
-      </div>
     );
   }
 }

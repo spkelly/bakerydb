@@ -1,29 +1,38 @@
+@import "./abstracts/abstracts";
+@import "./base/base";
+@import "./base/typography";
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-@keyframes fade{
-  0%{
-    transform: translateY(-25px);
-    opacity: 0;
+
+
+.counter{
+  margin: 8px 0;
+  &__inc{
+    margin: 0 2px;
+    width: 2rem;
+    border-width: 1px;
   }
-
-  100%{
-    transform: translateY(0);
-    opacity: 100;
+  &__dec{
+    margin: 0 2px;
+    width: 2rem;
+    border-width: 1px;
+  }
+  &__value{
+    border-style:outset;
+    border-width: 1px;
+    border-color: grey;
+    line-height: 16px;
+    width: 2rem;
+    text-align: center;
+  }
+  &__holder{
+    margin: 0 12px;
   }
 }
 
-
-*{
-  font-family: 'Roboto'
+.dropdown{
+  margin: 0 12px;
 }
-
-
-
-body{
-  margin:0;
-  padding: 0;
-}
-
 
 .content {
   margin: 1rem;
@@ -56,6 +65,7 @@ h2{
     width: 100%;
   }
   &__container{
+    padding: 0 1rem;
     display: flex;
     width: 100%;
   }
@@ -71,6 +81,7 @@ h2{
   
 
   &__item{
+    animation: fade .1s ease-in-out forwards;
     padding: 10px 0;
     border-bottom: 1px solid #3f3f3f;
     margin-bottom: 8px;
@@ -115,10 +126,7 @@ input{
   display: flex;
 }
 
-.paragraph {
-  margin: 0;
-  padding: 0;
-}
+
 
 .input{
   font-size: 18px;
@@ -227,7 +235,7 @@ input{
 
 .item{
   margin-bottom: 4px;
-
+ 
   &__info-line{
     display: flex;
     justify-content: space-between;
@@ -503,9 +511,18 @@ input{
   }
 }
 
+logo{
+
+}
+
 .flex-row{
+  margin: 12px 0;
   display:flex;
-  justify-content: space-evenly;
+  justify-content: start;
+
+  .btn{
+    margin: 0 12px;
+  }
 }
 
 
@@ -565,6 +582,18 @@ input{
 }
 
 .menu__pane{
+  position: relative;
   border: 2px solid lightblue;
   border-radius: 4px;
+  margin: 16px 0;
+  padding: 8px 8px 8px 8px;
+  animation: fade .15s ease-in-out forwards;
+
+  &-header{
+    top: -16px;
+    padding: 0 2px;
+    position: absolute;
+    z-index: 10;
+    background-color: $color-white
+  }
 }

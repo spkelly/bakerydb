@@ -33,10 +33,10 @@ class Counter extends Component {
     let { onChange, value, minimum } = this.props;
 
     return (
-      <div>
-        <button onClick={this.increment}>+</button>
-        <input readOnly value={this.state.value}/>
-        <button onClick={this.decrement}>-</button>
+      <div className="counter">
+        <button className="counter__dec" onClick={this.decrement}>-</button>
+        <input className="counter__value" readOnly value={this.state.value}/>
+        <button className="counter__inc" onClick={this.increment}>+</button>
       </div>
     );
   }
