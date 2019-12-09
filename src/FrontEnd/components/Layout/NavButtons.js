@@ -10,7 +10,7 @@ let NavButton = ({loc, image, history, content}) => {
       history.goBack();
     }
     else{
-      console.log(loc)
+
       history.push(loc)
     }
   }

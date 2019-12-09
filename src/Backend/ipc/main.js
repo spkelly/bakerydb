@@ -15,7 +15,6 @@ module.exports = {
       let testOrder = await testDB.Orders.addOrder(order).catch(e => {
         console.log(e);
       });
-      console.log("completed: ",testOrder.ops._id);
       event.sender.send(
         ipcChannels.ADD_ORDER_SUCCESS,
         testOrder.insertedId.toString()
@@ -29,12 +28,10 @@ module.exports = {
         orderToUpdate
       );
       event.sender.send(ipcChannels.UPDATE_ORDER_SUCCESS, idRef);
-      // console.log(otherOrder)
     });
 
     ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {
       let resp = await db.queryOrders(term);
-      console.log("the response completed", resp);
       event.sender.send(ipcChannels.QUERY_ORDERS_SUCCESS, resp);
     });
     ipcMain.on(ipcChannels.EXPORT_DB, async (event, args) => {
@@ -47,9 +44,7 @@ module.exports = {
     ipcMain.on(ipcChannels.GET_MENU, async event => {});
     ipcMain.on(ipcChannels.GET_CATEGORIES, async event => {
       let dbResponse = await testDB.Menu.getCategories();
-      console.log(dbResponse);
       event.sender.send(ipcChannels.GET_CATEGORIES_SUCCESS, dbResponse);
-      // console.log(db)
     });
     ipcMain.on(ipcChannels.GET_MENU, async event => {
       let categories = await testDB.Menu.getCategories();
@@ -58,7 +53,6 @@ module.exports = {
     });
     ipcMain.on(ipcChannels.GET_PRODUCTS_BY_CAT, async (event,id) => {
       let products = await testDB.Menu.getProductsByCategory(id);
-      console.log(products);
       event.sender.send(ipcChannels.GET_PRODUCTS_BY_CAT_SUCCESS, products);
     });
     ipcMain.on(ipcChannels.GET_ALL_PRODUCTS, async (event) => {

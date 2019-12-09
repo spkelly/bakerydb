@@ -26,7 +26,6 @@ export class Modal extends Component {
   }
 
   render() {
-    console.log("the children: ", this.props.children);
     return <ModalWrapper isVisible={this.state.isVisible} handleCancel={this.handleCancel} renderedComponent={this.props.children} />;
   }
 }

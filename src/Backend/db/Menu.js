@@ -14,7 +14,6 @@ module.exports = function(dbInstance) {
   }
 
   async function getProduct(productId) {
-    console.log("[PRODUCT ID SEARCH] [ ", productId, " ]");
     return new Promise(async (resolve, reject) => {
       productCollection.findOne(
         { _id: ObjectID(productId) },
@@ -51,7 +50,6 @@ module.exports = function(dbInstance) {
   }
 
   function getProductsByCategory(categoryId) {
-    console.log("category id: ", categoryId);
     dbInstance;
     return new Promise(async (resolve, reject) => {
       productCollection
@@ -93,9 +91,7 @@ module.exports = function(dbInstance) {
       } catch (e) {
         console.log("ERROR CAUGHT", e);
       }
-      console.log("before manip", allCategories);
-      let test = allCategories.map(catObject => catObject.name);
-      console.log(test);
+
       resolve(allCategories);
     });
   }

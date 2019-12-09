@@ -24,15 +24,12 @@ class Order extends Component {
   componentDidMount() {
     // fetch Order by Id
     getOrderById(window.location.pathname.split("/")[2]).then(order => {
-      this.setState(order, () => {
-        console.log(this.state);
-      })
+      this.setState(order);
     });
   }
 
   handleClick(editPath) {
     this.props.history.push(editPath);
-    console.log(window.location);
   }
 
   formatNotes(notes){
@@ -48,21 +45,33 @@ class Order extends Component {
     let subTotal = orders
       .reduce((acc, order) =>{
         if(!order.servingSize){
+<<<<<<< Updated upstream
           console.log('passed if')
           return acc + parseFloat(order.price) * order.quantity
         }
         else{
           console.log('failed if')
           return acc + (parseFloat(order.price) * order.servingSize) * order.quantity
+=======
+          return acc + order.price * order.quantity
+        }
+        else{
+          return acc + (order.price * order.servingSize) * order.quantity
+>>>>>>> Stashed changes
         }
         
       }, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
+<<<<<<< Updated upstream
     let test = orders[0]? orders[0].notes.split("\n"):[];
     let total =
       parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
 
+=======
+    let total =
+      parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
+>>>>>>> Stashed changes
     return (
       <div>
         <div className="order__header">

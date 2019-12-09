@@ -25,7 +25,6 @@ class Menu extends Component {
 
   handleCategoryChange(category) {
     this.setState({ products: [] }, () => {
-      console.log(this.state);
       const addProductsToState = products => this.setState({ products });
       category == "all"
         ? getAllProducts().then(addProductsToState)
@@ -35,7 +34,7 @@ class Menu extends Component {
 
   componentDidMount() {
     fetchMenu().then(menu => {
-      console.log(menu);
+
       this.setState({
         categories: menu.categories,
         products: menu.products,
@@ -107,7 +106,6 @@ const MenuFilterBar = () => {
 };
 
 const MenuItemsContainer = ({ items }) => {
-  console.log(items);
   if (!items) items = [];
   let itemList = items.map((item, index) => {
     let menuComponent = <MenuItem itemInfo={item} />;

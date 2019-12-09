@@ -17,12 +17,12 @@ class NewOrder extends OrderForm{
   }
 
   submitForm(){
-    console.log('here')
+
     let orderToBe = this.state;
     orderToBe.orderDate = new Date();
     orderToBe.dateCreated = new Date();
     orderToBe.orders = this.state.items;
-    console.log('in New form', orderToBe);
+
     addOrder(orderToBe).then((orderId)=>{
       this.props.history.push('/order/'+orderId);
     });
@@ -30,8 +30,7 @@ class NewOrder extends OrderForm{
   componentDidMount(){
     // query arders here
     let location = window.location.pathname[3];
-    console.log('in New Order');
-    console.log(this.state);
+
   }
 }
 

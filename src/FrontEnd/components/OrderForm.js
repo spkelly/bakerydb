@@ -43,8 +43,6 @@ class OrderForm extends Component {
 
   
   handleAddFromMenu(item){
-    console.log("the Item I am adding to menu is ", item);
-    console.log(this.state);
     let currentItems = this.state.items;
 
     currentItems.unshift(item);
@@ -78,7 +76,6 @@ class OrderForm extends Component {
 
   handleChange(e, attr){
     let value = e.target.value;
-    console.log("whats about",typeof(value))
     this.setState({customer:{...this.state.customer,[attr]:value,}})
   }
 
@@ -126,54 +123,52 @@ class OrderForm extends Component {
       );
     });
     return (
-        <div className="order-form__container">
-          <div className="order-form__left">
-            <div className="order-form__header">
-              <h2 className="heading__secondary">Customer Info</h2>
-            </div>
-            <form>
-              <FormInput handleChange={handleChange} label="name" attr="name" value={name} type="text"/>
-              <FormInput handleChange={handleChange} label="phone"  attr="phone" value={phone} type="tel"/>
-              <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
-              <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
-              <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
-              <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
-              <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
-              <label>Payment Type </label>
-              <select onChange={this.handlePaymentSelect} value={this.state.paymentType}>
-                <option value="Venmo">Venmo</option>
-                <option value="Cash">Cash</option>
-                <option value="Check">Check</option>
-                <option value="Credit">Credit</option>
-              </select>            
-            </form>
-            <button className="btn" onClick={this.submitForm}>Save Order</button>
+      <div className="order-form__container">
+        <div className="order-form__left">
+          <div className="order-form__header">
+            <h2 className="heading__secondary">Customer Info</h2>
           </div>
-          <div className="order-form__right">
-            <div className="note__holder">
-              <div>
-              <label>Notes</label>
-              </div>
-              <textarea value={this.state.notes} onChange={this.handleUpdateNotes}></textarea>
-            </div>
-            <h2 className="heading__secondary">Order</h2>
-            {this.state.menuVisable && <MenuSelectionPane  onAdd={this.handleAddFromMenu}/>}
-              <div className="flex-row">
-                <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
-                <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>
-              </div>
-            <div className="order-form__orders">
-              {
-                items.length == 0?
-                <Placeholder text="no items" height={242} />:
-                items
-              }
-              
-              
-            </div>
-            
-          </div>
+          <form>
+            <FormInput handleChange={handleChange} label="name" attr="name" value={name} type="text"/>
+            <FormInput handleChange={handleChange} label="phone"  attr="phone" value={phone} type="tel"/>
+            <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
+            <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
+            <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
+            <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
+            <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
+            <label>Payment Type </label>
+            <select onChange={this.handlePaymentSelect} value={this.state.paymentType}>
+              <option value="Venmo">Venmo</option>
+              <option value="Cash">Cash</option>
+              <option value="Check">Check</option>
+              <option value="Credit">Credit</option>
+            </select>            
+          </form>
+          <button className="btn" onClick={this.submitForm}>Save Order</button>
         </div>
+        <div className="order-form__right">
+          <div className="note__holder">
+            <div>
+            <label>Notes</label>
+            </div>
+            <textarea value={this.state.notes} onChange={this.handleUpdateNotes}></textarea>
+          </div>
+          <h2 className="heading__secondary">Order</h2>
+          {this.state.menuVisable && <MenuSelectionPane  onAdd={this.handleAddFromMenu}/>}
+          <div className="flex-row">
+            <button className="btn"  onClick={()=>this.setState({menuVisable:!this.state.menuVisable})}>{this.state.menuVisable? "Hide":"Show"} Menu</button>
+            <button className="btn"  onClick={this.addCustomItem}>Add Custom Item</button>
+          </div>
+          <div className="order-form__orders">
+            {
+              items.length == 0?
+              <Placeholder text="no items" height={242} />:
+              items
+            }
+          </div>
+          
+        </div>
+      </div>
     );
   }
 }

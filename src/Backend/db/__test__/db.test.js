@@ -2,18 +2,7 @@ const dbTest = require("../testdb");
 
 let database = require("../testdb");
 
-// async function run(){
-//   const productID = "5db4c8f0dec4ef16604690db";
-//   console.log('here');
-//   let db = await dbTest();
-//   await db.Menu.getMenu();
-//   let testProduct = await db.Menu.getProduct(productID);
-//   let categories = await db.Menu.getCategories();
-//   let testProduct = await db.Orders.getOrder('');
-//   console.log(testProduct);
-//   console.log(categories);
-//   db.close();
-// }
+
 
 describe("Query Tests", () => {
   let db;
@@ -146,7 +135,6 @@ describe("Query Tests", () => {
       });
       it('should return the updated id of the updated order',async()=>{
       let response = db.Orders.updateOrder(idToTest,{customer:{name:"Ariana",email: "blah"}})
-      console.log(response);
     });
     });
     describe("addOrder", () => {});

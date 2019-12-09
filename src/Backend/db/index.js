@@ -84,8 +84,6 @@ async function setup(cleanSetup) {
     useCreateIndex: true,
     useFindAndModify: false
   });
-
-  console.log("the database", db);
   // if(cleanSetup){
   //   conn.dropDatabase()
   // }
@@ -120,7 +118,6 @@ function queryOrders(searchTerm) {
 }
 
 function findById(id) {
-  console.log(id);
   return new Promise(resolve => {
     orderModel
       .findById(id)
@@ -137,11 +134,8 @@ function addOrder(order) {
 }
 
 function updateOrder(order) {
-  console.log(order._id);
   let id = order._id;
   order.orders = order.items;
-  // order._id = mongoose.Types.ObjectId(order._id);
-  // console.log(mongoose.Types.ObjectId(order._id).toString());
   return new Promise(resolve => {
     orderModel
       .update({ _id: id }, order)

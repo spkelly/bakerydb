@@ -3,8 +3,6 @@ import { withRouter } from "react-router-dom";
 
 const Link = function({history, path, buttonComponent}) {
   const handleClick = () => {
-    console.log(path);
-    console.log('clicked');
     history.push(path);
   };
 

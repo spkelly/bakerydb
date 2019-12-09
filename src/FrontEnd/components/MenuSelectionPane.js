@@ -6,7 +6,6 @@ import Counter from "./Counter";
 
 function formatExtrasToNotes(item, ...fields) {
   let result = "";
-  console.log("the item", item);
   for (let field of fields) {
     result += `${field}: ${item[field]} \n`;
   }
@@ -39,7 +38,6 @@ class MenuSelectionPane extends Component {
   handleAccept() {
     let { selectedItem, selectedCategory, modifiers } = this.state;
     let cakeMode = selectedCategory.name == 'Cakes';
-    console.log(this.state);
     // check to make sure all feilds are complete
     // convert toppings and flavors in to a note-like format
     // call callback passed to this from menu
@@ -101,7 +99,6 @@ class MenuSelectionPane extends Component {
 
   componentDidMount() {
     fetchMenu().then(menu => {
-      console.log(menu);
       this.setState({ categories: menu.categories });
     });
   }
@@ -112,11 +109,8 @@ class MenuSelectionPane extends Component {
 
   render() {
     let {
-      itemComplete,
       modifiers,
       selectedCategory,
-      selectedTopping,
-      selectedFlavor,
       selectedItem
     } = this.state;
 
@@ -166,8 +160,6 @@ class MenuSelectionPane extends Component {
           ) : (
             ""
           )}
-
-          {/* counters here */}
           <div className="flex-row">
             <div className="counter__holder">
               <h1>Quantity</h1>
@@ -176,18 +168,17 @@ class MenuSelectionPane extends Component {
                 onChange={newValue => this.changeModifier("quantity", newValue)}
               />
             </div>
-            {showServingSizeCounter ? (
-            <div className="counter__holder">
-               <h1>Serving Size</h1>
-              <Counter
-                value={this.state.modifiers.servingSize}
-                onChange={newValue => this.changeModifier("servingSize", newValue)}
-                minimum={20}
-              />
-            </div>
-          ) : (
-            ""
-          )}
+            {
+            showServingSizeCounter ? (
+              <div className="counter__holder">
+                <h1>Serving Size</h1>
+                <Counter
+                  value={this.state.modifiers.servingSize}
+                  onChange={newValue => this.changeModifier("servingSize", newValue)}
+                  minimum={20}
+                />
+              </div>) : 
+              ("")}
           </div>
           
 

@@ -21,12 +21,8 @@ class ProductPage extends Component {
 
   componentDidMount() {
     let id = window.location.pathname.split("/")[2];
-    console.log("the id", id);
     getProductById(id).then(product => {
-      console.log(product);
       this.setState({ product });
-    }).catch(e=>{
-      console.log('an error has occurred')
     })
   }
 
