@@ -59,3 +59,14 @@ delivery
 For cakes track serving size
 
 
+
+
+Things to do before tomorrow's meeting:
+  ✔ allow user to toggle whether or not customer has paid @done(19-12-16 19:38)
+  ✔ calculate and display time of payment @done(19-12-16 20:25)
+  ✔ add tip addition to order form @done(19-12-16 20:49)
+  ✔ display tip on order page @done(19-12-16 20:49)
+  ✔ change organization, filename and file description in packaging script @done(19-12-16 21:09)
+  ✔ add paid badge to search screen @done(19-12-16 17:32)
+  ✔ add paid badge to order screen @done(19-12-16 17:38)
+  ☐ test on Ariana's Laptop 
