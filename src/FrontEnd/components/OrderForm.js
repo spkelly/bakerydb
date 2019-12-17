@@ -6,6 +6,9 @@ import {CSSTransition} from 'react-transition-group';
 import MenuSelectionPane from "./MenuSelectionPane";
 import Placeholder from './Placeholder';
 import { placeholder } from "@babel/types";
+import CheckboxInput from './CheckboxInput';
+import DatePicker from 'react-datepicker';
+
 
 
 class OrderForm extends Component {
@@ -16,15 +19,20 @@ class OrderForm extends Component {
         customer: {
           name: "",
           address: "",
+          hasPaid:false,
           email: "",
+          datePaid: null,
           phone: "",
           isTaxed: false,
           date: new Date(),
-          deliveryCharge: 0
+          deliveryCharge: 0,
+          tip: 0
         },
         items: [
         ],
-        notes:''
+        notes:'',
+        
+
 
     };
 
@@ -34,7 +42,10 @@ class OrderForm extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getDate = this.getDate.bind(this);
+    this.changeDatePaid = this.changeDatePaid.bind(this);
+    this.changeOrderDate = this.changeOrderDate.bind(this);
     this.toggleTax = this.toggleTax.bind(this);
+    this.toggleHasPaid = this.toggleHasPaid.bind(this);
     this.handleItemUpdate = this.handleItemUpdate.bind(this);
     this.handleUpdateNotes = this.handleUpdateNotes.bind(this);
     this.handlePaymentSelect = this.handlePaymentSelect.bind(this);
@@ -69,9 +80,20 @@ class OrderForm extends Component {
     this.setState({items:newArray});
   }
 
-  getDate(e){
+  getDate(e, target){
     let date = new Date(e.target.value).toISOString || null;
-    this.setState({customer:{...this.state.customer,date:new Date(date)||0}})
+    this.setState({customer:{...this.state.customer,[target]:new Date(date)||0}},_=>console.log('here', this.state))
+  }
+
+
+  changeOrderDate(e){
+    console.log('in changeOrderDate', e.target.value)
+    this.getDate(e,'date');
+  }
+
+  changeDatePaid(date){
+    console.log(date);
+    this.setState({customer:{...this.state.customer,datePaid:date}})
   }
 
   handleChange(e, attr){
@@ -100,6 +122,19 @@ class OrderForm extends Component {
     this.setState({customer:{...this.state.customer,isTaxed:e.target.checked}})
   }
 
+  toggleHasPaid(e){
+    // if customer already paid clear date
+    if(this.state.customer.hasPaid){
+      this.setState({customer:{...this.state.customer, hasPaid: false, datePaid: null}},_=>console.log(this.state))
+    }
+    else{
+      // if not already paid set date
+      this.setState({customer:{...this.state.customer,hasPaid:true},datePaid:Date.now()},_=>console.log(this.state))
+    }
+
+
+  }
+
   handlePaymentSelect(e){
     let currentPaymentType = this.state.paymentType;
     let newPaymentType = e.target.value;
@@ -110,7 +145,11 @@ class OrderForm extends Component {
 
   render() {
     let {handleChange, getDate} = this;
-    let {name,phone, isTaxed, deliveryCharge, email,address, date} = this.state.customer;
+    let {name,phone, isTaxed, deliveryCharge, email,address, date, tip, datePaid} = this.state.customer;
+    console.log("the type of date paid", typeof(datePaid));
+    if(typeof(datePaid)=="string"){
+      datePaid = new Date(datePaid);
+    }
     let items = this.state.items.map((item,index) => {
       return (
         <OrderFormItem
@@ -122,6 +161,7 @@ class OrderForm extends Component {
         />
       );
     });
+    console.log("creating new date", new Date(this.state.customer.datePaid));
     return (
       <div className="order-form__container">
         <div className="order-form__left">
@@ -129,13 +169,24 @@ class OrderForm extends Component {
             <h2 className="heading__secondary">Customer Info</h2>
           </div>
           <form>
+            
             <FormInput handleChange={handleChange} label="name" attr="name" value={name} type="text"/>
             <FormInput handleChange={handleChange} label="phone"  attr="phone" value={phone} type="tel"/>
             <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
             <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
-            <FormInput handleChange={getDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
+            <FormInput handleChange={this.changeOrderDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
             <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
-            <FormInput handleChange={this.toggleTax} label="tax?"  attr="isTaxed"  value={isTaxed} checked={isTaxed} type="checkBox"/>
+            <FormInput handleChange={handleChange} label="Tip" value={parseFloat(tip).toFixed(2)} attr="tip" type="number"/>
+            {/* <FormInput handleChange={this.changeOrderDate} label="Tip" value={parseFloat(tip).toFixed(2)} attr="tip" type="number"/> */}
+            <CheckboxInput onCheck={this.toggleTax} text="Tax?" isChecked={isTaxed} />
+            <CheckboxInput onCheck={this.toggleHasPaid} text="Paid?" isChecked={this.state.customer.hasPaid} />
+            <div>
+              <label>Date Paid</label>
+            </div>
+            <div>
+              <DatePicker onChange={this.changeDatePaid} selected={datePaid}/>
+            </div>
+            {/* <FormInput isDisabled={!this.state.customer.hasPaid} handleChange={this.changeDatePaid} label="Date Paid"  attr="datePaid" value={this.state.customer.datePaid?formatDateTime(this.state.customer.datePaid):null} type="datetime-local"/> */}
             <label>Payment Type </label>
             <select onChange={this.handlePaymentSelect} value={this.state.paymentType}>
               <option value="Venmo">Venmo</option>

@@ -22,14 +22,14 @@ class NewOrder extends OrderForm{
     orderToBe.orderDate = new Date();
     orderToBe.dateCreated = new Date();
     orderToBe.orders = this.state.items;
-
+    console.log(this.state);
     addOrder(orderToBe).then((orderId)=>{
+      console.log('the order id', orderId)
       this.props.history.push('/order/'+orderId);
     });
   }
   componentDidMount(){
     // query arders here
-    let location = window.location.pathname[3];
 
   }
 }

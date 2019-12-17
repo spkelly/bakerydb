@@ -20,7 +20,7 @@ class ProductPage extends Component {
   }
 
   componentDidMount() {
-    let id = window.location.pathname.split("/")[2];
+    let id = window.location.hash.split("/")[2];
     getProductById(id).then(product => {
       this.setState({ product });
     })

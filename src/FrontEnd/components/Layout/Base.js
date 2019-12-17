@@ -1,15 +1,15 @@
 import React from 'react';
 import Nav from './Nav';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter} from 'react-router-dom';
 
 const Base = ({children}) =>{
 
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Nav />
         {children}
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }

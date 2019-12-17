@@ -8,7 +8,7 @@ class EditOrder extends OrderForm {
     super(props);
   }
   componentDidMount() {
-    let orderId = window.location.pathname.split("/")[3];
+    let orderId = window.location.hash.split("/")[3];
     getOrderById(orderId).then(
       ({ customer, isTaxed, deliveryCharge, orderDate, orders, _id, notes }) => {
         deliveryCharge = parseFloat(deliveryCharge);

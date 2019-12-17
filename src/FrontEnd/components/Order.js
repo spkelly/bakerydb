@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import InfoBox from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
+import Badge from './Badge';
 
 //TODO: extract this to other file
 const TAX_RATE = 0.077;
@@ -23,7 +24,7 @@ class Order extends Component {
 
   componentDidMount() {
     // fetch Order by Id
-    getOrderById(window.location.pathname.split("/")[2]).then(order => {
+    getOrderById(window.location.hash.split("/")[2]).then(order => {
       this.setState(order);
     });
   }
@@ -39,43 +40,35 @@ class Order extends Component {
   }
 
   render() {
-    let { customer, orders, orderDate, isTaxed, deliveryCharge, paymentType } = this.state;
-    let location = window.location.pathname.split("/");
+    console.log(this.state);
+    let { customer, orders, orderDate, isTaxed, deliveryCharge, paymentType, } = this.state;
+    let location = window.location.hash.split("/");
+
+
     let editPath = "/order/edit/" + location[2];
+    let payStatusBadge = customer.hasPaid?
+      <Badge text="paid" />:
+      <Badge text="unpaid" color="red" />;
     let subTotal = orders
       .reduce((acc, order) =>{
         if(!order.servingSize){
-<<<<<<< Updated upstream
           console.log('passed if')
           return acc + parseFloat(order.price) * order.quantity
         }
         else{
           console.log('failed if')
           return acc + (parseFloat(order.price) * order.servingSize) * order.quantity
-=======
-          return acc + order.price * order.quantity
-        }
-        else{
-          return acc + (order.price * order.servingSize) * order.quantity
->>>>>>> Stashed changes
         }
         
       }, 0)
       .toFixed(2);
     let tax = (isTaxed ? subTotal * TAX_RATE : 0).toFixed(2);
-<<<<<<< Updated upstream
-    let test = orders[0]? orders[0].notes.split("\n"):[];
     let total =
-      parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
-
-=======
-    let total =
-      parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal);
->>>>>>> Stashed changes
+      parseFloat(deliveryCharge) + parseFloat(tax) + parseFloat(subTotal) + parseFloat(customer.tip);
     return (
       <div>
         <div className="order__header">
-          <h1 className="heading__primary">{customer.name}</h1>
+    <h1 className="heading__primary">{customer.name}<span>{payStatusBadge}</span></h1>
           <button onClick={e => this.handleClick(editPath)}>Edit </button>
         </div>
         <div className="order-info">
@@ -83,6 +76,7 @@ class Order extends Component {
             <InfoBox header="Order Date">
               {new Date(orderDate).toLocaleDateString()}
             </InfoBox>
+
             <InfoBox header="Phone Number">{customer.phone}</InfoBox>
             <InfoBox header="Email">{customer.email}</InfoBox>
             <InfoBox header="Address ">{customer.address}</InfoBox>
@@ -123,11 +117,13 @@ class Order extends Component {
             </InfoBox>
             <div className="order__footer">
               <div>
+                <p>Tip</p>
                 <p>Tax:</p>
                 <p>Delivery:</p>
                 <p>Total:</p>
               </div>
               <div>
+                <p>{parseFloat(customer.tip).toFixed(2)}</p>
                 <p>{parseFloat(tax).toFixed(2)}</p>
                 <p>{parseFloat(deliveryCharge).toFixed(2)}</p>
                 <p>{total.toFixed(2)}</p>

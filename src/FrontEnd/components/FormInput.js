@@ -2,7 +2,7 @@ import React from "react";
 import { capitalizeFirstLetter } from "../../Shared/helpers/";
 
 const FormInput = props => {
-  let { type, handleChange, value, label, checked, attr } = props;
+  let { isDisabled, type, handleChange, value, label, checked, attr } = props;
 
   function performCallback(e) {
     handleChange(e, attr);
@@ -13,6 +13,7 @@ const FormInput = props => {
         <label>{capitalizeFirstLetter(label)}</label>
       </div>
       <input
+        disabled={isDisabled}
         className="order-form__input"
         checked={checked}
         name={label}

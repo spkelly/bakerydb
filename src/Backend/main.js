@@ -11,13 +11,12 @@ let testDB;
 database()
   .then(result => {
     testDB = result;
+    console.log("test testdb", testDB);
     ipc.setupEventListeners(testDB, db);
   })
   .catch(e => {
     console.log(e);
   });
-
-
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -41,7 +40,9 @@ app.on("ready", createWindow);
 app.on("window-all-closed", async() => {
   console.log('shutting down DB connection')
   await testDB.close();
-  if (process.platfrom !== "drawin") {
-    app.quit();
+  app.quit();
+  if (process.platform !== "darwin") {
   }
 });
+
+

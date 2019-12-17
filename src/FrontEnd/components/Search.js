@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Badge from './Badge';
 import { queryOrders } from "../api";
 import { withRouter } from "react-router-dom";
 
@@ -43,6 +43,10 @@ class Search extends Component {
     }
 
     let results = this.state.searchResults.map((result, index) => {
+      let payStatusBadge = result.customer.hasPaid?
+        <Badge text="paid" />:
+        <Badge text="unpaid" color="red" />;
+      
       return (
         <div
           key={index}
@@ -50,6 +54,7 @@ class Search extends Component {
           className="result__item"
         >
           <p className="result__title">{result.customer.name}</p>
+          {payStatusBadge}
           <p className="result__date">
             {new Date(result.orderDate).toLocaleDateString()}
           </p>
@@ -61,6 +66,7 @@ class Search extends Component {
       <div className="results">
         <div className="results__header">
           <div className="results__header-col">Customer Name</div>
+          <div className="results__header-col">Status</div>
           <div className="results__header-col">Order Date</div>
         </div>
         {results}
@@ -69,6 +75,7 @@ class Search extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { isFetching, searchResults } = this.state;
     return (
       <div>

@@ -13,6 +13,7 @@ module.exports = function(dbInstance) {
         { $text: { $search: query } },
         async (err, result) => {
           if (err) reject(err);
+
           resolve(mapIdToString(await result.toArray()));
         }
       );
@@ -36,7 +37,7 @@ module.exports = function(dbInstance) {
     return new Promise((resolve, reject) => {
       orderCollection.updateOne(
         { _id: ObjectID(id) },
-       {$set:modifications} ,
+        {$set:modifications},
         async (err, response) => {
           if (err) console.log("ERROR: ", err);
           resolve(response.result);
@@ -46,6 +47,7 @@ module.exports = function(dbInstance) {
   }
 
   function getOrder(id) {
+    console.log('fetching for Id', id);
     return new Promise((resolve, reject) => {
       orderCollection.findOne({ _id: ObjectID(id) }, (err, doc) => {
         if (err) reject(err);

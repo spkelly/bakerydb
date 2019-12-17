@@ -14,7 +14,7 @@ let NavButton = ({loc, image, history, content}) => {
       history.push(loc)
     }
   }
-  if(window.location.pathname == "/") return <div />
+  if(window.location.hash == "#/") return <div />
 
   return (<div onClick={navigate} className="navigation__button" >
     <p className='paragraph'>{content}</p>
