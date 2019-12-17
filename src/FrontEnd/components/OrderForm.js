@@ -86,9 +86,8 @@ class OrderForm extends Component {
   }
 
 
-  changeOrderDate(e){
-    console.log('in changeOrderDate', e.target.value)
-    this.getDate(e,'date');
+  changeOrderDate(date){
+    this.setState({customer:{...this.state.customer,date:date}})
   }
 
   changeDatePaid(date){
@@ -147,9 +146,9 @@ class OrderForm extends Component {
     let {handleChange, getDate} = this;
     let {name,phone, isTaxed, deliveryCharge, email,address, date, tip, datePaid} = this.state.customer;
     console.log("the type of date paid", typeof(datePaid));
-    if(typeof(datePaid)=="string"){
-      datePaid = new Date(datePaid);
-    }
+    datePaid = new Date(datePaid);
+    date = new Date(date);
+    console.log(datePaid,date);
     let items = this.state.items.map((item,index) => {
       return (
         <OrderFormItem
@@ -174,7 +173,13 @@ class OrderForm extends Component {
             <FormInput handleChange={handleChange} label="phone"  attr="phone" value={phone} type="tel"/>
             <FormInput handleChange={handleChange} label="email"  attr="email" value={email} type="email"/>
             <FormInput handleChange={handleChange} label="address"  attr="address" value={address} type="text"/>
-            <FormInput handleChange={this.changeOrderDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/>
+            <div>
+              <label>Order Date</label>
+            </div>
+            <div>
+              <DatePicker onChange={this.changeOrderDate} selected={date}/>
+            </div>
+            {/* <FormInput handleChange={this.changeOrderDate} label="Order Date"  attr="date" value={formatDateTime(date)} type="datetime-local"/> */}
             <FormInput handleChange={handleChange} label="Delivery Charge" value={parseFloat(deliveryCharge).toFixed(2)} attr="deliveryCharge" type="number"/>
             <FormInput handleChange={handleChange} label="Tip" value={parseFloat(tip).toFixed(2)} attr="tip" type="number"/>
             {/* <FormInput handleChange={this.changeOrderDate} label="Tip" value={parseFloat(tip).toFixed(2)} attr="tip" type="number"/> */}

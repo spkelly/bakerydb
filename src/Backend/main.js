@@ -33,6 +33,7 @@ function createWindow() {
     win.setSize(1100, 600);
   } else {
     win.loadFile("dist/index.html");
+    // win.openDevTools();
   }
 }
 
