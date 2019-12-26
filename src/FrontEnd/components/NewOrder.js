@@ -21,6 +21,14 @@ class NewOrder extends OrderForm{
     let orderToBe = this.state;
     orderToBe.orderDate = new Date();
     orderToBe.dateCreated = new Date();
+
+
+    orderToBe.isTaxed = this.state.customer.isTaxed;
+    orderToBe.deliveryCharge = this.state.customer.deliveryCharge;
+
+    delete orderToBe.customer.deliveryCharge;
+    delete orderToBe.menuVisable;
+    delete orderToBe.customer.isTaxed;
     orderToBe.orders = this.state.items;
     console.log(this.state);
     addOrder(orderToBe).then((orderId)=>{
