@@ -28,6 +28,14 @@ module.exports = function(dbInstance) {
     })
   }
 
+  // Returns oldest 5 orders that have not been paid
+  function getUnpaid(){
+    orderCollection.find({'hasPaid': flase}).toArray((err,doc)=>{
+      if(err) console.error("Error has occured", err)
+      console.log(doc);
+    });
+  }
+
   function removeOrder(orderId) {}
 
   function updateOrder(id, modifications) {

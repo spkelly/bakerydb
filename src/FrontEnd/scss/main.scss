@@ -627,6 +627,7 @@ logo{
   border-radius: 4px;
   margin: 28px 0;
   padding: 8px 8px 8px 8px;
+  z-index: 1;
   animation: fade .15s ease-in-out forwards;
 
   &-header{
@@ -661,6 +662,10 @@ logo{
   color: white;
   margin: 0;
   font-size: 14px;
+}
+// dropdown z-index fix
+.dropdown-menu.show{
+  z-index: 10;
 }
 
 
