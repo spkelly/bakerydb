@@ -46,6 +46,13 @@ module.exports = function(dbInstance) {
     });
   }
 
+
+  function CalculateTotals(order){
+    let orderWithTotals = {}
+
+    return orderWithTotals;
+  }
+
   function getOrder(id) {
     console.log('fetching for Id', id);
     return new Promise((resolve, reject) => {

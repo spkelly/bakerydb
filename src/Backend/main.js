@@ -29,9 +29,9 @@ function createWindow() {
   });
   if (process.env.NODE_ENV == "development") {
     win.loadURL("http://localhost:3000");
-    win.openDevTools();
     win.setSize(1100, 600);
   } else {
+    win.openDevTools();
     win.loadFile("dist/index.html");
     // win.openDevTools();
   }

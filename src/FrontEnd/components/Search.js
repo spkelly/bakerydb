@@ -56,7 +56,7 @@ class Search extends Component {
           <p className="result__title">{result.customer.name}</p>
           {payStatusBadge}
           <p className="result__date">
-            {new Date(result.orderDate).toLocaleDateString()}
+            {new Date(result.customer.date).toLocaleDateString()}
           </p>
         </div>
       );
