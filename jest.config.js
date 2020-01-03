@@ -7,5 +7,8 @@ module.exports = {
   setupFilesAfterEnv:[
     require.resolve('./test/setup-test-framework'),
     require.resolve('./test/setup-enzyme')
-  ] 
+  ],
+  testPathIgnorePatterns: [
+    "<rootDir>/release-builds/"
+  ]
 }

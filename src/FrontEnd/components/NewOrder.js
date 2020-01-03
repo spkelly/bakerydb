@@ -36,10 +36,7 @@ class NewOrder extends OrderForm{
       this.props.history.push('/order/'+orderId);
     });
   }
-  componentDidMount(){
-    // query arders here
 
-  }
 }
 
 

@@ -8,6 +8,7 @@ module.exports = function(dbInstance) {
   const ObjectID = require("mongodb").ObjectID;
 
   function queryOrders(query) {
+
     return new Promise((resolve, reject) => {
       orderCollection.find(
         { $text: { $search: query } },
@@ -36,7 +37,9 @@ module.exports = function(dbInstance) {
     });
   }
 
-  function removeOrder(orderId) {}
+  function removeOrder(orderId) {
+    
+  }
 
   function updateOrder(id, modifications) {
     modifications.orders = modifications.items;
@@ -54,15 +57,8 @@ module.exports = function(dbInstance) {
     });
   }
 
-
-  function CalculateTotals(order){
-    let orderWithTotals = {}
-
-    return orderWithTotals;
-  }
-
   function getOrder(id) {
-    console.log('fetching for Id', id);
+
     return new Promise((resolve, reject) => {
       orderCollection.findOne({ _id: ObjectID(id) }, (err, doc) => {
         if (err) reject(err);

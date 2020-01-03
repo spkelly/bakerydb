@@ -9,9 +9,10 @@
     "build": "cross-env NODE_ENV=production webpack --mode=production",
     "build-app": "cross-env NODE_ENV=production electron .",
     "start": "npm run build && npm run build-app",
-    "package-win": "electron-packager . BittersweetBakeryDB --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=spkelly --version-string.FileDescription='Bakery Database Application' --version-string.ProductName='BittersweetsBakeryDB'",
-    "test": "jest ."
+    "package-win": "electron-packager . BittersweetBakeryDB --ASAR=true --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=spkelly --version-string.FileDescription='Bakery Database Application' --version-string.ProductName='BittersweetsBakeryDB'",
+    "test": "jest . --watch"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",

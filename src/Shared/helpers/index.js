@@ -9,3 +9,9 @@ export function formatDateTime(date){
   console.log(typeof(moment(date).format("YYYY-MM-DDTHH:mm")))
   return moment(date).format("YYYY-MM-DDTHH:mm");
 }
+
+
+export function calculateTax(subtotal,taxRate){
+  let taxAmount = subtotal * taxRate;
+  return parseFloat(taxAmount.toFixed(2));
+}

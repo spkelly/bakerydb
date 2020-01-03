@@ -31,7 +31,7 @@ function createWindow() {
     win.loadURL("http://localhost:3000");
     win.setSize(1100, 600);
   } else {
-    win.openDevTools();
+    // win.openDevTools();
     win.loadFile("dist/index.html");
     // win.openDevTools();
   }

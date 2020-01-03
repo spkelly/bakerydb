@@ -31,9 +31,7 @@ class OrderForm extends Component {
         items: [
         ],
         notes:'',
-        
-
-
+        paymentType: "Venmo"
     };
 
     this.handleAddFromMenu = this.handleAddFromMenu.bind(this);
@@ -137,9 +135,7 @@ class OrderForm extends Component {
   handlePaymentSelect(e){
     let currentPaymentType = this.state.paymentType;
     let newPaymentType = e.target.value;
-    if(newPaymentType != currentPaymentType){
-      this.setState({paymentType: newPaymentType},_=>console.log(this.state));
-    }
+    this.setState({paymentType: newPaymentType},_=>console.log(this.state));
   }
 
   render() {

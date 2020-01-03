@@ -5,7 +5,7 @@ import { getOrderById } from "../api";
 import Badge from './Badge';
 
 //TODO: extract this to other file
-const TAX_RATE = 0.077;
+const TAX_RATE = 0.0775;
 
 class Order extends Component {
   constructor(props) {
