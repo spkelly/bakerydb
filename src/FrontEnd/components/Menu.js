@@ -44,6 +44,7 @@ class Menu extends Component {
   }
 
   render() {
+    window.getIdFromPath();
     return (
       <div className="menu">
         <div className="menu__sidebar">

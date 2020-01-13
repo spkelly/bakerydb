@@ -4,7 +4,7 @@ const prodConfig = require('./config/webpack.prod');
 const merge = require('webpack-merge');
 
 const env = process.env.NODE_ENV;
-
+if (env == undefined) env = "production";
 
 module.exports = () =>{
   console.log("the mode ", env);

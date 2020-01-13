@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const webpack = require("webpack");
 const path = require("path");
+const DotEnv = require("dotenv-webpack");
 
 ("dir", __dirname);
 
@@ -59,6 +60,7 @@ const commonConfig = {
   },
   plugins: [
     htmlPlugin,
+    new DotEnv(),
     new webpack.ExternalsPlugin("commonjs", ["electron"]),
     new MiniCssExtractPlugin({
       filename: "[name].css",

@@ -5,8 +5,8 @@
   "main": "./src/Backend/main.js",
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development electron . ",
-    "serve": "webpack-dev-server",
-    "build": "cross-env NODE_ENV=production webpack --mode=production",
+    "serve": " cross-env NODE_ENV=development webpack-dev-server",
+    "build": "cross-env NODE_ENV=production webpack ",
     "build-app": "cross-env NODE_ENV=production electron .",
     "start": "npm run build && npm run build-app",
     "package-win": "electron-packager . BittersweetBakeryDB --ASAR=true --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=spkelly --version-string.FileDescription='Bakery Database Application' --version-string.ProductName='BittersweetsBakeryDB'",

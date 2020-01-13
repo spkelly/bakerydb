@@ -2,8 +2,10 @@ const { BrowserWindow, app, ipcMain } = require("electron");
 const db = require("./db");
 const database = require("./db/testdb");
 const ipc = require('./ipc/main')
+require("dotenv").config();
 console.log("starting in ", process.env.NODE_ENV, " mode");
-
+console.log(process.env);
+// TODO: change naming scheme of DB object
 let dbObject = db.setup();
 let testDB;
 
@@ -29,6 +31,7 @@ function createWindow() {
   });
   if (process.env.NODE_ENV == "development") {
     win.loadURL("http://localhost:3000");
+    win.openDevTools();
     win.setSize(1100, 600);
   } else {
     // win.openDevTools();
