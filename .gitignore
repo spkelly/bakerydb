@@ -3,5 +3,6 @@ dist
 release-builds
 release
 logs
-
-
+.env
+exports/
+template/
