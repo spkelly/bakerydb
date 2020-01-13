@@ -5,4 +5,4 @@ release
 logs
 .env
 exports/
-template/
+templates/
