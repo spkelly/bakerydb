@@ -21,7 +21,7 @@ class OrderForm extends Component {
           address: "",
           hasPaid:false,
           email: "",
-          datePaid: null,
+          datePaid: new Date(),
           phone: "",
           isTaxed: false,
           date: new Date(),
@@ -156,7 +156,6 @@ class OrderForm extends Component {
         />
       );
     });
-    console.log("creating new date", new Date(this.state.customer.datePaid));
     return (
       <div className="order-form__container">
         <div className="order-form__left">

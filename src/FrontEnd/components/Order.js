@@ -3,6 +3,7 @@ import InfoBox from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
 import Badge from "./Badge";
+import {getIdFromPath} from '../utils';
 
 //TODO: extract this to other file
 const TAX_RATE = 0.0775;
@@ -23,8 +24,8 @@ class Order extends Component {
   }
 
   componentDidMount() {
-    // fetch Order by Id
-    getOrderById(window.location.hash.split("/")[2]).then(order => {
+    let orderId = getIdFromPath();
+    getOrderById(orderId).then(order => {
       this.setState(order);
     });
   }
@@ -53,7 +54,6 @@ class Order extends Component {
   }
 
   render() {
-    console.log(this.state);
     let {
       customer,
       orders,
@@ -62,9 +62,8 @@ class Order extends Component {
       deliveryCharge,
       paymentType
     } = this.state;
-    let location = window.location.hash.split("/");
-
-    let editPath = "/order/edit/" + location[2];
+    let orderId = getIdFromPath();
+    let editPath = "/order/edit/" + orderId;
     let payStatusBadge = customer.hasPaid ? (
       <Badge text="paid" />
     ) : (

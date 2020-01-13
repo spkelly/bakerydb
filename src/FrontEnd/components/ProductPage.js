@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getProductById } from "../api";
 import HidableSection from "./HidableSection";
 import Modal from "./Modal";
+import { getIdFromPath } from "../utils";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class ProductPage extends Component {
   }
 
   componentDidMount() {
-    let id = window.location.hash.split("/")[2];
+    let id = getIdFromPath();
     getProductById(id).then(product => {
       this.setState({ product });
     })
