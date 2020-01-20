@@ -10,7 +10,7 @@ const DotEnv = require("dotenv-webpack");
 const htmlPlugin = new HTMLWebPackPlugin({
   template: "./src/Frontend/index.html",
   filename: "index.html",
-  title: "Legitrack"
+  title: "BakeryDB"
 });
 
 const commonConfig = {
