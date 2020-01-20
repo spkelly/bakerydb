@@ -1,5 +1,5 @@
 module.exports = {
-GET_ORDER: "get-order",
+  GET_ORDER: "get-order",
   GET_ORDER_SUCCESS: 'get-order-success',
   GET_ORDER_ERROR: 'get-order-error',
   ADD_ORDER: "add-order",
@@ -43,4 +43,12 @@ GET_ORDER: "get-order",
   REMOVE_TOPPING: "remove-topping",
   REMOVE_TOPPING_SUCCESS: "remove-topping_success",
   REMOVE_TOPPING_ERROR: "remove-topping_error",
+  //updater channels
+  DOWNLOAD_UPDATE: "download_update",
+  UPDATE_AVAILABLE: "update_available",
+  UPDATE_NOT_AVAILABLE:"update_not_available",
+  CHECK_FOR_UPDATE:"check_for_update",
+  DOWNLOAD_COMPLETE:"download_complete",
+  CONFIRM_UPDATE:"confirm_update",
+  GET_VERSION: "get_version"
 };

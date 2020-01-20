@@ -68,5 +68,19 @@ module.exports = {
     ipcMain.on(ipcChannels.REMOVE_FLAVOR, async event => {});
     ipcMain.on(ipcChannels.ADD_TOPPING, async event => {});
     ipcMain.on(ipcChannels.REMOVE_TOPPING, async event => {});
+    ipcMain.on(ipcChannels.GET_VERSION, async event=>{});
+
+
+    ipcMain.on(ipcChannels.CHECK_FOR_UPDATE, async event=>{
+
+    });
+
+    ipcMain.on(ipcChannels.DOWNLOAD_UPDATE, async event=>{
+
+    });
+
+    ipcMain.on(ipcChannels.CONFIRM_UPDATE, async event=>{
+
+    })
   }
 };
