@@ -1,0 +1,28 @@
+
+
+.updater{
+  width: 200px;
+  background-color: #3c4799;
+  color: #dbdbdb;
+  border-radius: 16px;
+  padding: 6px ;
+  &__status-wrapper{
+    display: flex;
+  }
+  &__status-message{
+    align-self:center ;
+    margin: 0;
+    margin-left:8px;
+    font-size: 12px;
+    font-family: sans-serif;
+  }
+  &__button{
+    color: #dbdbdb;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: underline;
+    font-family: sans-serif;
+    margin-left: auto;
+    margin-right: 4px;
+  }
+}

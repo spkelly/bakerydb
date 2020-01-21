@@ -3,6 +3,10 @@ import { withRouter } from "react-router-dom";
 import Link from "./Link";
 import Image from "../images/b_logo.png";
 import Button from "./Buttons";
+import UpdateContainer from './UpdateNotifier/UpdateContainer';
+
+// TODO: I don't want to have the updater run on every rerender of the home page, only should check for update when reciveing 
+// a notification from the backend
 
 const Home = () => {
   return (
@@ -14,6 +18,7 @@ const Home = () => {
         <Link buttonComponent={<Button text="New Order" />} path="/new-order" />
         <Link buttonComponent={<Button text="Settings" />} path="/settings" />
       </div>
+      <UpdateContainer />
     </div>
   );
 };
