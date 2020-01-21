@@ -94,7 +94,7 @@ class Updater extends React.Component {
           // render status message
           <UpdateStatusWrapper>
             <UpdaterStatusMessage>No new updates</UpdaterStatusMessage>
-            <UpdaterButton cb={_=>this.setState({hidden:true})} text="dismiss"/>
+            <UpdaterButton cb={this.props.onDismiss} text="dismiss"/>
           </UpdateStatusWrapper>
         );
       case UPDATE_STATES.DOWNLOADING_UPDATE:
@@ -117,7 +117,7 @@ class Updater extends React.Component {
         return(
           <UpdateStatusWrapper>
             <UpdaterStatusMessage>Errror</UpdaterStatusMessage>
-            <UpdaterButton cb={_=>this.setState({hidden:true})} text="dismiss"/>
+            <UpdaterButton cb={this.props.onDismiss} text="dismiss"/>
           </UpdateStatusWrapper>
         )
       default:

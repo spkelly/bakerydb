@@ -4,7 +4,7 @@ import UpdateNotifier from './UpdateNotifier';
 function dummyCheckForUpdate() {
   console.log("checking for update");
   return new Promise(resolve=>{
-    setTimeout(()=>{resolve(true)},1000)
+    setTimeout(()=>{resolve(false)},1000)
   })
 }
 
@@ -25,7 +25,7 @@ class UpdateContainer extends Component {
     checkingForUpdate: false
   };
 
-  componentDidMount() {
+  componentDidMount = () =>{
     // check last time updated and current version number
     // sends getUpdateInfo
     // if > 2 weeks force check for update
@@ -37,6 +37,10 @@ class UpdateContainer extends Component {
     this.setState({ checkingForUpdate: true });
   };
 
+  dismissNotifier = () =>{
+    this.setState({ checkingForUpdate: false });
+  }
+
   render() {
     let { checkingForUpdate } = this.state;
 
@@ -47,7 +51,7 @@ class UpdateContainer extends Component {
         </div>
         <div className="update__item">
           {checkingForUpdate ? (
-            <UpdateNotifier onCheck={dummyCheckForUpdate} onDownload={dummmyDownLoadUpdate} onConfirm={dummyConfirmUpdate}/>
+            <UpdateNotifier onCheck={dummyCheckForUpdate} onDismiss={this.dismissNotifier} onDownload={dummmyDownLoadUpdate} onConfirm={dummyConfirmUpdate}/>
           ) : (
             <a href="#" onClick={this.handleClick} className="text__small update__link">
               click here to check for update
