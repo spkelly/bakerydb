@@ -6,3 +6,7 @@ logs
 .env
 exports/
 templates/
+.vscode
+temp
+tmp
+notes.todo
