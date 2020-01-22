@@ -89,4 +89,36 @@ export function getAllProducts(){
   })
 }
 
+
+export function checkForUpdate(){
+  return sendMessageWaitForResponse(channels.CHECK_FOR_UPDATE,channels.UPDATE_AVAILABLE);
+}
+
+
+export function downloadUpdate(){
+
+}
+
+
+export function confirmInstall(){
+
+}
+
 function fetchOrders(number) {}
+
+
+function handleError(){
+  console.log(error);
+}
+
+
+function sendMessageWaitForResponse(sendChannel,responseChannel, errorHandler = handleError){
+  return new Promise((resolve,reject)=>{
+    ipcRenderer.send(sendChannel);
+    ipcRenderer.once(responseChannel, (event, responseData)=>{
+      resolve(responseData);
+    })
+  });
+}
+
+

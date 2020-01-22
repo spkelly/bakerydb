@@ -3,7 +3,7 @@ const ipcChannels = require("../../Shared/constants");
 const logAttr = require("../utils/logger").logAttr;
 
 module.exports = {
-  setupEventListeners(testDB, db) {
+  setupEventListeners(testDB, db, appInfo) {
     ipcMain.on(ipcChannels.GET_ORDER, async (event, id) => {
       logAttr(id);
       let order = await testDB.Orders.getOrder(id);
@@ -72,7 +72,11 @@ module.exports = {
 
 
     ipcMain.on(ipcChannels.CHECK_FOR_UPDATE, async event=>{
-
+      console.log('checking for updates')
+      appInfo.updater.autoUpdater.checkForUpdates().then((response)=>{
+        console.log(response);
+        // appInfo.webContents.send(ipcChannels.UPDATE_AVAILABLE,true);
+      })
     });
 
     ipcMain.on(ipcChannels.DOWNLOAD_UPDATE, async event=>{

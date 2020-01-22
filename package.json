@@ -1,14 +1,16 @@
 {
   "name": "bakerydb",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "",
   "main": "./src/Backend/main.js",
   "scripts": {
-    "start": "npm run build && npm run build-app",
+    "build:webpack": "webpack ",
+    "build:electron": "electron .",
     "start:dev": "cross-env NODE_ENV=development electron . ",
     "start:prod": "cross-env NODE_ENV=production electron .",
     "serve": " cross-env NODE_ENV=development webpack-dev-server",
     "package:win": "electron-builder .",
+    "start": "npm run build:webpack && npm run build:electron",
     "test": "jest . --watch"
   },
   "keywords": [],
@@ -16,6 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "dotenv": "^8.2.0",
+    "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.2.0",
     "json2csv": "^4.5.4",
     "moment": "^2.24.0",
     "mongodb": "^3.3.3",
@@ -27,10 +32,8 @@
     "react-dom": "^16.10.2",
     "react-router": "^5.1.2",
     "react-spinners": "^0.8.0",
-    "react-transition-group": "^4.3.0",   
-    "xlsx": "^0.15.4",
-    "dotenv": "^8.2.0",
-    "electron-updater": "^4.2.0"
+    "react-transition-group": "^4.3.0",
+    "xlsx": "^0.15.4"
   },
   "devDependencies": {
     "webpack": "^4.41.0",
@@ -72,7 +75,7 @@
     {
       "provider": "github",
       "owner": "spkelly",
-      "repo": "electron-update-test"
+      "repo": "bakeryDB"
     }
   ],
   "build": {

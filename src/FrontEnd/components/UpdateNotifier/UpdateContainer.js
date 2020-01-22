@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import UpdateNotifier from './UpdateNotifier';
-
+import {checkForUpdate} from '../../api';
 function dummyCheckForUpdate() {
   console.log("checking for update");
   return new Promise(resolve=>{
@@ -51,7 +51,7 @@ class UpdateContainer extends Component {
         </div>
         <div className="update__item">
           {checkingForUpdate ? (
-            <UpdateNotifier onCheck={dummyCheckForUpdate} onDismiss={this.dismissNotifier} onDownload={dummmyDownLoadUpdate} onConfirm={dummyConfirmUpdate}/>
+            <UpdateNotifier onCheck={checkForUpdate} onDismiss={this.dismissNotifier} onDownload={dummmyDownLoadUpdate} onConfirm={dummyConfirmUpdate}/>
           ) : (
             <a href="#" onClick={this.handleClick} className="text__small update__link">
               click here to check for update

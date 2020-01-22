@@ -1,24 +1,26 @@
 const { BrowserWindow, app, ipcMain } = require("electron");
 const db = require("./db");
 const database = require("./db/testdb");
-const ipc = require('./ipc/main')
+const ipc = require('./ipc/main');
+const initUpdater = require('./updater');
+const electronIsDev = require('electron-is-dev');
+
+
+console.log('electron-is-dev: ', electronIsDev);
+console.log('electron is packaged', app.isPackaged)
 require("dotenv").config();
 console.log("starting in ", process.env.NODE_ENV, " mode");
-console.log(process.env);
 // TODO: change naming scheme of DB object
-let dbObject = db.setup();
+// let dbObject = db.setup();
 let testDB;
+let updater;
+let appInfo = {
+  currentVersion: app.getVersion()
+}
 
 
-database()
-  .then(result => {
-    testDB = result;
-    console.log("test testdb", testDB);
-    ipc.setupEventListeners(testDB, db);
-  })
-  .catch(e => {
-    console.log(e);
-  });
+
+
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -29,6 +31,18 @@ function createWindow() {
       nodeIntegration: true
     }
   });
+  database()
+  .then(result => {
+    testDB = result;
+    appInfo.database = result;
+    appInfo.updater = initUpdater(win.webContents);
+    appInfo.webContents = win.webContents;
+    ipc.setupEventListeners(testDB, db, appInfo);
+  })
+  .catch(e => {
+    console.log(e);
+  });
+  // setup updater service here...
   if (process.env.NODE_ENV == "development") {
     win.loadURL("http://localhost:3000");
     win.openDevTools();
@@ -38,6 +52,8 @@ function createWindow() {
     win.loadFile("dist/index.html");
     // win.openDevTools();
   }
+
+
 }
 
 app.on("ready", createWindow);

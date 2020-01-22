@@ -3,7 +3,7 @@ const devConfig = require('./config/webpack.dev');
 const prodConfig = require('./config/webpack.prod');
 const merge = require('webpack-merge');
 
-const env = process.env.NODE_ENV;
+let env = process.env.NODE_ENV;
 if (env == undefined) env = "production";
 
 module.exports = () =>{
