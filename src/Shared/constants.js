@@ -50,5 +50,6 @@ module.exports = {
   CHECK_FOR_UPDATE:"check_for_update",
   DOWNLOAD_COMPLETE:"download_complete",
   CONFIRM_UPDATE:"confirm_update",
-  GET_VERSION: "get_version"
+  GET_VERSION: "get_version",
+  GET_VERSION_RESPONSE: "get_version_response"
 };

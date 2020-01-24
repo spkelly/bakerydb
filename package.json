@@ -1,6 +1,6 @@
 {
   "name": "bakerydb",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "",
   "main": "./src/Backend/main.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "start:prod": "cross-env NODE_ENV=production electron .",
     "serve": " cross-env NODE_ENV=development webpack-dev-server",
     "package:win": "electron-builder .",
+    "publish": "electron-builder -p always",
     "start": "npm run build:webpack && npm run build:electron",
     "test": "jest . --watch"
   },
@@ -83,7 +84,7 @@
       "output": "release-builds"
     },
     "nsis": {
-      "oneClick": true
+      "oneClick": false
     },
     "win": {
       "publish": [

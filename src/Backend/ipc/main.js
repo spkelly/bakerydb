@@ -12,6 +12,9 @@ module.exports = {
 
     ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
       
+      setTimeout(()=>{
+
+      },0)
       let testOrder = await testDB.Orders.addOrder(order).catch(e => {
         console.log(e);
       });
@@ -73,18 +76,23 @@ module.exports = {
 
     ipcMain.on(ipcChannels.CHECK_FOR_UPDATE, async event=>{
       console.log('checking for updates')
-      appInfo.updater.autoUpdater.checkForUpdates().then((response)=>{
-        console.log(response);
-        // appInfo.webContents.send(ipcChannels.UPDATE_AVAILABLE,true);
-      })
+      appInfo.updater.autoUpdater.checkForUpdates();
     });
 
     ipcMain.on(ipcChannels.DOWNLOAD_UPDATE, async event=>{
+      appInfo.updater.autoUpdater.downloadUpdate();
+      console.log('received request to download update');
 
     });
 
     ipcMain.on(ipcChannels.CONFIRM_UPDATE, async event=>{
+      // handle install here 
+      appInfo.updater.autoUpdater.quitAndInstall(true,true);
+    })
 
+    ipcMain.on(ipcChannels.GET_VERSION, event => {
+      console.log(' I recieved a request')
+      event.sender.send(ipcChannels.GET_VERSION_RESPONSE, appInfo.currentVersion);
     })
   }
 };

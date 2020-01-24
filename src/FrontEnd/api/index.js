@@ -96,15 +96,23 @@ export function checkForUpdate(){
 
 
 export function downloadUpdate(){
-
+  return sendMessageWaitForResponse(channels.DOWNLOAD_UPDATE, channels.DOWNLOAD_COMPLETE);
 }
 
 
 export function confirmInstall(){
-
+  console.log('confirming install')
+  sendMessage(channels.CONFIRM_UPDATE);
 }
 
-function fetchOrders(number) {}
+export function getVersion(){
+  console.log('I am in get Version')
+  return sendMessageWaitForResponse(channels.GET_VERSION,channels.GET_VERSION_RESPONSE)
+}
+
+function fetchOrders(number) {
+
+}
 
 
 function handleError(){
@@ -112,7 +120,12 @@ function handleError(){
 }
 
 
-function sendMessageWaitForResponse(sendChannel,responseChannel, errorHandler = handleError){
+function sendMessage(channel){
+  return ipcRenderer.send(channel);
+}
+
+// Sends out message on given sendChannel, returns ta promise that awaits for a response on the given responseChannel
+function sendMessageWaitForResponse(sendChannel,responseChannel, errorHandler=handleError){
   return new Promise((resolve,reject)=>{
     ipcRenderer.send(sendChannel);
     ipcRenderer.once(responseChannel, (event, responseData)=>{
