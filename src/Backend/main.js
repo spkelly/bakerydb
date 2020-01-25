@@ -50,7 +50,9 @@ function createWindow() {
 app.on("ready", createWindow);
 app.on("window-all-closed", async() => {
   console.log('shutting down DB connection')
-  await testDB.close();
+  if(testDB){
+    await testDB.close();
+  }
   app.quit();
   if (process.platform !== "darwin") {
   }
