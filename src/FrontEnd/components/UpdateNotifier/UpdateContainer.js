@@ -7,18 +7,20 @@ import {
   getVersion
 } from "../../api";
 
+
+import electron from 'electron';
+
+
+let currentVersion = electron.remote.app.getVersion();
+console.log(currentVersion);
+
+
 class UpdateContainer extends Component {
   state = {
-    checkingForUpdate: false,
-    currentVersion: "0.0.0"
+    checkingForUpdate: false
   };
 
   componentDidMount = () => {
-    setTimeout(() => {
-      getVersion().then(currentVersion => {
-        this.setState({ currentVersion });
-      });
-    }, 300);
   };
 
   handleClick = e => {
@@ -31,7 +33,7 @@ class UpdateContainer extends Component {
   };
 
   render() {
-    let { checkingForUpdate, currentVersion } = this.state;
+    let { checkingForUpdate } = this.state;
     console.log(this.state);
     return (
       <div className="updater__holder">

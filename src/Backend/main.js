@@ -4,7 +4,7 @@ const database = require("./db/testdb");
 const ipc = require('./ipc/main');
 const initUpdater = require('./updater');
 const electronIsDev = require('electron-is-dev');
-
+const Settings = require('./settings');
 
 console.log('electron-is-dev: ', electronIsDev);
 console.log('electron is packaged', app.isPackaged)
@@ -17,10 +17,6 @@ let updater;
 let appInfo = {
   currentVersion: app.getVersion()
 }
-
-
-
-
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -42,18 +38,13 @@ function createWindow() {
   .catch(e => {
     console.log(e);
   });
-  // setup updater service here...
   if (process.env.NODE_ENV == "development") {
     win.loadURL("http://localhost:3000");
     win.openDevTools();
     win.setSize(1100, 600);
   } else {
-    // win.openDevTools();
     win.loadFile("dist/index.html");
-    // win.openDevTools();
   }
-
-
 }
 
 app.on("ready", createWindow);
