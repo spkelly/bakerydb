@@ -15,7 +15,8 @@ let appInfo = {
   currentVersion: app.getVersion()
 }
 
-function createWindow() {
+async function createWindow() {
+  await db.setup();
   let win = new BrowserWindow({
     width: 800,
     height: 600,

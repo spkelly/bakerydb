@@ -23,6 +23,7 @@ module.exports = async function(dbURL=DB_URL) {
   let database = await setupDB(mongoClient, dbURL).catch(e => {
     console.log("ERROR: ", e);
   });
+  console.log(database);
 
   if(!database){
     return undefined;

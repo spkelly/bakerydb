@@ -31,6 +31,8 @@ module.exports = {
     });
 
     ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {
+
+      console.log(db);
       let resp = await db.queryOrders(term);
       event.sender.send(ipcChannels.QUERY_ORDERS_SUCCESS, resp);
     });

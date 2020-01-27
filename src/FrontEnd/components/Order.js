@@ -124,8 +124,8 @@ class Order extends Component {
                           <p>{order.name}</p>
                         </div>
                         <div className="item__info">
-                          <div className="item__qty">{order.quantity}</div>
-                          <div className="item__price">
+                          <div className="item__qty">Qty: {order.quantity}</div>
+                          <div className="item__price">$
                             {order.servingSize
                               ? (
                                   parseFloat(order.price) *
@@ -151,10 +151,10 @@ class Order extends Component {
                 <p>Total:</p>
               </div>
               <div>
-                <p>{parseFloat(customer.tip).toFixed(2)}</p>
-                <p>{parseFloat(tax).toFixed(2)}</p>
-                <p>{parseFloat(deliveryCharge).toFixed(2)}</p>
-                <p>{total.toFixed(2)}</p>
+                <p>${parseFloat(customer.tip).toFixed(2)}</p>
+                <p>${parseFloat(tax).toFixed(2)}</p>
+                <p>${parseFloat(deliveryCharge).toFixed(2)}</p>
+                <p>${total.toFixed(2)}</p>
               </div>
             </div>
           </div>

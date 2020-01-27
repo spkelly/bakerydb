@@ -98,6 +98,7 @@ async function setup(cleanSetup) {
 }
 
 function queryOrders(searchTerm) {
+  console.log(orderModel);
   return new Promise(resolve => {
     orderModel
       .find({ $text: { $search: searchTerm } })
