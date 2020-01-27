@@ -11,9 +11,7 @@ async function setupDB(db, url) {
       if (err) reject(err);
       resolve(database);
     });
-  }).catch(e => {
-    console.log("ERROR: ", e);
-  });
+  })
 }
 
 
@@ -22,7 +20,13 @@ function toObjectId(string){
 }
 
 module.exports = async function(dbURL=DB_URL) {
-  let database = await setupDB(mongoClient, dbURL);
+  let database = await setupDB(mongoClient, dbURL).catch(e => {
+    console.log("ERROR: ", e);
+  });
+
+  if(!database){
+    return undefined;
+  }
 
   return {
     _dbInstance:database,
