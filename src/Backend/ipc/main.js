@@ -12,9 +12,6 @@ module.exports = {
 
     ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
       
-      setTimeout(()=>{
-
-      },0)
       let testOrder = await testDB.Orders.addOrder(order).catch(e => {
         console.log(e);
       });
@@ -91,8 +88,12 @@ module.exports = {
     })
 
     ipcMain.on(ipcChannels.GET_VERSION, event => {
-      console.log(' I recieved a request')
+      console.log(' I recieved a')
       event.sender.send(ipcChannels.GET_VERSION_RESPONSE, appInfo.currentVersion);
+    })
+
+    ipcMain.on(ipcChannels.GET_DATABASE_STATUS, event =>{
+        event.sender.send(ipcChannels.GET_DATABASE_STATUS_RESPONSE, testDB != undefined);
     })
   }
 };

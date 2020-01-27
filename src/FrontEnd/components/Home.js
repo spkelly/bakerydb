@@ -4,6 +4,9 @@ import Link from "./Link";
 import Image from "../images/b_logo.png";
 import Button from "./Buttons";
 import UpdateContainer from './UpdateNotifier/UpdateContainer';
+import StatusIndicator from './StatusIndicator';
+
+import{getDBStatus} from '../api';
 
 
 // TODO: I don't want to have the updater run on every rerender of the home page, only should check for update when reciveing 
@@ -11,6 +14,7 @@ import UpdateContainer from './UpdateNotifier/UpdateContainer';
 
 
 const Home = () => {
+  
   return (
     <div className="content">
       <img className="logo" src={Image} />
@@ -21,6 +25,7 @@ const Home = () => {
         <Link buttonComponent={<Button text="Settings" />} path="/settings" />
       </div>
       <UpdateContainer />
+      <StatusIndicator  status="offline" title="Database" onCheckForStatus={getDBStatus}/>
     </div>
   );
 };

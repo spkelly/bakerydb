@@ -124,6 +124,13 @@ function sendMessage(channel){
   return ipcRenderer.send(channel);
 }
 
+
+
+export function getDBStatus(){
+  console.log('checking db status');
+  return sendMessageWaitForResponse(channels.GET_DATABASE_STATUS, channels.GET_DATABASE_STATUS_RESPONSE);
+}
+
 // Sends out message on given sendChannel, returns ta promise that awaits for a response on the given responseChannel
 function sendMessageWaitForResponse(sendChannel,responseChannel, errorHandler=handleError){
   return new Promise((resolve,reject)=>{

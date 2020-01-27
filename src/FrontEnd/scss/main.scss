@@ -709,6 +709,35 @@ a{
 }
 
 
+.status__indicator{
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: grey;
+  margin: 0 6px;
+  &__holder{
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.status__indicator-red{
+  background-color: red;
+  box-shadow: 0px 0px 2px 2px red;
+}
+
+.status__indicator-yellow{
+  background-color: yellow;
+  box-shadow: 0px 0px 2px 2px yellow;
+}
+.status__indicator-green{
+  background-color: lightgreen;
+  box-shadow: 0px 0px 2px 2px lightgreen;
+}
+
+
 
 // React-datePicker Below this line 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,

@@ -51,5 +51,7 @@ module.exports = {
   DOWNLOAD_COMPLETE:"download_complete",
   CONFIRM_UPDATE:"confirm_update",
   GET_VERSION: "get_version",
-  GET_VERSION_RESPONSE: "get_version_response"
+  GET_VERSION_RESPONSE: "get_version_response",
+  GET_DATABASE_STATUS: "get_database_status",
+  GET_DATABASE_STATUS_RESPONSE: 'get_database_status_response'
 };
