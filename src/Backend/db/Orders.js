@@ -21,6 +21,10 @@ module.exports = function(dbInstance) {
     });
   }
 
+  function getUnpaid(){
+    console.log('fetching unpaid in db');
+  }
+
   function addOrder(order) {
     return new Promise((resolve, reject)=>{
       orderCollection.insertOne(order, (err,response)=>{
@@ -30,11 +34,30 @@ module.exports = function(dbInstance) {
   }
 
   // Returns oldest 5 orders that have not been paid
-  function getUnpaid(){
-    orderCollection.find({'hasPaid': flase}).toArray((err,doc)=>{
-      if(err) console.error("Error has occured", err)
-      console.log(doc);
-    });
+  function getUnpaid() {
+
+    return new Promise((resolve,reject)=>{
+      orderCollection
+      .aggregate([
+        { $match: { "customer.hasPaid": false } },
+        {
+          $project: {
+            _id: { $toString: "$_id" },
+            "customer.name": 1,
+            dateCreated: 1,
+            orderDate: 1
+          }
+        }
+      ])
+      .limit(5)
+      .sort({ dateCreated: 1 })
+      .toArray((err, doc) => {
+        console.log(doc);
+        if (err) console.error("Error has occured", err);
+        resolve(doc)
+      });
+    })
+
   }
 
   function removeOrder(orderId) {
@@ -70,6 +93,7 @@ module.exports = function(dbInstance) {
 
   return {
     queryOrders,
+    getUnpaid,
     addOrder,
     removeOrder,
     getOrder,

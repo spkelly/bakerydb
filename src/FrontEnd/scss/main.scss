@@ -738,6 +738,58 @@ a{
   box-shadow: 0px 0px 2px 2px lightgreen;
 }
 
+.unpaid-orders{
+ 
+  width: 700px;
+  height: 200px;
+  margin: 24px auto;
+
+}
+
+.unpaid-orders__list{
+  height: 100%;
+}
+
+.unpaid-orders__list-item{
+
+  padding: 8px;
+  display:flex;
+  text-align:left;
+  border-bottom: 1px solid lightskyblue;
+  p{
+    font-size: 14px;
+  }
+  
+}
+
+.unpaid-orders__header{
+  padding: 0 8px;
+  margin-bottom: 8px;
+  background-color: white;
+  display: flex;
+  text-align: left;
+
+}
+.unpaid-orders__col-lg{
+  min-width: calc((100% / 3) *2);
+
+}
+.unpaid-orders__col-sm{
+  text-align: center;
+  min-width: calc((100% / 3)/2);
+}
+
+
+
+.empty{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color: grey;
+  background-color: lightgrey;
+  align-items: center;
+}
+
 
 
 // React-datePicker Below this line 

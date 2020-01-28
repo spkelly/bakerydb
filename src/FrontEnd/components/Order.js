@@ -18,7 +18,7 @@ class Order extends Component {
       notes: "",
       deliveryCharge: 0,
       isTaxed: false,
-      orderDate: new Date(0),
+      orderDate: new Date(),
       error: ""
     };
   }

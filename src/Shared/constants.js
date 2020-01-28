@@ -43,6 +43,8 @@ module.exports = {
   REMOVE_TOPPING: "remove-topping",
   REMOVE_TOPPING_SUCCESS: "remove-topping_success",
   REMOVE_TOPPING_ERROR: "remove-topping_error",
+  GET_UNPAID: 'get-unpaid',
+  GET_UNPAID_SUCCESS: "get-unpaid-success",
   //updater channels
   DOWNLOAD_UPDATE: "download_update",
   UPDATE_AVAILABLE: "update_available",
@@ -53,5 +55,5 @@ module.exports = {
   GET_VERSION: "get_version",
   GET_VERSION_RESPONSE: "get_version_response",
   GET_DATABASE_STATUS: "get_database_status",
-  GET_DATABASE_STATUS_RESPONSE: 'get_database_status_response'
+  GET_DATABASE_STATUS_RESPONSE: 'get_database_status_response',
 };

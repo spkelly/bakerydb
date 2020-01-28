@@ -7,6 +7,7 @@ import UpdateContainer from './UpdateNotifier/UpdateContainer';
 import StatusIndicator from './StatusIndicator';
 
 import{getDBStatus} from '../api';
+import UnpaidOrders from "./UnpaidOrders";
 
 
 // TODO: I don't want to have the updater run on every rerender of the home page, only should check for update when reciveing 
@@ -24,6 +25,7 @@ const Home = () => {
         <Link buttonComponent={<Button text="New Order" />} path="/new-order" />
         <Link buttonComponent={<Button text="Settings" />} path="/settings" />
       </div>
+      <UnpaidOrders />
       <UpdateContainer />
       <StatusIndicator  status="offline" title="Database" onCheckForStatus={getDBStatus}/>
     </div>

@@ -30,6 +30,13 @@ module.exports = {
       event.sender.send(ipcChannels.UPDATE_ORDER_SUCCESS, idRef);
     });
 
+
+    ipcMain.on(ipcChannels.GET_UNPAID, async (event)=>{
+      let unpaid = await testDB.Orders.getUnpaid();
+      
+      event.sender.send(ipcChannels.GET_UNPAID_SUCCESS, unpaid);
+    })
+
     ipcMain.on(ipcChannels.QUERY_ORDERS, async (event, term) => {
 
       console.log(db);

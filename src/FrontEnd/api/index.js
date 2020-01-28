@@ -115,6 +115,11 @@ function fetchOrders(number) {
 }
 
 
+export function getUnpaid(){
+  return sendMessageWaitForResponse(channels.GET_UNPAID, channels.GET_UNPAID_SUCCESS)
+}
+
+
 function handleError(){
   console.log(error);
 }
