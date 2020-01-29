@@ -44,6 +44,7 @@ module.exports = function(dbInstance) {
           $project: {
             _id: { $toString: "$_id" },
             "customer.name": 1,
+            "customer.date":1,
             dateCreated: 1,
             orderDate: 1
           }

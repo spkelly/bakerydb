@@ -39,7 +39,7 @@ class UnpaidOrders extends React.Component {
           <p>{order.customer.name}</p>
         </div>
         <div className="unpaid-orders__col-sm">         
-          <p>{new Date(order.orderDate).toLocaleDateString()}</p>
+          <p>{new Date(order.customer.date).toLocaleDateString()}</p>
         </div>
         <div className="unpaid-orders__col-sm">         
           <p>{new Date(order.dateCreated).toLocaleDateString()}</p>
