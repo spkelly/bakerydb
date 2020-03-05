@@ -213,7 +213,7 @@ input{
   margin: 2px;
   padding: 8px 10px;
   border-radius: 6px;
-  background-color: lightskyblue;
+  background-color: #3E92CC;
 
   .paragraph {
     font-size: 18px;
@@ -231,7 +231,7 @@ input{
   justify-content: center;
   text-align: center;
   padding: 4px 6px;
-  background-color: lightskyblue;
+  background-color: #3E92CC;
   font-size: 18px;
   color: white;
   font-weight: 700;
@@ -386,7 +386,7 @@ p{
   margin: 8px 0;
   &__header{
 
-    background-color: lightskyblue;
+    background-color: #3D518C;
     padding: 2px 8px;
     border-top-left-radius: 6px; 
     border-top-right-radius: 6px;
@@ -792,6 +792,48 @@ a{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////
+//////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // React-datePicker Below this line 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow,

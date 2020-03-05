@@ -45,7 +45,7 @@ class Order extends Component {
     return (
       <ul>
         {detailArray.map((detail, index) => {
-          if (index != detailArray.length - 1) {
+          if (detail.length > 0) {
             return <li key={index}> * {detail}</li>;
           }
         })}

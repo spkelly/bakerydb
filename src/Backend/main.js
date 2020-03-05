@@ -43,7 +43,6 @@ async function createWindow() {
   .catch(e => {
     console.log(e);
   });
-  
 }
 
 app.on("ready", createWindow);
@@ -55,5 +54,4 @@ app.on("window-all-closed", async() => {
   if (process.platform !== "darwin") {
   }
 });
-
 
