@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import InfoBox from "./InfoBox";
+import InfoBox, {FlatBox} from "./InfoBox";
 import { withRouter } from "react-router-dom";
 import { getOrderById } from "../api";
 import Badge from "./Badge";
@@ -99,20 +99,21 @@ class Order extends Component {
         </div>
         <div className="order-info">
           <div className="order-info__left">
-            <InfoBox header="Order Date">
+            <FlatBox header="Order Date">
               {new Date(customer.date).toLocaleDateString()}
-            </InfoBox>
+            </FlatBox>
 
-            <InfoBox header="Phone Number">{customer.phone}</InfoBox>
-            <InfoBox header="Email">{customer.email}</InfoBox>
-            <InfoBox header="Address ">{customer.address}</InfoBox>
-            <InfoBox header="Payment Type">{paymentType}</InfoBox>
+            <FlatBox header="Phone Number"><p>{customer.phone}</p></FlatBox>
+            <FlatBox header="Email"><p>{customer.email}</p></FlatBox>
+            <FlatBox header="Address "><p>{customer.address}</p></FlatBox>
+            <FlatBox header="Payment Type"><p>{paymentType}</p></FlatBox>
           </div>
           <div className="order-info__right">
             <InfoBox header="Notes">
               {this.formatNotes(this.state.notes)}
             </InfoBox>
             <InfoBox header="Order">
+              <div>
               <div className="order-list__container">
                 {orders.map((order, index) => {
                   console.log(order);
@@ -139,23 +140,30 @@ class Order extends Component {
                         {this.formatProductDetails(order.notes)}
                       </div>
                     </div>
+                    
                   );
                 })}
+                <div>
+                  
+                </div>
+                </div>
               </div>
-            </InfoBox>
-            <div className="order__footer">
+              <div className="order__footer">
               <div>
                 <p>Tip</p>
                 <p>Tax:</p>
                 <p>Delivery:</p>
-                <p>Total:</p>
+                
               </div>
               <div>
-                <p>${parseFloat(customer.tip).toFixed(2)}</p>
-                <p>${parseFloat(tax).toFixed(2)}</p>
-                <p>${parseFloat(deliveryCharge).toFixed(2)}</p>
-                <p>${total.toFixed(2)}</p>
+                <p>{customer.tip == 0?'--':'$' + parseFloat(customer.tip).toFixed(2)}</p>
+                <p>{tax == 0?'--':'$' + parseFloat(tax).toFixed(2)}</p>
+                <p>{deliveryCharge == 0?'--':'$' + parseFloat(deliveryCharge).toFixed(2)}</p>
               </div>
+            </div>
+            </InfoBox>
+            <div className="total__holder">
+              <p className="total">Total: ${total.toFixed(2)}</p>
             </div>
           </div>
         </div>

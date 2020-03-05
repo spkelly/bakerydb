@@ -1,8 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
 *{
   font-family: 'Roboto';
 }
 
+p, h1, h2,h3,div{
+  font-family: 'Open Sans';
+}
 
 .heading__primary{
   font-size: 48px;

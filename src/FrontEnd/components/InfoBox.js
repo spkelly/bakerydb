@@ -14,5 +14,17 @@ const InfoBox = ({header,children})=>{
   )
 }
 
+export const FlatBox = ({header,children})=>{
+  return (
+    <section className="flatbox">
+      <div className="flatbox__header">
+        {header?<h2 className="flatbox__header-title">{header}</h2>:null}
+      </div>
+      <div className="flatbox__content">
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export default InfoBox;
