@@ -1,6 +1,12 @@
-const { ipcMain } = require("electron");
+const { ipcMain,dialog } = require("electron");
 const ipcChannels = require("../../Shared/constants");
 const logAttr = require("../utils/logger").logAttr;
+
+
+const options = {
+  buttons: ["Yes","No","Cancel"],
+  message: "Are you sure that you want to delete this order?"
+}
 
 module.exports = {
   setupEventListeners(testDB, db, appInfo) {
@@ -9,6 +15,20 @@ module.exports = {
       let order = await testDB.Orders.getOrder(id);
       event.sender.send(ipcChannels.GET_ORDER_SUCCESS, order);
     });
+
+    ipcMain.on(ipcChannels.REMOVE_ORDER, async( event, id)=>{
+      console.log('confirming deletion of id: ', id);
+      let response = dialog.showMessageBoxSync(options);
+      if(response == 0){
+        console.log('deleting order');
+        let repsonse = await testDB.Orders.removeOrder(id)
+        console.log('reponse from db ',  response);
+        event.sender.send(ipcChannels.REMOVE_ORDER_SUCCESS);
+      }
+      else{
+        event.sender.send(ipcChannels.REMOVE_ORDER_SUCCESS,-1);
+      }
+    })
 
     ipcMain.on(ipcChannels.ADD_ORDER, async (event, order) => {
       
@@ -20,6 +40,8 @@ module.exports = {
         testOrder.insertedId.toString()
       );
     });
+
+
 
     ipcMain.on(ipcChannels.UPDATE_ORDER, async (event, orderToUpdate) => {
       let idRef = orderToUpdate._id;
@@ -104,5 +126,8 @@ module.exports = {
     ipcMain.on(ipcChannels.GET_DATABASE_STATUS, event =>{
         event.sender.send(ipcChannels.GET_DATABASE_STATUS_RESPONSE, testDB != undefined);
     })
+
+
+    
   }
 };

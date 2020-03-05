@@ -30,7 +30,7 @@ async function createWindow() {
     testDB = result;
     appInfo.database = result;
     appInfo.updater = initUpdater(win.webContents);
-    appInfo.webContents = win.webContents;
+    appInfo.win = win;
     ipc.setupEventListeners(testDB, db, appInfo);
     if (process.env.NODE_ENV == "development") {
       win.loadURL("http://localhost:3000");

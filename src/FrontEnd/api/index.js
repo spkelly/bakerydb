@@ -119,6 +119,21 @@ export function getUnpaid(){
   return sendMessageWaitForResponse(channels.GET_UNPAID, channels.GET_UNPAID_SUCCESS)
 }
 
+export function removeOrder(id){
+  return new Promise((resolve,reject)=>{
+    ipcRenderer.send(channels.REMOVE_ORDER,id);
+    ipcRenderer.once(channels.REMOVE_ORDER_SUCCESS, (event, responseData)=>{
+      if(responseData == -1){
+        reject();
+      }
+      else{
+        resolve(responseData);
+      }
+    })
+  });
+  
+}
+
 
 function handleError(){
   console.log(error);
@@ -137,9 +152,9 @@ export function getDBStatus(){
 }
 
 // Sends out message on given sendChannel, returns ta promise that awaits for a response on the given responseChannel
-function sendMessageWaitForResponse(sendChannel,responseChannel, errorHandler=handleError){
+function sendMessageWaitForResponse(sendChannel,responseChannel,data,errorHandler=handleError){
   return new Promise((resolve,reject)=>{
-    ipcRenderer.send(sendChannel);
+    ipcRenderer.send(sendChannel,data);
     ipcRenderer.once(responseChannel, (event, responseData)=>{
       resolve(responseData);
     })

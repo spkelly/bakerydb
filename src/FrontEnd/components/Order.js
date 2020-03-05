@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import InfoBox, {FlatBox} from "./InfoBox";
 import { withRouter } from "react-router-dom";
-import { getOrderById } from "../api";
+import { getOrderById, removeOrder } from "../api";
+import Button from './Buttons';
 import Badge from "./Badge";
 import {getIdFromPath} from '../utils';
 
@@ -12,6 +13,7 @@ class Order extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.state = {
       customer: {},
       orders: [],
@@ -32,6 +34,15 @@ class Order extends Component {
 
   handleClick(editPath) {
     this.props.history.push(editPath);
+  }
+
+  handleDelete(){
+    console.log('here')
+    let orderId = getIdFromPath();
+    removeOrder(orderId).then(
+      ()=> this.props.history.replace('/'),
+      ()=> console.log('deletion cancelled')
+    )
   }
 
   formatNotes(notes) {
@@ -95,7 +106,7 @@ class Order extends Component {
             {customer.name}
             <span>{payStatusBadge}</span>
           </h1>
-          <button onClick={e => this.handleClick(editPath)}>Edit </button>
+          <button >Edit </button>
         </div>
         <div className="order-info">
           <div className="order-info__left">
@@ -107,6 +118,11 @@ class Order extends Component {
             <FlatBox header="Email"><p>{customer.email}</p></FlatBox>
             <FlatBox header="Address "><p>{customer.address}</p></FlatBox>
             <FlatBox header="Payment Type"><p>{paymentType}</p></FlatBox>
+            <div className="flex__close">
+              <button className="btn" onClick={e => this.handleClick(editPath)}>Edit</button>
+              <button className="btn"  onClick={this.handleDelete}>Delete</button>
+              
+            </div>
           </div>
           <div className="order-info__right">
             <InfoBox header="Notes">

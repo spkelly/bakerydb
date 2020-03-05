@@ -62,7 +62,14 @@ module.exports = function(dbInstance) {
   }
 
   function removeOrder(orderId) {
-    
+    console.log('removing order ', orderId)
+    return new Promise((resolve)=>{
+      orderCollection.deleteOne({_id:ObjectID(orderId)},(err,response)=>{
+        console.log(err);
+        console.log(response);
+        resolve(response);
+      })
+    })
   }
 
   function updateOrder(id, modifications) {

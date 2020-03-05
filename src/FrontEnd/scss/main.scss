@@ -799,6 +799,10 @@ a{
   text-decoration: underline;
 }
 
+.flex__close{
+  display: flex;
+  justify-content: space-evenly;
+}
 
 .status__indicator{
   width: 6px;

@@ -2,6 +2,8 @@ module.exports = {
   GET_ORDER: "get-order",
   GET_ORDER_SUCCESS: 'get-order-success',
   GET_ORDER_ERROR: 'get-order-error',
+  REMOVE_ORDER: "remove_order",
+  REMOVE_ORDER_SUCCESS: 'remove-order-success',
   ADD_ORDER: "add-order",
   ADD_ORDER_SUCCESS:"add-order-success",
   ADD_ORDER_ERROR: "add-order-error",
