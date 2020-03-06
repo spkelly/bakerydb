@@ -5,6 +5,8 @@ import { getOrderById, removeOrder } from "../api";
 import Button from './Buttons';
 import Badge from "./Badge";
 import {getIdFromPath} from '../utils';
+import ExtendoBox from "./ExtendoBox";
+
 
 //TODO: extract this to other file
 const TAX_RATE = 0.0775;
@@ -99,13 +101,29 @@ class Order extends Component {
       parseFloat(tax) +
       parseFloat(subTotal) +
       parseFloat(customer.tip);
+
+
+    let orderFooter = 
+    <div className="order__footer">
+      <div>
+        <p>Tip</p>
+        <p>Tax:</p>
+        <p>Delivery:</p>
+      </div>
+      <div>
+        <p>{customer.tip == 0?'--':'$' + parseFloat(customer.tip).toFixed(2)}</p>
+        <p>{tax == 0?'--':'$' + parseFloat(tax).toFixed(2)}</p>
+        <p>{deliveryCharge == 0?'--':'$' + parseFloat(deliveryCharge).toFixed(2)}</p>
+      </div>
+    </div>
+
     return (
       <div>
         <div className="order__header">
           <h1 className="heading__primary">
             {customer.name}
-            <span>{payStatusBadge}</span>
           </h1>
+          {payStatusBadge}
   
         </div>
         <div className="order-info">
@@ -129,54 +147,36 @@ class Order extends Component {
               {this.formatNotes(this.state.notes)}
             </InfoBox>
             <InfoBox header="Order">
-              <div>
-              <div className="order-list__container">
-                {orders.map((order, index) => {
-                  console.log(order);
-
-                  return (
-                    <div className="item" key={index}>
-                      <div className="item__info-line">
-                        <div className="item__name">
-                          <p>{order.name}</p>
-                        </div>
-                        <div className="item__info">
-                          <div className="item__qty">Qty: {order.quantity}</div>
-                          <div className="item__price">$
-                            {order.servingSize
-                              ? (
-                                  parseFloat(order.price) *
-                                  parseFloat(order.servingSize)
-                                ).toFixed(2)
-                              : parseFloat(order.price).toFixed(2)}
+              <ExtendoBox footer={orderFooter}>
+                  {orders.map((order, index) => {
+                    return (
+                      <div className="item" key={index}>
+                        <div className="item__info-line">
+                          <div className="item__name">
+                            <p>{order.name}</p>
+                          </div>
+                          <div className="item__info">
+                            <div className="item__qty">Qty: {order.quantity}</div>
+                            <div className="item__price">$
+                              {order.servingSize
+                                ? (
+                                    parseFloat(order.price) *
+                                    parseFloat(order.servingSize)
+                                  ).toFixed(2)
+                                : parseFloat(order.price).toFixed(2)}
+                            </div>
                           </div>
                         </div>
+                        <div className="item__notes">
+                          {this.formatProductDetails(order.notes)}
+                        </div>
                       </div>
-                      <div className="item__notes">
-                        {this.formatProductDetails(order.notes)}
-                      </div>
-                    </div>
-                    
-                  );
+                      
+                    );
                 })}
-                <div>
-                  
-                </div>
-                </div>
-              </div>
-              <div className="order__footer">
-              <div>
-                <p>Tip</p>
-                <p>Tax:</p>
-                <p>Delivery:</p>
-                
-              </div>
-              <div>
-                <p>{customer.tip == 0?'--':'$' + parseFloat(customer.tip).toFixed(2)}</p>
-                <p>{tax == 0?'--':'$' + parseFloat(tax).toFixed(2)}</p>
-                <p>{deliveryCharge == 0?'--':'$' + parseFloat(deliveryCharge).toFixed(2)}</p>
-              </div>
-            </div>
+
+
+            </ExtendoBox>
             </InfoBox>
             <div className="total__holder">
               <p className="total">Total: ${total.toFixed(2)}</p>

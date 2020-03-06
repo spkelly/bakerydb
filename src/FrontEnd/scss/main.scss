@@ -424,6 +424,7 @@ p{
     overflow-y: scroll;
   }
 
+
   
 
   &__content{
@@ -432,6 +433,33 @@ p{
     // border: 2px solid #3E92CC;
   }
 }
+
+.extendo_button{
+  transform: rotate(180deg);
+  color:  #7c7c7c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+  width: 36px;
+  bottom:-25px;
+  left: calc((100% / 2) - 28px);
+  position:absolute;
+  height: 36px;
+  border-radius: 4px;
+  background-color: white;
+  border: solid 2px #7c7c7c;
+}
+
+.extendo_button-rotated{
+  transform: rotate(0deg);
+}
+
+.extendo{
+  position: relative;
+}
+
 
 .flatbox{
 
@@ -458,6 +486,10 @@ p{
     min-height: 220px;
     max-height: 220px;
     overflow-y: scroll;
+  }
+
+  .order-list__container-extended{
+    overflow-y: auto;
   }
 
   
