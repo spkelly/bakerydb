@@ -47,7 +47,7 @@ class MenuSelectionPane extends Component {
     // call callback passed to this from menu
     if (selectedItem && selectedCategory) {
       let item = {
-        name: selectedItem.name,
+        name: selectedCategory.name + ' -- ' + selectedItem.name,
         price: selectedItem.price,
         quantity: modifiers.quantity,
         notes: cakeMode

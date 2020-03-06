@@ -54,10 +54,10 @@ class Order extends Component {
   formatProductDetails(details) {
     let detailArray = details.split("\n");
     return (
-      <ul>
+      <ul className="detail-list">
         {detailArray.map((detail, index) => {
           if (detail.length > 0) {
-            return <li key={index}> * {detail}</li>;
+            return <li className="detail-list__item" key={index}> * {detail}</li>;
           }
         })}
       </ul>
@@ -106,7 +106,7 @@ class Order extends Component {
             {customer.name}
             <span>{payStatusBadge}</span>
           </h1>
-          <button >Edit </button>
+  
         </div>
         <div className="order-info">
           <div className="order-info__left">

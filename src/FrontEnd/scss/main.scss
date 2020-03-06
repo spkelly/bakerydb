@@ -306,7 +306,8 @@ input{
 }
 
 .item{
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid lightgrey;
  
   &__info-line{
     display: flex;
@@ -560,6 +561,13 @@ p{
   align-items: center;
 }
 
+
+.detail-list{
+  margin: 8px;
+  &__item{
+    
+  }
+}
 
 
 
