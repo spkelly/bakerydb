@@ -1,5 +1,6 @@
 module.exports = {
   preset:"@shelf/jest-mongodb",
+  testEnvironment:"node",
   moduleNameMapper: {
     '\\.css$': require.resolve('./test/style-mock')
   },
@@ -10,5 +11,5 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     "<rootDir>/release-builds/"
-  ]
+  ],
 }

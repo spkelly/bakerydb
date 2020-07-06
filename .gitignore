@@ -10,3 +10,5 @@ templates/
 temp
 tmp
 notes.todo
+*.todo
+todo
