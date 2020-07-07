@@ -83,7 +83,7 @@ describe("Database V2", () => {
     });
     describe("queryOrders", () => {
       beforeAll(async ()=>{
-        // db get torn down after tests, these ensuer that text indexes are created before queries are made
+        // db gets torn down after tests, this will ensure that text indexes are created before queries are made
         await Order._model.ensureIndexes();
       })
       it("should return an array of orders for a given query", async () => {
