@@ -22,8 +22,8 @@ const TEST_ORDER_NO_NAME = {
 var idToTest;
 
 describe("Database V2", () => {
+  let db;
   beforeAll(async () => {
-    let db;
     db = new Database();
     await db.init();
     // await db.dropAll();
@@ -82,6 +82,10 @@ describe("Database V2", () => {
       });
     });
     describe("queryOrders", () => {
+      beforeAll(async ()=>{
+        // db get torn down after tests, these ensuer that text indexes are created before queries are made
+        await Order._model.ensureIndexes();
+      })
       it("should return an array of orders for a given query", async () => {
         let test = await Order.queryOrders('Sean');
         expect(Array.isArray(test)).toBe(true);

@@ -34,6 +34,7 @@ class Database {
 
   async dropAll() {
     let collectionNames = Object.keys(mongoose.connection.collections);
+
     for (let collectionName of collectionNames) {
       let collection = mongoose.connection.collections[collectionName];
       try {
