@@ -7,6 +7,6 @@ const Customer = Mongoose.Schema({
   email: {type:String, index: true}
 });
 
-Customer.index({name:"text",email:"text"})
+// Customer.index({name:"text",email:"text"})
 
 module.exports = Customer;

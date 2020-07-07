@@ -1,6 +1,4 @@
 const DB_URL = "mongodb://localhost:27017/bakerydb_v2_dev";
-const mongoClient = require("mongodb").MongoClient;
-const collection = require("./collections");
 const mongoose = require("mongoose");
 
 // async function setupDB(db, url) {
@@ -19,7 +17,9 @@ const mongoose = require("mongoose");
 const MONGOOS_OPTS = {
   useUnifiedTopology: true,
   useFindAndModify: false,
+  autoIndex: true,
   useNewUrlParser: true,
+  useCreateIndex:true
 };
 
 class Database {
@@ -29,6 +29,7 @@ class Database {
   }
   async init() {
     let a = await mongoose.connect(DB_URL, MONGOOS_OPTS);
+    // mongoose.set('debug', true);
   }
 
   async dropAll() {
@@ -47,21 +48,3 @@ class Database {
 }
 
 module.exports = Database;
-
-// module.exports = async function(dbURL=DB_URL) {
-//   let database = await setupDB(mongoClient, dbURL).catch(e => {
-//     console.log("ERROR: ", e);
-//   });
-
-//   if(!database){
-//     return undefined;
-//   }
-
-//   return {
-//     _dbInstance:database,
-//     Orders: new collection.Orders(database),
-//     Menu: null,
-//     close: ()=> database.close(),
-//     toObjectID:toObjectId
-//   };
-// };

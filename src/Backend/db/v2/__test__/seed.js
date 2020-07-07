@@ -6,8 +6,6 @@ const {
   getRandPrice,
   accum,
 } = require("../../../../Shared/helpers");
-const Order = require("../models/Order");
-const { Orders } = require("../collections");
 
 const ORDER_SEED_COUNT = 10;
 const PRODUCT_SEED_COUNT = 25;

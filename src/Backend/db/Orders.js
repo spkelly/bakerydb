@@ -39,16 +39,15 @@ module.exports = function(dbInstance) {
     return new Promise((resolve,reject)=>{
       orderCollection
       .aggregate([
-        { $match: { "customer.hasPaid": false } },
-        {
-          $project: {
-            _id: { $toString: "$_id" },
-            "customer.name": 1,
-            "customer.date":1,
-            dateCreated: 1,
-            orderDate: 1
-          }
+        { $match: { "customer.hasPaid": false },
+        $project: {
+          _id: { $toString: "$_id" },
+          "customer.name": 1,
+          "customer.date":1,
+          dateCreated: 1,
+          orderDate: 1
         }
+      } 
       ])
       .limit(5)
       .sort({ dateCreated: 1 })

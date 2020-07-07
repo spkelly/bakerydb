@@ -2,31 +2,31 @@
 let Database = require("../db.js");
 let Counter = require("../models/Sequence");
 let Order = require("../models/Order");
-let {testOrders,testProducts, seedOrders} = require("./seed");
-const mongoose  = require("mongoose");
-
+let { testOrders, testProducts, seedOrders } = require("./seed");
+const mongoose = require("mongoose");
 
 const TEST_ORDER = {
-  customer:{
-    name:"Sean",
+  customer: {
+    name: "Sean",
     address: "210 fake street",
-    phone: "555-555-3492"
-  }
-}
+    phone: "555-555-3492",
+  },
+};
 
 const TEST_ORDER_NO_NAME = {
-  customer:{
+  customer: {
     address: "210 fake street",
-    phone: "555-555-3492"
-  }
-}
+    phone: "555-555-3492",
+  },
+};
 var idToTest;
 
 describe("Database V2", () => {
-  let db;
   beforeAll(async () => {
+    let db;
     db = new Database();
     await db.init();
+    // await db.dropAll();
     await seedOrders(testOrders);
   });
 
@@ -36,16 +36,16 @@ describe("Database V2", () => {
   });
 
   describe("Order", () => {
+    let testId;
     // TODO: Finish these tests
     describe("createOrder", () => {
-      let testId;
 
       it("should save an order to the database and return id", async () => {
         let testDbResult = await Order.createOrder(TEST_ORDER);
         expect(testDbResult).toEqual(expect.any(String));
         testId = testDbResult;
       });
-      // FIXME: 
+      // FIXME:
       // it("should require a customer name in order to be saved", async () => {
 
       //   expect(await Order.createOrder(TEST_ORDER_NO_NAME)).toThrow(mongoose.Error)
@@ -56,20 +56,61 @@ describe("Database V2", () => {
       });
     });
     describe("getOrder", () => {
-      it("should fetch an order via id", () => {});
+      it("should fetch an order via id", async() => {
+        let test = await Order.getOrder(testId);
+        expect(Object.keys(test)).toEqual(expect.arrayContaining(['_id', 'customer', 'orderItems','dateCreated']))
+      });
+    });
+
+    describe("getUnpaid", () => {
+      it("should return an array", async () => {
+        let test = await Order.getUnpaid();
+        expect(Array.isArray(test)).toBe(true);
+
+      });
+      it("should return each order id as a string", async () => {
+
+        let test = await Order.getUnpaid();
+
+        test.forEach((item)=>{
+          expect(typeof item._id).toBe("string");
+        });
+      });
+      it("each item in the array should have hasUnpaid set to false", async() => {
+          let test = await Order.getUnpaid();
+          test.forEach((order)=> expect(order.hasPaid).toBe(false));
+      });
     });
     describe("queryOrders", () => {
-      it("should return an array of orders for a given query", () => {});
-      it("each item of array should have a customer name", () => {});
-      it("each item of array should have a order date", () => {});
-      it("each item of array should have a hasPaid flag", () => {});
+      it("should return an array of orders for a given query", async () => {
+        let test = await Order.queryOrders('Sean');
+        expect(Array.isArray(test)).toBe(true);
+      });
+      it("each item of array should have a customer name",async () => {
+        let test = await Order.queryOrders('Sean');
+        test.forEach((order)=>expect(order).toHaveProperty('customer.name'))
+      });
+      it("each item of array should have a order date", async () => {
+        let test = await Order.queryOrders('Sean');
+        test.forEach((order)=>expect(order).toHaveProperty('orderDate'))
+      });
+      it("each item of array should have a hasPaid flag", async () => {
+        let test = await Order.queryOrders('Sean');
+        test.forEach((order)=>expect(order).toHaveProperty('hasPaid'))
+      });
     });
     describe("updateOrder", () => {
-      it("should update any changes to the order", () => {});
-      it("should set the updatedAt field to current date", () => {});
+      it("should update any changes to the order", async () => {
+        expect("this is a place holder failing test").toBe("test not finished");
+      });
+      it("should set the updatedAt field to current date",async () => {
+        expect("this is a place holder failing test").toBe("test not finished");
+      });
     });
     describe("deleteOrder", () => {
-      it("should delete given from the datebase", () => {});
+      it("should delete given from the datebase",async () => {
+        expect("this is a place holder failing test").toBe("test not finished");
+      });
     });
   });
 
