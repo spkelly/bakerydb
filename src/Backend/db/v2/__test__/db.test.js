@@ -4,6 +4,7 @@ let Counter = require("../models/Sequence");
 let Order = require("../models/Order");
 let { testOrders, testProducts, seedOrders } = require("./seed");
 const mongoose = require("mongoose");
+const { getOrder } = require("../models/Order");
 
 const TEST_ORDER = {
   customer: {
@@ -39,7 +40,6 @@ describe("Database V2", () => {
     let testId;
     // TODO: Finish these tests
     describe("createOrder", () => {
-
       it("should save an order to the database and return id", async () => {
         let testDbResult = await Order.createOrder(TEST_ORDER);
         expect(testDbResult).toEqual(expect.any(String));
@@ -56,9 +56,16 @@ describe("Database V2", () => {
       });
     });
     describe("getOrder", () => {
-      it("should fetch an order via id", async() => {
+      it("should fetch an order via id", async () => {
         let test = await Order.getOrder(testId);
-        expect(Object.keys(test)).toEqual(expect.arrayContaining(['_id', 'customer', 'orderItems','dateCreated']))
+        expect(Object.keys(test)).toEqual(
+          expect.arrayContaining([
+            "_id",
+            "customer",
+            "orderItems",
+            "createdAt",
+          ])
+        );
       });
     });
 
@@ -66,54 +73,73 @@ describe("Database V2", () => {
       it("should return an array", async () => {
         let test = await Order.getUnpaid();
         expect(Array.isArray(test)).toBe(true);
-
       });
       it("should return each order id as a string", async () => {
-
         let test = await Order.getUnpaid();
-
-        test.forEach((item)=>{
+        test.forEach((item) => {
           expect(typeof item._id).toBe("string");
         });
       });
-      it("each item in the array should have hasUnpaid set to false", async() => {
-          let test = await Order.getUnpaid();
-          test.forEach((order)=> expect(order.hasPaid).toBe(false));
+      it("each item in the array should have hasUnpaid set to false", async () => {
+        let test = await Order.getUnpaid();
+        test.forEach((order) => expect(order.hasPaid).toBe(false));
       });
     });
     describe("queryOrders", () => {
-      beforeAll(async ()=>{
+      beforeAll(async () => {
         // db gets torn down after tests, this will ensure that text indexes are created before queries are made
         await Order._model.ensureIndexes();
-      })
+      });
       it("should return an array of orders for a given query", async () => {
-        let test = await Order.queryOrders('Sean');
+        let test = await Order.queryOrders("Sean");
         expect(Array.isArray(test)).toBe(true);
       });
-      it("each item of array should have a customer name",async () => {
-        let test = await Order.queryOrders('Sean');
-        test.forEach((order)=>expect(order).toHaveProperty('customer.name'))
+      it("each item of array should have a customer name", async () => {
+        let test = await Order.queryOrders("Sean");
+        test.forEach((order) => expect(order).toHaveProperty("customer.name"));
       });
       it("each item of array should have a order date", async () => {
-        let test = await Order.queryOrders('Sean');
-        test.forEach((order)=>expect(order).toHaveProperty('orderDate'))
+        let test = await Order.queryOrders("Sean");
+        test.forEach((order) => expect(order).toHaveProperty("orderDate"));
       });
       it("each item of array should have a hasPaid flag", async () => {
-        let test = await Order.queryOrders('Sean');
-        test.forEach((order)=>expect(order).toHaveProperty('hasPaid'))
+        let test = await Order.queryOrders("Sean");
+        test.forEach((order) => expect(order).toHaveProperty("hasPaid"));
       });
     });
     describe("updateOrder", () => {
       it("should update any changes to the order", async () => {
-        expect("this is a place holder failing test").toBe("test not finished");
+        let updates = { hasPaid: true, paymentType: "Venmo" };
+        let updatedOrder = await Order.updateOrder(testId, updates);
+        expect(updatedOrder).toHaveProperty("paymentType", "Venmo");
+        expect(updatedOrder).toHaveProperty("hasPaid", true);
       });
-      it("should set the updatedAt field to current date",async () => {
-        expect("this is a place holder failing test").toBe("test not finished");
+      it("should set the updatedAt field to current date", async () => {
+        let initialOrder = await Order.getOrder(testId);
+        let date = initialOrder.updatedAt;
+        let updated = await Order.updateOrder(testId, { hasPaid: false });
+        expect(date).not.toBe(updated.updatedAt);
+      });
+      it("should handle updates to the customer subDocument", async () => {
+        let updates = { customer: { name: "Bill" } };
+        let updatedOrder = await Order.updateOrder(testId, updates);
+        expect(updatedOrder).toHaveProperty("customer.name", "Bill");
+        expect(updatedOrder).toHaveProperty("customer.address");
+      });
+      it("should handle updates to orderItem array", async () => {
+        let orderAdditions = [{ description: "Test Item", quantity: 12, price: 1.5 }];
+        let updatedOrder = await Order.updateOrder(testId, {
+          orderItems: orderAdditions,
+        });
+        expect(updatedOrder.orderItems).toStrictEqual(orderAdditions);
       });
     });
     describe("deleteOrder", () => {
-      it("should delete given from the datebase",async () => {
-        expect("this is a place holder failing test").toBe("test not finished");
+      it("should delete given order from the datebase", async () => {
+        await Order.deleteOrder(testId);
+        let doesItExist = await Order._model.exists({"_id":testId})
+        expect(doesItExist).toBe(false)
+
       });
     });
   });
