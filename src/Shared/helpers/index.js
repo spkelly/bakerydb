@@ -22,6 +22,25 @@ function getRand(max, min = 0, floor = true) {
   return (Math.random() * max) + min
 }
 
+
+
+
+function flattenObject(obj){
+  let res = {};
+  for(let field in obj){
+    if(typeof(obj[field]) != 'object' || Array.isArray(obj[field])){
+      res[field] = obj[field];
+    }
+    else{
+      let flattened = flattenObject(obj[field]);
+      for(let subField in flattened){
+        res[`${field}.${subField}`] = flattened[subField]; 
+      }
+    }
+  }
+  return res;
+}
+
 // generates a random date between a start and end date
 function getRandDate(start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -51,5 +70,6 @@ module.exports = {
   calculateTax,
   getRand,
   getRandDate,
+  flattenObject,
   getRandPrice,
 };

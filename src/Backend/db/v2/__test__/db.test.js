@@ -2,9 +2,11 @@
 let Database = require("../db.js");
 let Counter = require("../models/Sequence");
 let Order = require("../models/Order");
+let Invoice = require("../models/Invoices");
 let { testOrders, testProducts, seedOrders } = require("./seed");
 const mongoose = require("mongoose");
 const { getOrder } = require("../models/Order");
+const { createInvoice } = require("../models/Invoices.js");
 
 const TEST_ORDER = {
   customer: {
@@ -59,12 +61,7 @@ describe("Database V2", () => {
       it("should fetch an order via id", async () => {
         let test = await Order.getOrder(testId);
         expect(Object.keys(test)).toEqual(
-          expect.arrayContaining([
-            "_id",
-            "customer",
-            "orderItems",
-            "createdAt",
-          ])
+          expect.arrayContaining(["_id", "customer", "orderItems", "createdAt"])
         );
       });
     });
@@ -98,6 +95,10 @@ describe("Database V2", () => {
         let test = await Order.queryOrders("Sean");
         test.forEach((order) => expect(order).toHaveProperty("customer.name"));
       });
+      it("each item of array should contain an _id field as a string", async () => {
+        let test = await Order.queryOrders("Sean");
+        test.forEach((item) => expect(typeof item._id).toBe("string"));
+      });
       it("each item of array should have a order date", async () => {
         let test = await Order.queryOrders("Sean");
         test.forEach((order) => expect(order).toHaveProperty("orderDate"));
@@ -127,19 +128,39 @@ describe("Database V2", () => {
         expect(updatedOrder).toHaveProperty("customer.address");
       });
       it("should handle updates to orderItem array", async () => {
-        let orderAdditions = [{ description: "Test Item", quantity: 12, price: 1.5 }];
+        let orderAdditions = [
+          { description: "Test Item", quantity: 12, price: 1.5 },
+        ];
+
         let updatedOrder = await Order.updateOrder(testId, {
           orderItems: orderAdditions,
         });
-        expect(updatedOrder.orderItems).toStrictEqual(orderAdditions);
+        expect(updatedOrder.orderItems.length).toBe(1);
+
+        orderAdditions.push({
+          description: "Test Item",
+          quantity: 12,
+          price: 1.5,
+        });
+
+        updatedOrder = await Order.updateOrder(testId, {
+          orderItems: orderAdditions,
+        });
+
+        expect(updatedOrder.orderItems.length).toBe(2);
+        orderAdditions.pop();
+
+        updatedOrder = await Order.updateOrder(testId, {
+          orderItems: orderAdditions,
+        });
+        expect(updatedOrder.orderItems.length).toBe(1);
       });
     });
     describe("deleteOrder", () => {
       it("should delete given order from the datebase", async () => {
         await Order.deleteOrder(testId);
-        let doesItExist = await Order._model.exists({"_id":testId})
-        expect(doesItExist).toBe(false)
-
+        let doesItExist = await Order._model.exists({ _id: testId });
+        expect(doesItExist).toBe(false);
       });
     });
   });
@@ -186,5 +207,71 @@ describe("Database V2", () => {
         expect(docAfterUpdate.seq).toEqual(2);
       });
     });
+  });
+  describe("Product", () => {
+    describe("createProduct", () => {
+      it.todo("should add a product to the database");
+      it.todo("should return an _id field as a string");
+    });
+    describe("getProductsByCategory", () => {
+      it.todo("should retrieve an Array of products via a given category");
+      it.todo("each item in array should have an _id field as a string");
+    });
+    describe("getProduct", () => {
+      it.todo("should retrieve a product from the database via id");
+    });
+    describe("updateProduct", () => {
+      it.todo("should update the given product with changes");
+    });
+    describe("deleteProduct", () => {
+      it.todo("should remove the product from the database");
+    });
+  });
+  describe("Invoice", () => {
+    let testOrder, testId, data, testInvoice;
+
+    beforeAll(async ()=>{
+      testOrder = await Order._model.findOne({});
+      testId = testOrder._id.toString();
+    });
+
+
+    describe("createInvoice", () => {
+      it("should create an invoice in the Invoices collection",async ()=>{
+        let result = await Invoice.createInvoice(testId, data);
+        expect(await Invoice._model.exists({_id:result})).toBe(true);
+      });
+      it("should return the invoice Id as a string",async ()=>{
+        let result = await Invoice.createInvoice(testId, data);
+        expect(typeof(result)).toBe("string");
+      });
+      it("should add its id to the invoice reference in the order collection",async ()=>{
+        let result = await Invoice.createInvoice(testId, data);
+        testInvoice = result;
+        let order = await Order._model.findById(testId);
+        expect(order.invoiceRef.toString()).toBe(result);
+      });
+      it.todo("Should have a properly incrementing invoiceNumber")
+      it.todo("Should return the invoiceNumber in the proper format")
+    });
+    describe("getInvoice", () => {
+      it("should retrieve invoice data via id",async ()=>{
+        let result = await Invoice.getInvoice(testInvoice);
+        expect(result).toHaveProperty("invoiceNumber");
+        expect(result).toHaveProperty("revisions");
+        expect(result).toHaveProperty("_id");
+        
+      });
+      it.todo("Should return the invoiceNumber in the proper format")
+    });
+    describe("addRevision", () => {
+      it("should add excel data to the revisions array",async ()=>{
+        let data = {}
+        let result = await Invoice.addRevision(testInvoice, data);
+        expect(result.revisions.length).toEqual(2);
+      });
+    });
+    describe("getRevisions", () => {});
+    describe("createInvoice", () => {});
   });
 });
