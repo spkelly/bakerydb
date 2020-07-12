@@ -12,7 +12,8 @@
     "package:win": "electron-builder .",
     "publish": "electron-builder -p always",
     "start": "npm run build:webpack && npm run build:electron",
-    "test": "jest . "
+    "test": "jest . ",
+    "test:watch": "jest . --watch"
   },
   "keywords": [],
   "author": "",

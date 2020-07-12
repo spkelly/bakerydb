@@ -1,13 +1,16 @@
 // let db = require("../db.js");
 let Database = require("../db.js");
-let Counter = require("../models/Sequence");
-let Order = require("../models/Order");
-let Invoice = require("../models/Invoices");
+const Counter = require("../models/Sequence");
+const Order = require("../models/Order");
+const Invoice = require("../models/Invoices");
+const Product = require("../models/Product.js");
 let { testOrders, testProducts, seedOrders } = require("./seed");
 const mongoose = require("mongoose");
 const { getOrder } = require("../models/Order");
 const { createInvoice } = require("../models/Invoices.js");
 
+
+console.log(Product);
 const TEST_ORDER = {
   customer: {
     name: "Sean",
@@ -210,8 +213,16 @@ describe("Database V2", () => {
   });
   describe("Product", () => {
     describe("createProduct", () => {
-      it.todo("should add a product to the database");
-      it.todo("should return an _id field as a string");
+      it("should add a product to the database", async ()=>{
+        let data = {}
+        let productId = await Product.createProduct(data);
+        expect(Product._model.exists({_id:productId}))
+      });
+      it("should return an _id field as a string", async ()=>{
+        let data = {}
+        let productId = await Product.createProduct(data);
+        expect(typeof(productId)).toBe("string");
+      });
     });
     describe("getProductsByCategory", () => {
       it.todo("should retrieve an Array of products via a given category");
