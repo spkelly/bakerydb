@@ -8,6 +8,7 @@ let { testOrders, testProducts, seedOrders } = require("./seed");
 const mongoose = require("mongoose");
 const { getOrder } = require("../models/Order");
 const { createInvoice } = require("../models/Invoices.js");
+const { padStart } = require("lodash");
 
 
 console.log(Product);
@@ -262,9 +263,49 @@ describe("Database V2", () => {
         let order = await Order._model.findById(testId);
         expect(order.invoiceRef.toString()).toBe(result);
       });
-      it.todo("Should have a properly incrementing invoiceNumber")
-      it.todo("Should return the invoiceNumber in the proper format")
+      it("Should have a properly incrementing invoiceNumber", async()=>{
+        let currentCount = await Counter.getValue();
+        let firstPass = "2020-" + padStart(currentCount.seq, 8, '0');
+        let secondPass = "2020-" + padStart(currentCount.seq + 1, 8, '0');
+        let thirdPass = "2020-" + padStart(currentCount.seq + 2, 8, '0');
+
+        let result = await Invoice.createInvoice(testId, data);
+        let testResult1 = await Invoice._model.findById(result);
+        expect(testResult1.invoiceNumber).toEqual(firstPass);
+
+
+         result = await Invoice.createInvoice(testId, data);
+        let testResult2 = await Invoice._model.findById(result);
+        expect(testResult2.invoiceNumber).toEqual(secondPass);
+
+        result = await Invoice.createInvoice(testId, data);
+        let testResult3 = await Invoice._model.findById(result);
+        expect(testResult3.invoiceNumber).toEqual(thirdPass);
+      });
+      it("Should return the invoiceNumber in the proper format",async ()=>{
+        let result = await Invoice.createInvoice(testId, data);
+        let testResult = await Invoice._model.findById(result);
+        expect(typeof(testResult.invoiceNumber)).toBe("string");
+      })
     });
+
+    describe("getInvoiceNumber",()=>{
+      it("should return a string", async ()=>{
+        let num = await Invoice._getInvoiceNumber();
+        expect(typeof(num)).toBe("string");
+      });
+
+      it("should have 9 characters", async ()=>{
+        let num = await Invoice._getInvoiceNumber();
+        console.log(JSON.stringify(num));
+        expect(num.length).toBe(13);
+      });
+
+      it("should handle larger then 9 digit numbers ", async ()=>{
+
+      })
+    })
+
     describe("getInvoice", () => {
       it("should retrieve invoice data via id",async ()=>{
         let result = await Invoice.getInvoice(testInvoice);

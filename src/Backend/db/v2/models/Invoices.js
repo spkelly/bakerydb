@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const Order = require('./Order');
 const Schema = mongoose.Schema;
-
+const Counter = require("./Sequence");
+const padStart = require("string.prototype.padstart");
+const { handleError } = require("../../../error.js");
 const InvoiceRevisionSchema = Schema({
   revisionDate: Date,
   revisionPath: String,
@@ -12,14 +14,17 @@ const InvoiceRevisionSchema = Schema({
 
 
 const InvoiceSchema = Schema({
-  invoiceNumber:Number, 
+  invoiceNumber:{type:String, unique:true}, 
   revisions:[InvoiceRevisionSchema]
 });
 
 let Invoice = mongoose.model('invoice',InvoiceSchema);
 
 
-function getInvoiceNumber(){};
+async function getInvoiceNumber(){
+  let seqNumber = await Counter.getValueAndUpdate();
+  return '2020-' + padStart(seqNumber.seq.toString(),8,'0');
+};
 
 async function createInvoice(orderId, data){
   let iNumber = await getInvoiceNumber();
@@ -31,7 +36,7 @@ async function createInvoice(orderId, data){
   let doc = new Invoice(dataToSave);
   let ref = await doc.save();
   let stringifedInvoiceId = ref._id.toString();
-  let test =  await Order.updateOrder(orderId,{invoiceRef:stringifedInvoiceId});
+  await Order.updateOrder(orderId,{invoiceRef:stringifedInvoiceId}).catch(handleError);
   return stringifedInvoiceId;
 }
 
@@ -56,6 +61,7 @@ module.exports = {
   getInvoice,
   addRevision,
   getRevisions,
+  _getInvoiceNumber: getInvoiceNumber,
   _model: Invoice
 }
 
